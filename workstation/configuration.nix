@@ -122,7 +122,6 @@ in {
     ];
     extraSessionCommands = ''
       # Force wayland overall.
-      export BEMENU_BACKEND='wayland'
       export CLUTTER_BACKEND='wayland'
       export ECORE_EVAS_ENGINE='wayland_egl'
       export ELM_ENGINE='wayland_egl'
