@@ -10,9 +10,6 @@
   }
 
   outputs = { self, nix-doom-emacs, nixpkgs, home-manager, nix-gaming, ...}: {
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
-    defaultPackage.x86_64-linux = self.packages.x86_64-linux.hello;
-
     nixosConfigurations = {
       "workstation" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
