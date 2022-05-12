@@ -6,8 +6,6 @@
 let
   nowl = (import ./tools/nowl.nix) pkgs;
 in {
-  imports = [ ./hardware-configuration.nix ];
-
   # Ativa o Cereal Real
   nix.extraOptions = ''
     experimental-features = nix-command flakes
