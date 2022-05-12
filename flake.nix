@@ -10,7 +10,7 @@
   };
 
   outputs =
-    { self, nix-doom-emacs, nixpkgs, home-manager, nix-gaming, ... }@attrs: {
+    { self, nixpkgs, ... }@attrs: {
       nixosConfigurations = {
         "workstation" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
