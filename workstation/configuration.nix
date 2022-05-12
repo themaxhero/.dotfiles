@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, nix-gaming, ... }:
 let
   nowl = (pkgs.writeShellScriptBin "nowl" ''
     unset CLUTTER_BACKEND
@@ -18,9 +18,6 @@ let
     export MOZ_ENABLE_WAYLAND=0
     exec -a "$0" "$@"
   '');
-  nix-gaming = import (builtins.fetchTarball
-    "https://github.com/fufexan/nix-gaming/archive/master.tar.gz");
-  #nixpkgs = import (builtins.fetchTarball "");
 in {
   imports = [ ./hardware-configuration.nix ];
 
@@ -32,16 +29,12 @@ in {
   nix.settings = {
     trusted-users = [ "root" "maxhero" ];
     auto-optimise-store = true;
-        substituters = [
-        	"https://nix-gaming.cachix.org"
-                "https://nixpkgs.cachix.org"
-    #    	"http://nix-cache.pedrohlc.com"
-        ];
-        trusted-public-keys = [
-           "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
-           "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
-    #      "nix-cache.pedrohlc.com:LffNbH46uPoFetK4OPmKWiBOssUG3JA0fXNx98wVK34="
-        ];
+    substituters =
+      [ "https://nix-gaming.cachix.org" "https://nixpkgs.cachix.org" ];
+    trusted-public-keys = [
+      "nix-gaming.cachix.org-1:nbjlureqMbRAxR1gJ/f3hxemL9svXaZF/Ees8vCUUs4="
+      "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
+    ];
   };
 
   # Use Systemd Boot
@@ -70,7 +63,6 @@ in {
     firewall.enable = false;
   };
 
-
   # Localization and Keyboard layout
 
   time.timeZone = "America/Sao_Paulo";
@@ -79,7 +71,7 @@ in {
     defaultLocale = "en_GB.UTF-8";
     inputMethod = {
       enabled = "ibus";
-      ibus.engines = with pkgs.ibus-engines; [ anthy mozc ];
+      ibus.engines = with pkgs.ibus-engines; [ anthy ];
     };
     supportedLocales = [
       "en_GB.UTF-8/UTF-8"
@@ -167,7 +159,7 @@ in {
   security.rtkit.enable = true;
   environment.variables = {
     AE_SINK = "ALSA";
-    SDL_AUDIODRIVER = "alsa";
+    SDL_AUDIODRIVER = "pipewire";
     ALSOFT_DRIVERS = "alsa";
     GAMEMODERUNEXEC =
       "mangohud WINEFSYNC=1 PROTON_WINEDBG_DISABLE=1 DXVK_LOG_PATH=none DXVK_HUD=compiler ALSOFT_DRIVERS=alsa";
@@ -257,6 +249,7 @@ in {
 
     # Other
     adbfs-rootless
+    notion-app-enhanced
     gimp
     archiver
     dotnet-sdk
