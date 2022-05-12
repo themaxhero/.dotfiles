@@ -41,8 +41,8 @@ in {
   # VFIO-Passthrough: https://gist.github.com/CRTified/43b7ce84cd238673f7f24652c85980b3
   # Add Unstable: https://stackoverflow.com/questions/41230430/how-do-i-upgrade-my-system-to-nixos-unstable
 
+  networking.hostId = "cc1f83cb";
   networking = {
-    hostId = "7d0ccde8";
     hostName = "maxhero-workstation";
     networkmanager = { enable = true; };
     useDHCP = false;
@@ -97,6 +97,7 @@ in {
       wl-clipboard
       libinput
       libinput-gestures
+      wofi
     ];
     extraSessionCommands = ''
       # Force wayland overall.
@@ -264,7 +265,7 @@ in {
     mangohud
     minecraft
     mesa-demos
-    nix-gaming.packages.x86_64-linux.wine-tkg
+    #nix-gaming.packages.x86_64-linux.wine-tkg
     vulkan-tools
     winetricks
 
