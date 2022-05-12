@@ -57,6 +57,7 @@ in {
   # Add Unstable: https://stackoverflow.com/questions/41230430/how-do-i-upgrade-my-system-to-nixos-unstable
 
   networking = {
+    hostId = "7d0ccde8";
     hostName = "maxhero-workstation";
     networkmanager = { enable = true; };
     useDHCP = false;
