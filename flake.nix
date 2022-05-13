@@ -12,7 +12,7 @@
   outputs =
     { self, nixpkgs, ... }@attrs: {
       nixosConfigurations = {
-        "workstation" = nixpkgs.lib.nixosSystem {
+        "maxhero-workstation" = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = attrs;
           modules = [ ./configuration.nix ./workstation/hardware-configuration.nix ];
