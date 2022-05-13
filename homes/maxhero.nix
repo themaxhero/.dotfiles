@@ -28,7 +28,7 @@
           size = 9.0;
         };
       };
-      shell.program = "\${pkgs.zsh}/bin/zsh"
+      shell.program = "${pkgs.zsh}/bin/zsh";
     };
   };
   programs.aria2.enable = true;
