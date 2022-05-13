@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, nix-gaming, ... }:
+{ config, pkgs, lib, home-manager, nix-gaming, ... }:
 let
   nowl = (import ./tools/nowl.nix) pkgs;
 in {
@@ -21,6 +21,8 @@ in {
       "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
     ];
   };
+  
+  #home-manager.users.maxhero = import ./home/maxhero.nix;
 
   # Use Systemd Boot
   boot.loader.systemd-boot.enable = true;
@@ -227,6 +229,8 @@ in {
     vim
     elmPackages.elm-format
     gnumake
+    libtool
+    libvterm
     nixpkgs-fmt
     shellcheck
     shfmt
@@ -250,6 +254,7 @@ in {
     radeontop
     lolcat
     cowsay
+    filezilla
     fortune
     zsh
     bat
@@ -259,7 +264,6 @@ in {
     # Theming
     gnome.gnome-tweaks
     orchis-theme
-    tela-circle-icon-theme
 
     # Gaming
     mangohud
@@ -349,6 +353,13 @@ in {
     mediaDirs = [ "/home/upnp-shared/Media" ];
   };
   systemd.services."user@".serviceConfig = { Delegate = "yes"; };
+  services.postgresql.enable = true;
+  services.postgresql.authentication = lib.mkForce ''
+    # Generated file; do not edit!
+    local all all              trust
+    host  all all 127.0.0.1/32 trust
+    host  all all ::1/128      trust
+  '';
 
   fonts.fontconfig.allowBitmaps = true;
   fonts.fonts = with pkgs; [
