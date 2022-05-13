@@ -131,12 +131,12 @@
     };
     
     "desktop/ibus/general" = {
-      engines-order = ["xkb:us:intl", "anthy"];
+      engines-order = ["xkb:us:intl" "anthy"];
       use-system-keyboard-layout = true;
     };
     
     "org/gnome/TextEditor" = {
-      custom-font = 'Red Hat Mono Light 16';
+      custom-font = "Red Hat Mono Light 16";
       highlight-current-line = false;
       indent-style = "space";
       show-grid = false;
@@ -173,7 +173,7 @@
   };
 
   gtk = {
-    cursorTheme.name: "Adwaita";
+    cursorTheme.name = "Adwaita";
     iconTheme.package = tela-circle-icon-theme;
   };
   
