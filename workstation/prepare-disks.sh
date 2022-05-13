@@ -31,6 +31,8 @@ zfs create -o mountpoint=/home/maxhero/.cache/btdownloads -o recordsize=16K zroo
 
 # finish rootfs
 zpool set bootfs=zroot/ROOT/default zroot
+zpool export zroot
+zpool import -R /mnt zroot
 
 # swaps
 mkswap /dev/nvme0n1p2
