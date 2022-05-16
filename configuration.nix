@@ -3,8 +3,7 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, lib, home-manager, nix-gaming, ... }:
-let
-  nowl = (import ./tools/nowl.nix) pkgs;
+let nowl = (import ./tools/nowl.nix) pkgs;
 in {
   # Ativa o Cereal Real
   nix.extraOptions = ''
@@ -21,7 +20,7 @@ in {
       "nixpkgs.cachix.org-1:q91R6hxbwFvDqTSDKwDAV4T5PxqXGxswD8vhONFMeOE="
     ];
   };
-  
+
   #home-manager.users.maxhero = import ./home/maxhero.nix;
 
   # Use Systemd Boot
@@ -89,6 +88,8 @@ in {
 
   services.blueman.enable = true;
 
+  services.xserver.desktopManager.xfce.enable = true;
+  sound.mediaKeys.enable = true;
   programs.waybar.enable = true;
   programs.sway = {
     enable = true;
@@ -316,6 +317,11 @@ in {
     jq
     fd
     xdelta
+
+    # XFCE
+    xfce.xfce4-whiskermenu-plugin
+    tela-circle-icon-theme
+    xfce.xfce4-power-manager
   ];
 
   programs.dconf.enable = true;
