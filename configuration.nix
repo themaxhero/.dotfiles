@@ -3,7 +3,33 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, lib, home-manager, nix-gaming, ... }:
-let nowl = (import ./tools/nowl.nix) pkgs;
+let
+  nowl = (import ./tools/nowl.nix) pkgs;
+  emacs = (pkgs.emacsWithPackagesFromUsePackage {
+    package = pkgs.emacsGit;
+    extraEmacsPackages = epkgs:
+      with epkgs; [
+        vterm
+        magit
+        org
+        tide
+        neotree
+        hl-todo
+        doom-modeline
+        popup
+        vi-tilde-fringe
+        parinfer-rust-mode
+        multiple-cursors
+        consult
+        embark-consult
+        dockerfile-mode
+        docker-compose-mode
+        ansible
+        editorconfig
+        gist
+        alchemist
+      ];
+  });
 in {
   # Ativa o Cereal Real
   nix.extraOptions = ''
@@ -21,8 +47,6 @@ in {
     ];
   };
 
-  #home-manager.users.maxhero = import ./home/maxhero.nix;
-
   # Use Systemd Boot
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -32,7 +56,7 @@ in {
 
   # Services/Programs configurations
   services.minidlna.friendlyName = "maxhero-workstation";
-
+  services.udisks2.enable = true;
   # OpenCL
   hardware.opengl.extraPackages = with pkgs; [
     rocm-opencl-icd
@@ -58,7 +82,7 @@ in {
     defaultLocale = "en_GB.UTF-8";
     inputMethod = {
       enabled = "ibus";
-      ibus.engines = with pkgs.ibus-engines; [ anthy ];
+      ibus.engines = with pkgs.ibus-engines; [ mozc ];
     };
     supportedLocales = [
       "en_GB.UTF-8/UTF-8"
@@ -88,7 +112,7 @@ in {
 
   services.blueman.enable = true;
 
-  services.xserver.desktopManager.xfce.enable = true;
+  # services.xserver.desktopManager.xfce.enable = true;
   sound.mediaKeys.enable = true;
   programs.waybar.enable = true;
   programs.sway = {
@@ -97,6 +121,7 @@ in {
     extraPackages = with pkgs; [
       swaylock
       swayidle
+      swaynotificationcenter
       wl-clipboard
       libinput
       libinput-gestures
@@ -121,6 +146,11 @@ in {
       export QT_QPA_PLATFORMTHEME='kde'
       export QT_PLATFORM_PLUGIN='kde'
       export QT_PLATFORMTHEME='kde'
+
+      export GTK_IM_MODULE='ibus'
+      export QT_IM_MODULE='ibus'
+      export XMODIFIERS='@im=ibus'
+      export GTK_IM_MODULE='/run/current-system/sw/lib/gtk-2.0/2.10.0/immodules/im-ibus.so'
     '';
   };
 
@@ -154,6 +184,14 @@ in {
     GAMEMODERUNEXEC =
       "mangohud WINEFSYNC=1 PROTON_WINEDBG_DISABLE=1 DXVK_LOG_PATH=none DXVK_HUD=compiler ALSOFT_DRIVERS=alsa";
   };
+
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url =
+        "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+      sha256 = "16q7w68i1qw6sl02w3an0lx8ks7p7vs721fs1186xc3hgvc3ma7v";
+    }))
+  ];
 
   users.users = {
     maxhero = {
@@ -274,6 +312,8 @@ in {
     vulkan-tools
     winetricks
 
+    ntfs3g
+
     # Emacs Dependencies
     cmigemo
     ansible
@@ -282,6 +322,7 @@ in {
     #nix-doom-emacs.doom-emacs
     nodePackages.stylelint
     nodePackages.js-beautify
+    emacs28Packages.vterm
     mu
     zig
     python39Packages.nose
@@ -317,11 +358,14 @@ in {
     jq
     fd
     xdelta
+    gparted
 
     # XFCE
-    xfce.xfce4-whiskermenu-plugin
+    # xfce.xfce4-whiskermenu-plugin
+    libsForQt5.dolphin
+    libsForQt5.dolphin-plugins
     tela-circle-icon-theme
-    xfce.xfce4-power-manager
+    # xfce.xfce4-power-manager
   ];
 
   programs.dconf.enable = true;

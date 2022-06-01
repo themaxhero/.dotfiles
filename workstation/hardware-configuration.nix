@@ -58,6 +58,11 @@
       fsType = "vfat";
     };
 
+  fileSystems."/data/puppet" =
+    { device = "/dev/disk/by-uuid/f810ae2c-7956-4300-93a4-1894b50501f7";
+      fsType = "ext4";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/66fee4ef-15f3-434b-b567-54f7e0ca0ef3"; }
     ];
