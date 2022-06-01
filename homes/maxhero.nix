@@ -27,6 +27,7 @@ in {
     numeric = "pt_BR.UTF-8";
   };
 
+  # I need to setup an IME soon
   #i18n.inputMethod = {
   #  enabled = "ibus";
   #  ibus.engines = with pkgs.ibus-engines; [ mozc ];
@@ -75,6 +76,7 @@ in {
 
   programs.bat = {
     enable = true;
+    # Need to check what is going on here
     #themes = {
     #  monokai = builtins.readFile (pkgs.fetchFromGitHub {
     #    owner = "fnordfish";
@@ -203,17 +205,6 @@ in {
   services.blueman-applet.enable = true;
 
   #services.gpg-agent.enable = true;
-
-  #services.mpd = {
-  #  enable = true;
-  #  config = {
-  #    alang = "jpn,eng";
-  #    slang = "jpn,eng";
-  #    vo = "gpu";
-  #    gpu-context = "waylandvk";
-  #    gpu-api = "vulkan";
-  #  };
-  #};
 
   services.mpd-discord-rpc.enable = true;
 
@@ -529,18 +520,6 @@ in {
           "o" = "exec ~/.config/sway/projects.sh";
           "Escape" = "mode default";
         };
-
-        #"resize" = {
-        #"Left" = "resize shrink width 5 px or 5 ppt";
-        #"Down" = "resize grow height 5 px or 5 ppt";
-        #"Up" = "resize shrink height 5 px or 5 ppt";
-        #"Right" = "resize grow width 5 px or 5 ppt";
-        #"h" = "resize shrink width 5 px or 5 ppt";
-        #"j" = "resize grow height 5 px or 5 ppt";
-        #"k" = "resize shrink height 5 px or 5 ppt";
-        #"l" = "resize grow width 5 px or 5 ppt";
-        #"Escape" = "mode default";
-        #};
       };
 
       startup = [
@@ -551,9 +530,6 @@ in {
         { command = "ibus-daemon -drxr"; }
         { command = "ibus engine mozc-jp"; }
       ];
-      # extraSessionCommands = ''
-      #   source ${pkgs.wayland-env}
-      # '';
     };
     extraConfig = ''
       # Proper way to start portals
@@ -561,6 +537,7 @@ in {
     '';
   };
   xdg = {
+    # Need to solve this later for better looking stuff
     #      configFile = {
     #        kdeglobals = {
     #          text = generators.toINI { } {
@@ -576,6 +553,40 @@ in {
     #        };
     #      };
     desktopEntries = {
+      "firefox-tlb" = {
+        name = "Firefox (TLB)";
+        genericName = "Web Browser";
+        exec = "${pkgs.firefox}/bin/firefox -P tlb %U";
+        terminal = false;
+        categories = [ "Application" "Network" "WebBrowser" ];
+        mimeType = [
+          "application/pdf"
+          "application/vnd.mozilla.xul+xml"
+          "application/xhtml+xml"
+          "text/html"
+          "text/xml"
+          "x-scheme-handler/http"
+          "x-scheme-handler/https"
+        ];
+        type = "Application";
+      };
+      "firefox-dea" = {
+        name = "Firefox (DEA)";
+        genericName = "Web Browser";
+        exec = "${pkgs.firefox}/bin/firefox -P dea %U";
+        terminal = false;
+        categories = [ "Application" "Network" "WebBrowser" ];
+        mimeType = [
+          "application/pdf"
+          "application/vnd.mozilla.xul+xml"
+          "application/xhtml+xml"
+          "text/html"
+          "text/xml"
+          "x-scheme-handler/http"
+          "x-scheme-handler/https"
+        ];
+        type = "Application";
+      };
       "firefox" = {
         name = "Firefox (Wayland)";
         genericName = "Web Browser";
