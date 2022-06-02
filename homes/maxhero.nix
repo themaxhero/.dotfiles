@@ -37,10 +37,6 @@ in {
     enable = true;
     userName = "Marcelo Amancio de Lima Santos";
     userEmail = "contact@maxhero.dev";
-    # signing = {
-    #   key = gitKey;
-    #   signByDefault = true;
-    # };
     extraConfig = {
       rerere.enabled = true;
       pull.rebase = true;
@@ -556,8 +552,9 @@ in {
       "firefox-tlb" = {
         name = "Firefox (TLB)";
         genericName = "Web Browser";
-        exec = "${pkgs.firefox}/bin/firefox -P tlb %U";
+        exec = "${pkgs.firefox}/bin/firefox -p tlb %U";
         terminal = false;
+	icon = "firefox";
         categories = [ "Application" "Network" "WebBrowser" ];
         mimeType = [
           "application/pdf"
@@ -573,9 +570,10 @@ in {
       "firefox-dea" = {
         name = "Firefox (DEA)";
         genericName = "Web Browser";
-        exec = "${pkgs.firefox}/bin/firefox -P dea %U";
+        exec = "${pkgs.firefox}/bin/firefox -p dea %U";
         terminal = false;
         categories = [ "Application" "Network" "WebBrowser" ];
+	icon = "firefox";
         mimeType = [
           "application/pdf"
           "application/vnd.mozilla.xul+xml"
