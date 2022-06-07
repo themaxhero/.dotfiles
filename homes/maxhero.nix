@@ -3,7 +3,7 @@ with pkgs.lib;
 let
   modifier = "Mod4";
   modifier2 = "Mod1";
-  gtkTheme = "Orchis-dark";
+  gtkTheme = "Orchis-Dark";
   iconTheme = "Tela-circle-dark";
   terminal = "${pkgs.alacritty}/bin/alacritty";
   menu = "${pkgs.wofi}/bin/wofi -I";
@@ -73,15 +73,14 @@ in {
   programs.bat = {
     enable = true;
     # Need to check what is going on here
-    #themes = {
+    # themes = {
     #  monokai = builtins.readFile (pkgs.fetchFromGitHub {
     #    owner = "fnordfish";
     #    repo = "MonokaiMD.tmTheme";
     #    rev = "34ec6dc3c96d8155f4a17e1bd3edf43d27feb344";
-    #    sha256 =
-    #      "e4ee3139156415e24d9cc198ae3e621136144765e268fad597db1b525ebca4ab";
+    #    sha256 = "1x6kjcf91zvkvbssd922k77xmmi56ik2938rvfcs7y3w09nis3l7";
     #  } + "/MonokaiMD.tmTheme");
-    #};
+    # };
   };
 
   programs.chromium = {
@@ -174,7 +173,7 @@ in {
   };
 
   programs.mu.enable = true;
-
+ 
   programs.nushell.enable = true;
 
   programs.obs-studio = { enable = true; };
@@ -269,11 +268,16 @@ in {
     iconTheme.package = tela-circle-icon-theme;
   };
 
-  home.packages = with pkgs; [ swaynotificationcenter sway-launcher-desktop ];
+  home.packages = with pkgs; [
+    swaynotificationcenter
+    sway-launcher-desktop
+    orchis-theme
+    tela-circle-icon-theme
+    tenacity
+  ];
 
   wayland.windowManager.sway = {
     enable = true;
-    #package = pkgs.sway-borders;
     wrapperFeatures.gtk = true; # so that gtk works properly
     wrapperFeatures.base = true; # so that gtk works properly
     xwayland = true;
@@ -520,41 +524,77 @@ in {
 
       startup = [
         { command = "${pkgs.swaynotificationcenter}/bin/swaync"; }
+        { command = "~/.config/waybar/waybar.sh"; }
         { command = "nm-applet --indicator"; }
         { command = "clipman"; }
-        { command = "pamac-tray"; }
-        { command = "ibus-daemon -drxr"; }
-        { command = "ibus engine mozc-jp"; }
+        # { command = "ibus-daemon -drxr"; }
+        # { command = "ibus engine mozc-jp"; }
       ];
     };
     extraConfig = ''
       # Proper way to start portals
       exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP
     '';
+    extraSessionCommands = ''
+      # Force wayland overall.
+      export BEMENU_BACKEND='wayland'
+      export CLUTTER_BACKEND='wayland'
+      export ECORE_EVAS_ENGINE='wayland_egl'
+      export ELM_ENGINE='wayland_egl'
+      export GDK_BACKEND='wayland'
+      export MOZ_ENABLE_WAYLAND=1
+      export QT_AUTO_SCREEN_SCALE_FACTOR=0
+      export QT_QPA_PLATFORM='wayland-egl'
+      export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+      export SAL_USE_VCLPLUGIN='gtk3'
+      export SDL_VIDEODRIVER='wayland'
+      export _JAVA_AWT_WM_NONREPARENTING=1
+      export NIXOS_OZONE_WL=1
+
+      export GTK_THEME='${gtkTheme}'
+      export GTK_ICON_THEME='Tela-circle-dark'
+      export GTK2_RC_FILES='${pkgs.orchis-theme}/share/themes/${gtkTheme}/gtk-2.0/gtkrc'
+      export QT_STYLE_OVERRIDE='gtk2'
+
+      # KDE/Plasma platform for Qt apps.
+      export QT_QPA_PLATFORMTHEME='kde'
+      export QT_PLATFORM_PLUGIN='kde'
+      export QT_PLATFORMTHEME='kde'
+    '';
   };
   xdg = {
     # Need to solve this later for better looking stuff
-    #      configFile = {
-    #        kdeglobals = {
-    #          text = generators.toINI { } {
-    #            General = {
-    #              ColorScheme = "BreezeDark";
-    #              Name = "Breeze Dark";
-    #              shadeSortColumn = true;
-    #            };
-    #            Icons = {
-    #              Theme = iconTheme;
-    #            };
-    #          };
-    #        };
-    #      };
+    configFile = {
+      pcmanfm = {
+        target = "pcmanfm-qt/default/settings.conf";
+        text = generators.toINI { } {
+          Behavior = {
+            NoUsbTrash = true;
+            SingleWindowMode = true;
+          };
+          System = {
+            Archiver = "xarchiver";
+            FallbackIconThemeName = iconTheme;
+            Terminal = "${terminal}";
+            SuCommand = "${pkgs.lxqt.lxqt-sudo}/bin/lxqt-sudo %s";
+          };
+          Thumbnail = { ShowThumbnails = true; };
+          Volume = {
+            AutoRun = false;
+            CloseOnUnmount = true;
+            MountOnStartup = false;
+            MountRemovable = false;
+          };
+        };
+      };
+    };
     desktopEntries = {
       "firefox-tlb" = {
         name = "Firefox (TLB)";
         genericName = "Web Browser";
         exec = "${pkgs.firefox}/bin/firefox -p tlb %U";
         terminal = false;
-	icon = "firefox";
+        icon = "firefox";
         categories = [ "Application" "Network" "WebBrowser" ];
         mimeType = [
           "application/pdf"
@@ -573,7 +613,7 @@ in {
         exec = "${pkgs.firefox}/bin/firefox -p dea %U";
         terminal = false;
         categories = [ "Application" "Network" "WebBrowser" ];
-	icon = "firefox";
+        icon = "firefox";
         mimeType = [
           "application/pdf"
           "application/vnd.mozilla.xul+xml"
@@ -760,6 +800,4 @@ in {
       music = "$HOME/Music";
     };
   };
-  #xdg.mimeApps.associations = { added = {}; removed = {}; };
-  #xdg.mimeApps.defaultApplications = {};
 }
