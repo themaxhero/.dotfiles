@@ -173,7 +173,7 @@ in {
   };
 
   programs.mu.enable = true;
- 
+
   programs.nushell.enable = true;
 
   programs.obs-studio = { enable = true; };
@@ -523,10 +523,14 @@ in {
       };
 
       startup = [
-        { command = "${pkgs.swaynotificationcenter}/bin/swaync"; }
-        { command = "~/.config/waybar/waybar.sh"; }
+        {
+          command = "${pkgs.swaynotificationcenter}/bin/swaync";
+        }
+        # { command = "~/.config/waybar/waybar.sh"; }
         { command = "nm-applet --indicator"; }
-        { command = "clipman"; }
+        {
+          command = "clipman";
+        }
         # { command = "ibus-daemon -drxr"; }
         # { command = "ibus engine mozc-jp"; }
       ];

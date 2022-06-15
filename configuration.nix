@@ -189,7 +189,7 @@ in {
     (import (builtins.fetchTarball {
       url =
         "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-      sha256 = "1f724aaycq2z8b9ab0l0f718qbznfljaaqcn8ijnmr5cam7k7v1s";
+      sha256 = "0wx04ks7bk2g9b2cp29yakj5wp47zqwr9nm6dqs2fc4irwzzbwxj";
     }))
   ];
 
@@ -238,6 +238,9 @@ in {
     KERNEL=="hidraw*", KERNELS=="*054C:05C4*", MODE="0666"
     # DualShock 4 Slim over bluetooth hidraw
     KERNEL=="hidraw*", KERNELS=="*054C:09CC*", MODE="0666"
+
+    # Supporting VFIO
+    SUBSYSTEM=="vfio", OWNER="root", GROUP="kvm"
   '';
 
   systemd.enableUnifiedCgroupHierarchy = true;
@@ -303,6 +306,7 @@ in {
     elixir_1_13
     yarn
     nushell
+    swiProlog
 
     # Other
     adbfs-rootless

@@ -8,9 +8,18 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "sr_mod" ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.initrd.availableKernelModules = [
+	"nvme"
+	"xhci_pci"
+	"ahci"
+	"usb_storage"
+	"usbhid"
+	"sd_mod"
+	"sr_mod"
+  ];
+  boot.kernelParams = [ "amd_iommu=on" "vfio-pci.ids=1002:67df,1002:aaf0" "libata.force=4.00:disable"];
+  boot.initrd.kernelModules = [ "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
+  boot.kernelModules = [ "kvm-amd" "vfio_virqfd" "vfio_pci" "vfio_iommu_type1" "vfio" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
