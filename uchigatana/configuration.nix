@@ -1,6 +1,6 @@
 { config, pkgs, lib, home-manager, nix-gaming, ... }:
 let
-  nowl = (import ./tools/nowl.nix) pkgs;
+  nowl = (import ../tools/nowl.nix) pkgs;
   emacs = (pkgs.emacsWithPackagesFromUsePackage {
     package = pkgs.emacsGit;
     extraEmacsPackages = epkgs:
