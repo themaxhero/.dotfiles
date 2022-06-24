@@ -30,7 +30,7 @@ in {
   home.file.".zshrc".source = "./.zshrc";
   home.file.".anthy".source = "./.anthy";
   home.file.".wallpaper.png".source = "./.wallpaper.png";
-  home.file."$XDG_CONFIG_HOME/waybar".source = "waybar";
+  home.file."\${XDG_CONFIG_HOME}/waybar".source = "waybar";
 
   # I need to setup an IME soon
   #i18n.inputMethod = {
