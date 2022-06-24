@@ -28,10 +28,10 @@ in {
   };
 
   home.file = {
-    ".zshrc".source = "./.zshrc";
-    ".anthy".source = "./.anthy";
-    ".wallpaper.png".source = "./.wallpaper.png";
-    ".config/waybar".source = "waybar";
+    ".zshrc".source = ./.zshrc;
+    ".anthy".source = ./.anthy;
+    ".wallpaper.png".source = ./.wallpaper.png;
+    ".config/waybar".source = ./waybar;
   };
 
   # I need to setup an IME soon
