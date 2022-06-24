@@ -25,11 +25,19 @@
           }
         ];
       };
-      #        "system76-kudu" = nixpkgs.lib.nixosSystem {
-      #          system = "x86_64-linux";
-      #          specialArgs = attrs;
-      #          modules = [ ./configuration.nix ./system76-kudu/hardware-configuration.nix ];
-      #        };
+      "uchigatana" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = attrs;
+        modules = [
+          ./uchigatana/configuration.nix
+          ./uchigatana/hardware-configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.users.maxhero = (import ./homes/maxhero.nix);
+          }
+        ];
+      };
     };
   };
 }

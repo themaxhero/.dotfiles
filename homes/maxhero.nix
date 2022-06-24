@@ -174,7 +174,7 @@ in {
 
   programs.mu.enable = true;
 
-  programs.nushell.enable = true;
+  #programs.nushell.enable = true;
 
   programs.obs-studio = { enable = true; };
 
@@ -634,6 +634,7 @@ in {
         genericName = "Web Browser";
         exec = "${pkgs.firefox}/bin/firefox %U";
         terminal = false;
+        icon = "firefox";
         categories = [ "Application" "Network" "WebBrowser" ];
         mimeType = [
           "application/pdf"
@@ -804,4 +805,5 @@ in {
       music = "$HOME/Music";
     };
   };
+  home.stateVersion = "21.11";
 }

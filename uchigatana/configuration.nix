@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
-
 { config, pkgs, lib, home-manager, nix-gaming, ... }:
 let
   nowl = (import ./tools/nowl.nix) pkgs;
@@ -63,12 +59,9 @@ in {
     rocm-opencl-runtime
   ];
 
-  # VFIO-Passthrough: https://gist.github.com/CRTified/43b7ce84cd238673f7f24652c85980b3
-  # Add Unstable: https://stackoverflow.com/questions/41230430/how-do-i-upgrade-my-system-to-nixos-unstable
-
   networking.hostId = "cc1f83cb";
   networking = {
-    hostName = "maxhero-workstation";
+    hostName = "uchigatana";
     networkmanager = { enable = true; };
     useDHCP = false;
     firewall.enable = false;
@@ -185,13 +178,6 @@ in {
       "mangohud WINEFSYNC=1 PROTON_WINEDBG_DISABLE=1 DXVK_LOG_PATH=none DXVK_HUD=compiler ALSOFT_DRIVERS=alsa";
   };
 
-  #nixpkgs.overlays = [
-  #  (import (builtins.fetchTarball {
-  #    url =
-  #      "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-  #  }))
-  #];
-
   users.users = {
     maxhero = {
       isNormalUser = true;
@@ -237,9 +223,6 @@ in {
     KERNEL=="hidraw*", KERNELS=="*054C:05C4*", MODE="0666"
     # DualShock 4 Slim over bluetooth hidraw
     KERNEL=="hidraw*", KERNELS=="*054C:09CC*", MODE="0666"
-
-    # Supporting VFIO
-    SUBSYSTEM=="vfio", OWNER="root", GROUP="kvm"
   '';
 
   systemd.enableUnifiedCgroupHierarchy = true;
@@ -334,15 +317,6 @@ in {
     gnome.gnome-tweaks
     orchis-theme
 
-    # Gaming
-    mangohud
-    minecraft
-    mesa-demos
-    lutris
-    #nix-gaming.packages.x86_64-linux.wine-tkg
-    vulkan-tools
-    winetricks
-
     ntfs3g
 
     # Emacs Dependencies
@@ -392,11 +366,9 @@ in {
     gparted
 
     # XFCE
-    # xfce.xfce4-whiskermenu-plugin
     libsForQt5.dolphin
     libsForQt5.dolphin-plugins
     tela-circle-icon-theme
-    # xfce.xfce4-power-manager
   ];
 
   programs.dconf.enable = true;
@@ -417,11 +389,6 @@ in {
   programs.gnupg.agent.enableSSHSupport = true;
 
   environment.variables.EDITOR = "vim";
-  nixpkgs.config.packageOverrides = pkgs: {
-    steam = pkgs.steam.override {
-      extraPkgs = pkgs: with pkgs; [ gamemode mangohud ];
-    };
-  };
 
   services.avahi.enable = true;
   services.avahi.nssmdns = true;
