@@ -27,10 +27,12 @@ in {
     numeric = "pt_BR.UTF-8";
   };
 
-  home.file.".zshrc".source = "./.zshrc";
-  home.file.".anthy".source = "./.anthy";
-  home.file.".wallpaper.png".source = "./.wallpaper.png";
-  home.file.".config/waybar".source = "waybar";
+  home.file = {
+    ".zshrc".source = "./.zshrc";
+    ".anthy".source = "./.anthy";
+    ".wallpaper.png".source = "./.wallpaper.png";
+    ".config/waybar".source = "waybar";
+  };
 
   # I need to setup an IME soon
   #i18n.inputMethod = {
