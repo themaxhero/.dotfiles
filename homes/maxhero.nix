@@ -13,6 +13,7 @@ let
 in {
   imports = [
     (import ./waybar)
+    (import ./wofi)
   ];
 
   home.username = "maxhero";
