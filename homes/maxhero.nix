@@ -178,7 +178,7 @@ in {
 
   programs.ssh.enable = true;
 
-  programs.tealdeer.enable = true;
+  #programs.tealdeer.enable = true;
 
   programs.tmux.enable = true;
 

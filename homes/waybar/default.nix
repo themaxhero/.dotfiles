@@ -1,4 +1,4 @@
-{cfg}:
+{pkgs, ...}:
 let
     battery = ''
 		"custom/left-arrow-dark",
@@ -6,6 +6,7 @@ let
 		"custom/left-arrow-light",
     '';
     fontSize = 24;
+    waybar = "${pkgs.waybar}/bin/waybar";
 in
 {
     xdg.configFile."waybar/config".text = ''
@@ -147,7 +148,7 @@ in
                         "56": "五十六",
                         "57": "五十七",
                         "58": "五十八",
-                        "59": "五十九"
+                        "59": "五十九",
                         "60": "六十",
                         "61": "六十一",
                         "62": "六十二",
@@ -157,7 +158,7 @@ in
                         "66": "六十六",
                         "67": "六十七",
                         "68": "六十八",
-                        "69": "六十九"
+                        "69": "六十九",
                         "70": "七十",
                         "71": "七十一",
                         "72": "七十二",
@@ -167,7 +168,7 @@ in
                         "76": "七十六",
                         "77": "七十七",
                         "78": "七十八",
-                        "79": "七十九"
+                        "79": "七十九",
                         "80": "八十",
                         "81": "八十一",
                         "82": "八十二",
@@ -255,10 +256,11 @@ in
             }
         }
     '';
+    xdg.configFile."waybar/modules".source = ./modules;
 
     xdg.configFile."waybar/style.css".text = ''
     * {
-        font-size: ${fontSize}px;
+        font-size: ${toString fontSize}px;
         font-family: scientifica, dina;
     }
 
@@ -345,13 +347,13 @@ in
         text = ''
         #!/usr/bin/env bash
         # Terminate already running bar instances
-        killall -q waybar
+        killall -q ${waybar}
         killall -q .waybar-wrapped
         
         # Wait until the processes have been shut down
-        while pgrep -x waybar >/dev/null; do sleep 1; done
+        while pgrep -x ${waybar} >/dev/null; do sleep 1; done
         # Launch main
-        waybar
+        ${waybar}
         '';
         executable = true;
     };
