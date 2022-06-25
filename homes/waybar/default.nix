@@ -1,11 +1,13 @@
 {pkgs, ...}:
 let
-    battery = ''
+    battery = if (builtins.getEnv "HOSTNAME") != "maxhero-workstation" then
+    ''
 		"custom/left-arrow-dark",
 		"battery",
 		"custom/left-arrow-light",
-    '';
-    fontSize = 24;
+    ''
+    else "";
+    fontSize = if (builtins.getEnv "HOSTNAME") != "maxhero-workstation" then 16 else 24;
     waybar = "${pkgs.waybar}/bin/waybar";
 in
 {
