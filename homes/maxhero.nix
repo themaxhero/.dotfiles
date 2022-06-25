@@ -6,19 +6,17 @@ let
   gtkTheme = "Orchis-Dark";
   iconTheme = "Tela-circle-dark";
   terminal = "${pkgs.alacritty}/bin/alacritty";
-  menu = "${pkgs.wofi}/bin/wofi -I";
+  menu = "${pkgs.wofi}/bin/wofi -I --show drun";
   defaultBrowser = "firefox.desktop";
-  lock =
-    "~/.config/sway/lock.sh --indicator --indicator-radius 100 --ring-color e40000 --clock";
+  lock = "~/.config/sway/lock.sh --indicator --indicator-radius 100 --ring-color e40000 --clock";
+  zshrc = (import ./zshrc.nix) pkgs "lambda";
 in {
-  #imports = [
-  #  nix-doom-emacs.hmModule
-  #];
+  imports = [
+    (import ./waybar)
+  ];
 
   home.username = "maxhero";
   home.homeDirectory = "/home/maxhero";
-
-  #fonts.fontconfig.enable = true;
 
   home.language = {
     base = "en_GB.UTF-8";
@@ -28,17 +26,10 @@ in {
   };
 
   home.file = {
-    ".zshrc".source = ./.zshrc;
+    ".zshrc".text = zshrc;
     ".anthy".source = ./.anthy;
     ".wallpaper.png".source = ./.wallpaper.png;
-    ".config/waybar".source = ./waybar;
   };
-
-  # I need to setup an IME soon
-  #i18n.inputMethod = {
-  #  enabled = "ibus";
-  #  ibus.engines = with pkgs.ibus-engines; [ mozc ];
-  #};
 
   programs.git = {
     enable = true;
@@ -281,6 +272,7 @@ in {
     orchis-theme
     tela-circle-icon-theme
     tenacity
+    oh-my-zsh
   ];
 
   wayland.windowManager.sway = {
