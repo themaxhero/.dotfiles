@@ -19,10 +19,11 @@
         modules = [
           ./configuration.nix
           ./workstation/hardware-configuration.nix
+          nur.nixosModules.nur
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
-            home-manager.users.maxhero = (import ./homes/maxhero.nix);
+            home-manager.users.maxhero = (import ./home/maxhero);
           }
         ];
       };
@@ -36,7 +37,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
-            home-manager.users.maxhero = (import ./homes/maxhero.nix);
+            home-manager.users.maxhero = (import ./home/maxhero);
           }
         ];
       };

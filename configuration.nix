@@ -47,7 +47,8 @@ in {
     ];
   };
 
-  allowUnfree = true;
+  # allowUnfree = true;
+  security.pam.enableSSHAgentAuth = true;
 
   # Use Systemd Boot
   boot.loader.systemd-boot.enable = true;

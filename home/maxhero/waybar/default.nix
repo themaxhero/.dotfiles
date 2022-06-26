@@ -1,13 +1,14 @@
-{pkgs, ...}:
+{ config, pkgs, lib, ... }:
 let
-    battery = if (builtins.getEnv "HOSTNAME") != "maxhero-workstation" then
-    ''
-		"custom/left-arrow-dark",
-		"battery",
-		"custom/left-arrow-light",
-    ''
-    else "";
-    fontSize = if (builtins.getEnv "HOSTNAME") != "maxhero-workstation" then 16 else 24;
+    hostName = config.networking.hostName;
+    desktopHostname = "maxhero-workstation";
+    batteryComponent = ''
+    "custom/left-arrow-dark",
+    "battery",
+    "custom/left-arrow-light",
+    '';
+    battery = if (hostName == desktopHostname) then batteryComponent else "";
+    fontSize = if (hostName == desktopHostname) then 24 else 16;
     waybar = "${pkgs.waybar}/bin/waybar";
 in
 {
