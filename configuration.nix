@@ -412,10 +412,6 @@ in {
   };
   programs.nm-applet.enable = true;
 
-  # Doom Emacs
-  #programs.doom-emacs.enable = true;
-  #programs.doom-emacs.doomPrivateDir = "/home/maxhero/.doom.d";
-
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
 

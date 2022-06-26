@@ -1,6 +1,6 @@
 { config, pkgs, lib, ... }:
 let
-    hostName = config.networking.hostName;
+    hostName = builtins.getEnv "HOSTNAME";
     desktopHostname = "maxhero-workstation";
     batteryComponent = ''
     "custom/left-arrow-dark",

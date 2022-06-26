@@ -17,8 +17,14 @@
         system = "x86_64-linux";
         specialArgs = attrs;
         modules = [
-          ./configuration.nix
-          ./workstation/hardware-configuration.nix
+          ./modules/common
+          ./modules/development
+          ./modules/gaming
+          ./modules/networking
+          ./modules/sound
+          ./modules/vfio
+          ./maxhero-workstation/configuration.nix
+          ./maxhero-workstation/hardware-configuration.nix
           nur.nixosModules.nur
           home-manager.nixosModules.home-manager
           {
@@ -31,6 +37,10 @@
         system = "x86_64-linux";
         specialArgs = attrs;
         modules = [
+          ./modules/common
+          ./modules/development
+          ./modules/networking
+          ./modules/sound
           ./uchigatana/configuration.nix
           ./uchigatana/hardware-configuration.nix
           nur.nixosModules.nur
