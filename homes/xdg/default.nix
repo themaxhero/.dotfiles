@@ -1,6 +1,7 @@
+pkgs:
 defaultBrowser:
+iconTheme:
 terminal:
-{pkgs, ...}:
 with pkgs.lib;
 {
   xdg = {

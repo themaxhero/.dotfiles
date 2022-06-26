@@ -1,4 +1,4 @@
-{ config, pkgs, nur, lib, home-manager, nix-doom-emacs, ... }@attrs:
+{ config, pkgs, nur, lib, home-manager, nix-doom-emacs, ... }:
 with pkgs.lib;
 let
   modifier = "Mod4";
@@ -16,7 +16,7 @@ in {
     (import ./wofi)
     (import ./emacs)
     (import ./browser)
-    (import ./xdg) defaultBrowser terminal attrs
+    (import ./xdg pkgs defaultBrowser iconTheme terminal)
   ];
 
   home.username = "maxhero";
