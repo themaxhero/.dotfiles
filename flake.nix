@@ -8,9 +8,10 @@
     nix-doom-emacs.url = "github:vlaci/nix-doom-emacs";
     home-manager.url = "github:rycee/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@attrs: {
+  outputs = { self, nixpkgs, home-manager, nur, ... }@attrs: {
     nixosConfigurations = {
       "maxhero-workstation" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -31,6 +32,7 @@
         modules = [
           ./uchigatana/configuration.nix
           ./uchigatana/hardware-configuration.nix
+          nur.nixosModules.nur
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;

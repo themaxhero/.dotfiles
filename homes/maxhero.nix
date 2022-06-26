@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, nix-doom-emacs, ... }:
+{ config, pkgs, nur, lib, home-manager, nix-doom-emacs, ... }:
 with pkgs.lib;
 let
   modifier = "Mod4";
@@ -14,6 +14,8 @@ in {
   imports = [
     (import ./waybar)
     (import ./wofi)
+    (import ./emacs)
+    (import ./firefox)
   ];
 
   home.username = "maxhero";
@@ -43,7 +45,7 @@ in {
       init.defaultBranch = "master";
       core = {
         excludesfile = "$NIXOS_CONFIG_DIR/scripts/gitignore";
-        editor = "${pkgs.emacs}/bin/emacs";
+        editor = "${pkgs.vim}/bin/emacs";
       };
     };
   };
@@ -85,37 +87,15 @@ in {
   programs.chromium = {
     enable = true;
     package = pkgs.ungoogled-chromium;
-  };
-
-  programs.firefox = {
-    enable = true;
-    profiles = {
-      "tlb" = {
-        id = 1;
-        name = "tlb";
-        isDefault = false;
-      };
-      "dea" = {
-        id = 2;
-        name = "dea";
-        isDefault = false;
-      };
-      "p" = {
-        id = 0;
-        name = "p";
-        isDefault = true;
-      };
-    };
+    extensions = [
+      { id = "nngceckbapebfimnlniiiahkandclblb"; }
+    ];
   };
 
   programs.fish.enable = true;
 
   programs.command-not-found.enable = true;
 
-  #programs.doom-emacs = {
-  #  enable = true;
-  #  doomPrivateDir = ./doom.d;
-  #};
 
   programs.gpg.enable = true;
 
