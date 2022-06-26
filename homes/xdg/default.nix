@@ -1,6 +1,7 @@
 defaultBrowser:
 terminal:
-{...}:
+{pkgs, ...}:
+with pkgs.lib;
 {
   xdg = {
     # Need to solve this later for better looking stuff
@@ -26,68 +27,6 @@ terminal:
             MountRemovable = false;
           };
         };
-      };
-    };
-    desktopEntries = {
-      "firefox-tlb" = {
-        name = "Firefox (TLB)";
-        genericName = "Web Browser";
-        exec = "${pkgs.firefox}/bin/firefox -p tlb %U";
-        terminal = false;
-        icon = "firefox";
-        categories = [ "Application" "Network" "WebBrowser" ];
-        mimeType = [
-          "application/pdf"
-          "application/vnd.mozilla.xul+xml"
-          "application/xhtml+xml"
-          "text/html"
-          "text/xml"
-          "x-scheme-handler/http"
-          "x-scheme-handler/https"
-        ];
-        type = "Application";
-      };
-      "firefox-dea" = {
-        name = "Firefox (DEA)";
-        genericName = "Web Browser";
-        exec = "${pkgs.firefox}/bin/firefox -p dea %U";
-        terminal = false;
-        categories = [ "Application" "Network" "WebBrowser" ];
-        icon = "firefox";
-        mimeType = [
-          "application/pdf"
-          "application/vnd.mozilla.xul+xml"
-          "application/xhtml+xml"
-          "text/html"
-          "text/xml"
-          "x-scheme-handler/http"
-          "x-scheme-handler/https"
-        ];
-        type = "Application";
-      };
-      "firefox" = {
-        name = "Firefox (Wayland)";
-        genericName = "Web Browser";
-        exec = "${pkgs.firefox}/bin/firefox %U";
-        terminal = false;
-        icon = "firefox";
-        categories = [ "Application" "Network" "WebBrowser" ];
-        mimeType = [
-          "application/pdf"
-          "application/vnd.mozilla.xul+xml"
-          "application/xhtml+xml"
-          "text/html"
-          "text/xml"
-          "x-scheme-handler/http"
-          "x-scheme-handler/https"
-        ];
-        type = "Application";
-      };
-      "discord" = {
-        name = "Discord (XWayland)";
-        exec = "nowl ${pkgs.discord}/bin/discord";
-        terminal = false;
-        categories = [ "Application" "Network" ];
       };
     };
     mimeApps = {

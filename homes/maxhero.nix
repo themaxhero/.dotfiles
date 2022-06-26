@@ -1,4 +1,4 @@
-{ config, pkgs, nur, lib, home-manager, nix-doom-emacs, ... }:
+{ config, pkgs, nur, lib, home-manager, nix-doom-emacs, ... }@attrs:
 with pkgs.lib;
 let
   modifier = "Mod4";
@@ -15,8 +15,8 @@ in {
     (import ./waybar)
     (import ./wofi)
     (import ./emacs)
-    (import ./firefox)
-    (import ./xdg) defaultBrowser terminal
+    (import ./browser)
+    (import ./xdg) defaultBrowser terminal attrs
   ];
 
   home.username = "maxhero";
@@ -96,7 +96,6 @@ in {
   programs.fish.enable = true;
 
   programs.command-not-found.enable = true;
-
 
   programs.gpg.enable = true;
 
@@ -256,6 +255,15 @@ in {
     tenacity
     oh-my-zsh
   ];
+
+  xdg.desktopEntries = {
+    "discord" = {
+      name = "Discord (XWayland)";
+      exec = "nowl ${pkgs.discord}/bin/discord";
+      terminal = false;
+      categories = [ "Application" "Network" ];
+    };
+  };
 
   wayland.windowManager.sway = {
     enable = true;
