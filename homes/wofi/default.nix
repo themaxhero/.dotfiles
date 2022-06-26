@@ -1,6 +1,6 @@
 {...}:
 {
-    xdg.configFile = ''
+    xdg.configFile."wofi/style.css" = ''
     window {
     margin: 0px;
     border: 1px solid #fb246f;
