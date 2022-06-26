@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  nowl = (import ./tools/nowl.nix) pkgs;
+  nowl = (import ../../tools/nowl.nix) pkgs;
 in
 {
   # Better voltage and temperature

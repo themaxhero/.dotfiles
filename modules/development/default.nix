@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ pkgs, lib, ... }:
 let
   emacs = (pkgs.emacsWithPackagesFromUsePackage {
     package = pkgs.emacsGit;
