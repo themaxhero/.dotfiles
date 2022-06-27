@@ -11,7 +11,7 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, home-manager, nur, ... }@attrs: {
+  outputs = { self, nixpkgs, home-manager, ... }@attrs: {
     nixosConfigurations = {
       "maxhero-workstation" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -25,7 +25,6 @@
           ./modules/vfio
           ./maxhero-workstation/configuration.nix
           ./maxhero-workstation/hardware-configuration.nix
-          nur.nixosModules.nur
         ];
       };
       "uchigatana" = nixpkgs.lib.nixosSystem {
@@ -38,7 +37,6 @@
           ./modules/sound
           ./uchigatana/configuration.nix
           ./uchigatana/hardware-configuration.nix
-          nur.nixosModules.nur
         ];
       };
     };

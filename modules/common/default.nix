@@ -1,9 +1,10 @@
-{ config, pkgs, home-manager, ... }:
+{ config, pkgs, home-manager, nur, ... }:
 let
   nowl = (import ../../tools/nowl.nix) pkgs;
 in
 {
   imports = [
+    nur.nixosModules.nur
     home-manager.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
