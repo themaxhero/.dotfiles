@@ -45,7 +45,7 @@ in
     yarn
     nushell
     swiProlog
-    
+
     cmigemo
     ansible
 
@@ -92,8 +92,14 @@ in
     jq
     fd
     xdelta
-    gparted
   ];
+
+  #nixpkgs.overlays = [
+  #  (import (builtins.fetchTarball {
+  #    url =
+  #      "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
+  #  }))
+  #];
 
   services.emacs.enable = true;
   services.postgresql.enable = true;
@@ -112,6 +118,9 @@ in
       dockerCompat = true;
     };
   };
+
+  # Make containers work properly
+  systemd.services."user@".serviceConfig = { Delegate = "yes"; };
 
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;

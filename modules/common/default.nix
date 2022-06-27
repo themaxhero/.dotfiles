@@ -79,6 +79,7 @@ in
     fortune
     zsh
     bat
+    gparted
 
     # Theming
     gnome.gnome-tweaks
@@ -232,9 +233,6 @@ in
 
   # Localization and Keyboard layout
   time.timeZone = "America/Sao_Paulo";
-
-  # Make containers work properly
-  systemd.services."user@".serviceConfig = { Delegate = "yes"; };
 
   system.autoUpgrade.enable = true;
   system.stateVersion = "21.11";
