@@ -1,10 +1,37 @@
-{ config, pkgs, ... }:
+{ config, pkgs, home-manager, ... }:
 let
   nowl = (import ../../tools/nowl.nix) pkgs;
 in
 {
+  imports = [
+    home-manager.nixosModules.home-manager
+    {
+      home-manager.useGlobalPkgs = true;
+      home-manager.users.maxhero = (import ./home/maxhero);
+    }
+  ];
   # Better voltage and temperature
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
+
+  users.users = {
+    maxhero = {
+      isNormalUser = true;
+      uid = 1000;
+      extraGroups = [
+        "wheel"
+        "video"
+        "audio"
+        "realtime"
+        "libvirt"
+        "kvm"
+        "input"
+        "networkmanager"
+        "rtkit"
+        "podman"
+      ];
+      shell = pkgs.bash;
+    };
+  };
 
   # Use Systemd Boot
   boot.loader.efi.canTouchEfiVariables = true;

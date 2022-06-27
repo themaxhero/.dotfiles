@@ -26,11 +26,6 @@
           ./maxhero-workstation/configuration.nix
           ./maxhero-workstation/hardware-configuration.nix
           nur.nixosModules.nur
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.users.maxhero = (import ./home/maxhero);
-          }
         ];
       };
       "uchigatana" = nixpkgs.lib.nixosSystem {
@@ -44,11 +39,6 @@
           ./uchigatana/configuration.nix
           ./uchigatana/hardware-configuration.nix
           nur.nixosModules.nur
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.users.maxhero = (import ./home/maxhero);
-          }
         ];
       };
     };
