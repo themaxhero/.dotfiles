@@ -46,7 +46,7 @@ in {
       init.defaultBranch = "master";
       core = {
         excludesfile = "$NIXOS_CONFIG_DIR/scripts/gitignore";
-        editor = "${pkgs.vim}/bin/emacs";
+        editor = "${pkgs.vim}/bin/vim";
       };
     };
   };
