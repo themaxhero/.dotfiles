@@ -261,7 +261,8 @@ in
     '';
     xdg.configFile."waybar/modules".source = ./modules;
 
-    xdg.configFile."waybar/style.css".text = ''
+    programs.waybar.enable = true;
+    programs.waybar.style = ''
     * {
         font-size: ${toString fontSize}px;
         font-family: scientifica, dina;
