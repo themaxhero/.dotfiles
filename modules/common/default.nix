@@ -8,7 +8,7 @@ in
     home-manager.nixosModules.home-manager
     {
       home-manager.useGlobalPkgs = true;
-      home-manager.users.maxhero = (import ./home/maxhero);
+      home-manager.users.maxhero = (import ../../home/maxhero);
     }
   ];
   # Better voltage and temperature
