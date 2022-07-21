@@ -108,6 +108,7 @@ in
     zsh
     bat
     gparted
+    obsidian
 
     # Theming
     gnome.gnome-tweaks

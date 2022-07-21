@@ -25,16 +25,67 @@ let
         alchemist
       ];
   });
+  vsCodeExtensions = (with pkgs.vscode-extensions; [
+    {
+      name = "vscode-terminals";
+      publisher = "fabiospampinato";
+      version = "1.13.0";
+      sha256 = "0j96c6486h4073b7551xdr50fir572f22nlkz0y6q52670gdii5y";
+    }
+    {
+      name = "vscode-mjml";
+      publisher = "attilabuti";
+      version = "1.6.0";
+      sha256 = "180rvy17l0x5mg2nqkpfl6bcyqjnf72qknr521fmrkak2dp957yd";
+    }
+    {
+      name = "elixir-ls";
+      publisher = "JakeBecker";
+      version = "0.9.0";
+      sha256 = "1qz8jxpzanaccd5v68z4v1344kw0iy671ksi1bmpyavinlxdkmr8";
+    }
+    {
+      name = "surface";
+      publisher = "msaraiva";
+      version = "0.7.0";
+      sha256 = "1y5m0p4lkr0zfiyshrm9mkg0rzx81zhp6p16mw08jwndvy0396zn";
+    }
+    {
+      name = "Nix";
+      publisher = "bbenoist";
+      version = "1.0.1";
+      sha256 = "ab0c6a386b9b9507953f6aab2c5f789dd5ff05ef6864e9fe64c0855f5cb2a07d";
+    }
+    {
+      name = "gitlens";
+      publisher = "eamodio";
+      version = "12.0.7";
+      sha256 = "80f862cadb617f7e5e0e1b739122b62598ed8f8f3bee56b7841d42b306ebb33c";
+    }
+    {
+      name = "vsliveshare";
+      publisher = "MS-vsliveshare";
+      version = "1.0.5625";
+      sha256 = "053c46bc9a4e3ba7980a97a719c537d4bc84ea9baed84a993e5ddf2e5d66bc25";
+    }
+  ]);
+  vscode-with-extensions = pkgs.vscode-with-extensions.override {
+    vscodeExtensions = vsCodeExtensions;
+  };
 in
 {
   environment.variables.EDITOR = "vim";
 
   environment.systemPackages = with pkgs; [
     # Development
+    vscode-with-extensions
     vscodium
     dbeaver
     vim
+    elmPackages.elm
     elmPackages.elm-format
+    elmPackages.create-elm-app
+    elmPackages.elm-language-server
     gnumake
     libtool
     libvterm
@@ -43,8 +94,11 @@ in
     shfmt
     elixir_1_13
     yarn
+    nodejs
     nushell
     swiProlog
+
+    inotify-tools
 
     cmigemo
     ansible
@@ -79,6 +133,8 @@ in
     terraform
     metals
     ruby_3_1
+
+    chromedriver
 
     racket
     markdown-anki-decks
