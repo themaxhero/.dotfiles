@@ -119,7 +119,6 @@ in
     rustfmt
     rust-analyzer
     rust-code-analysis
-    rustracer
     ocamlPackages.utop
     python3Full
     black
@@ -138,7 +137,6 @@ in
     chromedriver
 
     racket
-    markdown-anki-decks
 
     podman-compose
 
