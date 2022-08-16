@@ -88,6 +88,8 @@ in
     xdg_utils
     zoom-us
 
+    wdisplays
+
     adbfs-rootless
     notion-app-enhanced
     gimp

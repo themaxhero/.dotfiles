@@ -99,6 +99,7 @@ in
     swiProlog
 
     inotify-tools
+    chromedriver
 
     cmigemo
     ansible

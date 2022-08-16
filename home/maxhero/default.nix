@@ -488,11 +488,11 @@ in {
 
       output = {
         "*" = { background = "~/.wallpaper.png fill"; };
-        DP-2 = {
+        DP-1 = {
           pos = "0 0";
           mode = "3840x2160@60.000000hz";
         };
-        DP-3 = {
+        DP-2 = {
           pos = "3840 0";
           mode = "3840x2160@60.000000hz";
         };
