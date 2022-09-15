@@ -17,6 +17,7 @@ in {
     (import ./emacs)
     (import ./browser)
     (import ./xdg pkgs defaultBrowser iconTheme terminal)
+    nix-doom-emacs.hmModule
   ];
 
   home.username = "maxhero";

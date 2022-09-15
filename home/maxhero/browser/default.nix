@@ -7,21 +7,13 @@
   programs.firefox = {
     enable = true;
     profiles = {
-      "tlb" = {
+      "mindlab" = {
         id = 1;
-        name = "tlb";
+        name = "mindlab";
         isDefault = false;
         # extensions = with nur.repos.rycee.firefox-addons; [
         #   bitwarden
         #   1password-onepassword-password-manager
-        # ];
-      };
-      "dea" = {
-        id = 2;
-        name = "dea";
-        isDefault = false;
-        # extensions = with nur.repos.rycee.firefox-addons; [
-        #   bitwarden
         # ];
       };
       "p" = {
@@ -38,31 +30,13 @@
   # Create Firefox .desktop for each profile
   xdg = {
     desktopEntries = {
-      "firefox-tlb" = {
-        name = "Firefox (TLB)";
+      "firefox-mindlab" = {
+        name = "Firefox (MindLab)";
         genericName = "Web Browser";
-        exec = "${pkgs.firefox}/bin/firefox -p tlb %U";
+        exec = "${pkgs.firefox}/bin/firefox -p mindlab %U";
         terminal = false;
         icon = "firefox";
         categories = [ "Application" "Network" "WebBrowser" ];
-        mimeType = [
-          "application/pdf"
-          "application/vnd.mozilla.xul+xml"
-          "application/xhtml+xml"
-          "text/html"
-          "text/xml"
-          "x-scheme-handler/http"
-          "x-scheme-handler/https"
-        ];
-        type = "Application";
-      };
-      "firefox-dea" = {
-        name = "Firefox (DEA)";
-        genericName = "Web Browser";
-        exec = "${pkgs.firefox}/bin/firefox -p dea %U";
-        terminal = false;
-        categories = [ "Application" "Network" "WebBrowser" ];
-        icon = "firefox";
         mimeType = [
           "application/pdf"
           "application/vnd.mozilla.xul+xml"

@@ -77,7 +77,16 @@ in
   environment.variables.EDITOR = "vim";
 
   environment.systemPackages = with pkgs; [
+    # AWS
+    awscli
+    aws-iam-authenticator
+    eksctl
+
+    # Cloud
+    kubernetes
+
     # Development
+    google-clasp
     vscode-with-extensions
     vscodium
     dbeaver
