@@ -84,6 +84,7 @@ in
 
     # Cloud
     kubernetes
+    minikube
 
     # Development
     google-clasp
