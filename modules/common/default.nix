@@ -61,7 +61,7 @@ in
     ungoogled-chromium
     grim
     i3status-rust
-    gnome3.adwaita-icon-theme
+    gnome.adwaita-icon-theme
     gnome.eog
     killall
     lm_sensors
@@ -85,7 +85,7 @@ in
     wget
     wpsoffice
     xarchiver
-    xdg_utils
+    xdg-utils
     zoom-us
 
     wdisplays

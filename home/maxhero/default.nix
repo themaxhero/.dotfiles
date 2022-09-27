@@ -17,7 +17,7 @@ in {
     (import ./emacs)
     (import ./browser)
     (import ./xdg pkgs defaultBrowser iconTheme terminal)
-    #nix-doom-emacs.hmModule
+    nix-doom-emacs.hmModule
   ];
 
   home.username = "maxhero";
@@ -50,6 +50,12 @@ in {
         editor = "${pkgs.vim}/bin/vim";
       };
     };
+    includes = [{
+      condition = "gitdir:/home/maxhero/projects/mindlab/";
+      contents = {
+        user.email = "marcelo.amancio@mindlab.com.br";
+      };
+    }];
   };
 
   programs.alacritty = {
@@ -158,7 +164,21 @@ in {
 
   programs.obs-studio = { enable = true; };
 
-  programs.ssh.enable = true;
+  programs.ssh = {
+    enable = true;
+    matchBlocks = {
+      "github.com-mindlab" = {
+        hostname = "github.com";
+        user = "maxhero-mindlab";
+        identityFile = "~/.ssh/mindlab_ed25519";
+      };
+      "github.com" = {
+        hostname = "github.com";
+        user = "themaxhero";
+        identityFile = "~/.ssh/id_ed25519";
+      };
+    };
+  };
 
   programs.tealdeer.enable = true;
 

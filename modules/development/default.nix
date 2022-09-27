@@ -85,6 +85,7 @@ in
     # Cloud
     kubernetes
     minikube
+    k9s
 
     # Development
     google-clasp
@@ -106,7 +107,6 @@ in
     yarn
     nodejs
     nushell
-    swiProlog
 
     inotify-tools
     chromedriver
