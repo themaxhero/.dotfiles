@@ -1,15 +1,17 @@
-{ config, pkgs, home-manager, nur, ... }:
+{ config, pkgs, lib, home-manager, nur, nix-doom-emacs, ... }:
 let
   nowl = (import ../../tools/nowl.nix) pkgs;
 in
 {
   imports = [
     nur.nixosModules.nur
-    home-manager.nixosModules.home-manager
-    {
+    home-manager.nixosModules.home-manager ({
       home-manager.useGlobalPkgs = true;
-      home-manager.users.maxhero = (import ../../home/maxhero);
-    }
+      home-manager.users.maxhero = lib.mkMerge [
+        nix-doom-emacs.hmModule
+        ../../home/maxhero
+      ];
+    })
   ];
   # Better voltage and temperature
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];

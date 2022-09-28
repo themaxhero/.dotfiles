@@ -1,4 +1,4 @@
-{ config, pkgs, nur, lib, home-manager, nix-doom-emacs, ... }:
+{ config, pkgs, nur, lib, home-manager, ... }:
 with pkgs.lib;
 let
   modifier = "Mod4";
@@ -12,17 +12,21 @@ let
   zshrc = (import ./zshrc.nix) pkgs "lambda";
 in {
   imports = [
-    (import ./waybar)
-    (import ./wofi)
-    (import ./emacs)
-    (import ./browser)
+    ./waybar
+    ./wofi
+    ./emacs
+    ./browser
     (import ./xdg pkgs defaultBrowser iconTheme terminal)
-    nix-doom-emacs.hmModule
   ];
 
   programs.doom-emacs = {
     enable = true;
     doomPrivateDir = ./doom.d;
+    emacsPackagesOverlay = self: super: {
+     magit-delta = super.magit-delta.overrideAttrs (esuper: {
+       buildInputs = esuper.buildInputs ++ [ pkgs.git ];
+     });
+    };
   };
 
   home.username = "maxhero";
