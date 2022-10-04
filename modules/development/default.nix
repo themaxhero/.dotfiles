@@ -81,6 +81,7 @@ in
     awscli
     aws-iam-authenticator
     eksctl
+    oci-cli
 
     # Cloud
     kubernetes

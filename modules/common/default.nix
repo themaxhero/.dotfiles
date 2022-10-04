@@ -15,6 +15,7 @@ in
   ];
   # Better voltage and temperature
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   users.users = {
     maxhero = {
