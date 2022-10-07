@@ -146,6 +146,7 @@ in
     ruby_3_1
 
     chromedriver
+    wireguard-tools
 
     racket
 
