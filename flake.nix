@@ -28,7 +28,7 @@
           ./maxhero-workstation/hardware-configuration.nix
           home-manager.nixosModules.home-manager ({
             home-manager.useGlobalPkgs = true;
-            home-manager.users.maxhero = nixpkgs.lib.mkMerge [
+            home-manager.users.maxhero = lib.mkMerge [
               nix-doom-emacs.hmModule
               (import ./home/maxhero { seat = true; })
             ];
@@ -68,12 +68,13 @@
           ./maxhero-vps/servers/nginx.nix
           ./maxhero-vps/servers/wireguard.nix
           # home-manager
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.users.maxhero = (import ./home/maxhero {
-              seat = false;
-            });
-          }
+          home-manager.nixosModules.home-manager ({
+            home-manager.useGlobalPkgs = true;
+            home-manager.users.maxhero = lib.mkMerge [
+              nix-doom-emacs.hmModule
+              (import ./home/maxhero { seat = false; })
+            ];
+          })
         ];
       };
     };
