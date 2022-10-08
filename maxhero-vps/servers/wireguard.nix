@@ -19,7 +19,7 @@ in
         wg0 = {
           ips = [ "${wgPrefixV4}.1/24" "${wgPrefixV6}:1/64" ];
           listenPort = 51820;
-          privateKeyFile = "/home/pedrohlc/Projects/com.pedrohlc/wireguard-keys/private";
+          privateKeyFile = "/home/maxhero/wireguard-keys/private";
           peers = [];
           postSetup = ''
                         ip link set wg0 multicast on

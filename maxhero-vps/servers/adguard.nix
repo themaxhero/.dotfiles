@@ -101,7 +101,7 @@
       };
       tls = {
         enabled = true;
-        server_name = "dns.pedrohlc.com";
+        server_name = "dns.maxhero.com.br";
         force_https = false;
         port_https = 3334;
         port_dns_over_tls = 853;
