@@ -19,7 +19,7 @@ in {
     (import ./xdg pkgs defaultBrowser iconTheme terminal)
   ] else []);
 
-  programs.doom-emacs = {
+  programs.doom-emacs = lib.mkIf seat {
     enable = true;
     doomPrivateDir = ./doom.d;
     emacsPackagesOverlay = self: super: {
