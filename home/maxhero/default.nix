@@ -1,5 +1,4 @@
-{ seat ? true
-}:
+{ seat ? true, ... }:
 { config, pkgs, nur, lib, home-manager, ... }:
 with pkgs.lib;
 let
@@ -278,14 +277,14 @@ in {
     iconTheme.package = tela-circle-icon-theme;
   };
 
-  home.packages = lib.mkIf seat with pkgs; [
+  home.packages = lib.mkIf seat (with pkgs; [
     swaynotificationcenter
     sway-launcher-desktop
     orchis-theme
     tela-circle-icon-theme
     tenacity
     oh-my-zsh
-  ];
+  ]);
 
   xdg.desktopEntries = lib.mkIf seat {
     "discord" = {

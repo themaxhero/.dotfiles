@@ -9,7 +9,7 @@ in
       home-manager.useGlobalPkgs = true;
       home-manager.users.maxhero = lib.mkMerge [
         nix-doom-emacs.hmModule
-        ../../home/maxhero
+        (import ../../home/maxhero { seat = true; })
       ];
     })
   ];
