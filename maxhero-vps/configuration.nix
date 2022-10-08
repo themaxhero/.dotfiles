@@ -8,7 +8,7 @@
 
   # Network.
   networking = {
-    hostId = "be2568e1";
+    hostId = "be2568e2";
     hostName = "maxhero-vps";
   };
 
