@@ -1,3 +1,5 @@
+{ seat ? true
+}:
 { config, pkgs, nur, lib, home-manager, ... }:
 with pkgs.lib;
 let
@@ -11,10 +13,9 @@ let
   lock = "~/.config/sway/lock.sh --indicator --indicator-radius 100 --ring-color e40000 --clock";
   zshrc = (import ./zshrc.nix) pkgs "lambda";
 in {
-  imports = [
+  imports = lib.mkIf seat [
     ./waybar
     ./wofi
-    ./emacs
     ./browser
     (import ./xdg pkgs defaultBrowser iconTheme terminal)
   ];
@@ -45,7 +46,7 @@ in {
     ".wallpaper.png".source = ./.wallpaper.png;
   };
 
-  programs.git = {
+  programs.git = lib.mkIf seat {
     enable = true;
     userName = "Marcelo Amancio de Lima Santos";
     userEmail = "contact@maxhero.dev";
@@ -67,7 +68,7 @@ in {
     }];
   };
 
-  programs.alacritty = {
+  programs.alacritty = lib.mkIf seat {
     enable = true;
     package = pkgs.alacritty;
     settings = {
@@ -101,7 +102,7 @@ in {
     # };
   };
 
-  programs.chromium = {
+  programs.chromium = lib.mkIf seat {
     enable = true;
     package = pkgs.ungoogled-chromium;
     extensions = [
@@ -134,7 +135,7 @@ in {
     generateCaches = true;
   };
 
-  programs.mangohud = {
+  programs.mangohud = lib.mkIf seat {
     enable = true;
     settings = {
       arch = true;
@@ -157,7 +158,7 @@ in {
     };
   };
 
-  programs.mpv = {
+  programs.mpv = lib.mkIf seat {
     enable = true;
     config = {
       alang = "jpn,eng";
@@ -173,7 +174,7 @@ in {
 
   programs.obs-studio = { enable = true; };
 
-  programs.ssh = {
+  programs.ssh = lib.mkIf seat {
     enable = true;
     matchBlocks = {
       "github.com-mindlab" = {
@@ -193,7 +194,7 @@ in {
 
   programs.tmux.enable = true;
 
-  programs.waybar = {
+  programs.waybar = lib.mkIf seat {
     enable = true;
     package = pkgs.waybar;
     #settings = {
@@ -216,12 +217,12 @@ in {
 
   services.playerctld.enable = true;
 
-  services.swayidle = {
+  services.swayidle = lib.mkIf seat {
     enable = true;
     #timeouts = {};
   };
 
-  dconf.settings = {
+  dconf.settings = lib.mkIf seat {
     "com/github/jkotra/eovpn" = {
       dark-theme = true;
       req-auth = false;
@@ -272,12 +273,12 @@ in {
     };
   };
 
-  gtk = {
+  gtk = lib.mkIf seat {
     cursorTheme.name = "Adwaita";
     iconTheme.package = tela-circle-icon-theme;
   };
 
-  home.packages = with pkgs; [
+  home.packages = lib.mkIf seat with pkgs; [
     swaynotificationcenter
     sway-launcher-desktop
     orchis-theme
@@ -286,7 +287,7 @@ in {
     oh-my-zsh
   ];
 
-  xdg.desktopEntries = {
+  xdg.desktopEntries = lib.mkIf seat {
     "discord" = {
       name = "Discord (XWayland)";
       exec = "nowl ${pkgs.discord}/bin/discord";
@@ -295,7 +296,7 @@ in {
     };
   };
 
-  wayland.windowManager.sway = {
+  wayland.windowManager.sway = lib.mkIf seat {
     enable = true;
     wrapperFeatures.gtk = true; # so that gtk works properly
     wrapperFeatures.base = true; # so that gtk works properly

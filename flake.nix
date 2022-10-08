@@ -40,6 +40,28 @@
           ./uchigatana/hardware-configuration.nix
         ];
       };
+      "maxhero-vps" = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        specialArgs = attrs;
+        modules = [
+          (nixpkgs + "/nixos/modules/profiles/qemu-guest.nix")
+          ./shared/oci-options.nix
+          ./shared/oci-common.nix
+          ./maxhero-vps/core-configuration.nix
+          ./maxhero-vps/configuration.nix
+          ./maxhero-vps/servers/adguard.nix
+          ./maxhero-vps/servers/journal-remote.nix
+          ./maxhero-vps/servers/nginx.nix
+          ./maxhero-vps/servers/wireguard.nix
+          # home-manager
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.users.maxhero = (import ./home/maxhero {
+              seat = false;
+            });
+          }
+        ];
+      };
     };
   };
 }
