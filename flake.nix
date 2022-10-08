@@ -12,7 +12,7 @@
     nur.url = "github:nix-community/NUR";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@attrs: {
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, ... }@attrs: {
     nixosConfigurations = {
       "maxhero-workstation" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -26,6 +26,13 @@
           ./modules/vfio
           ./maxhero-workstation/configuration.nix
           ./maxhero-workstation/hardware-configuration.nix
+          home-manager.nixosModules.home-manager ({
+            home-manager.useGlobalPkgs = true;
+            home-manager.users.maxhero = nixpkgs.lib.mkMerge [
+              nix-doom-emacs.hmModule
+              (import ./home/maxhero { seat = true; })
+            ];
+          })
         ];
       };
       "uchigatana" = nixpkgs.lib.nixosSystem {
@@ -38,6 +45,13 @@
           ./modules/sound
           ./uchigatana/configuration.nix
           ./uchigatana/hardware-configuration.nix
+          home-manager.nixosModules.home-manager ({
+            home-manager.useGlobalPkgs = true;
+            home-manager.users.maxhero = nixpkgs.lib.mkMerge [
+              nix-doom-emacs.hmModule
+              (import ./home/maxhero { seat = true; })
+            ];
+          })
         ];
       };
       "maxhero-vps" = nixpkgs.lib.nixosSystem {

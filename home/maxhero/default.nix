@@ -12,12 +12,12 @@ let
   lock = "~/.config/sway/lock.sh --indicator --indicator-radius 100 --ring-color e40000 --clock";
   zshrc = (import ./zshrc.nix) pkgs "lambda";
 in {
-  imports = lib.mkIf seat [
+  imports = (if seat then [
     ./waybar
     ./wofi
     ./browser
     (import ./xdg pkgs defaultBrowser iconTheme terminal)
-  ];
+  ] else []);
 
   programs.doom-emacs = {
     enable = true;

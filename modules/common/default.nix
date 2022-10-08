@@ -3,16 +3,6 @@ let
   nowl = (import ../../tools/nowl.nix) pkgs;
 in
 {
-  imports = [
-    nur.nixosModules.nur
-    home-manager.nixosModules.home-manager ({
-      home-manager.useGlobalPkgs = true;
-      home-manager.users.maxhero = lib.mkMerge [
-        nix-doom-emacs.hmModule
-        (import ../../home/maxhero { seat = true; })
-      ];
-    })
-  ];
   # Better voltage and temperature
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
