@@ -14,7 +14,7 @@ let
 in {
   imports = (if seat then [
     ./waybar
-    ./emacs
+    (import ./emacs.nix {seat = seat;})
     ./wofi
     ./browser
     (import ./xdg pkgs defaultBrowser iconTheme terminal)

@@ -1,3 +1,4 @@
+{ seat ? true }:
 { lib, pkgs, ...}:
 {
   programs.doom-emacs = lib.mkIf seat ({
