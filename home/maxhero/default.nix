@@ -65,14 +65,14 @@ in {
     settings = {
       window.opacity = 0.8;
       font = {
-	size = 16;
-	normal.family = "scientifica";
-	bold.family = "scientifica";
-	italic.family = "scientifica";
-	bold_italic = {
-	  family = "scientifica";
-	  size = 9.0;
-	};
+        size = 16;
+        normal.family = "scientifica";
+        bold.family = "scientifica";
+        italic.family = "scientifica";
+        bold_italic = {
+          family = "scientifica";
+          size = 9.0;
+        };
       };
       shell.program = "${pkgs.zsh}/bin/zsh";
     };
