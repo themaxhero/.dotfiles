@@ -14,20 +14,12 @@ let
 in {
   imports = (if seat then [
     ./waybar
+    ./emacs
     ./wofi
     ./browser
     (import ./xdg pkgs defaultBrowser iconTheme terminal)
   ] else []);
 
-  programs.doom-emacs = lib.mkIf seat ({
-    enable = true;
-    doomPrivateDir = ./doom.d;
-    emacsPackagesOverlay = self: super: {
-     magit-delta = super.magit-delta.overrideAttrs (esuper: {
-       buildInputs = esuper.buildInputs ++ [ pkgs.git ];
-     });
-    };
-  });
 
   home.username = "maxhero";
   home.homeDirectory = "/home/maxhero";

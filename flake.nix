@@ -70,7 +70,7 @@
           # home-manager
           home-manager.nixosModules.home-manager ({
             home-manager.useGlobalPkgs = true;
-            home-manager.users.maxhero = lib.mkMerge [
+            home-manager.users.maxhero = nixpkgs.lib.mkMerge [
               nix-doom-emacs.hmModule
               (import ./home/maxhero { seat = false; })
             ];
