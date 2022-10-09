@@ -10,9 +10,10 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
+    flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, ... }@attrs: {
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, ... }@attrs: {
     nixosConfigurations = {
       "maxhero-workstation" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
