@@ -20,7 +20,18 @@ in
           ips = [ "${wgPrefixV4}.1/24" "${wgPrefixV6}:1/64" ];
           listenPort = 51820;
           privateKeyFile = "/home/maxhero/wireguard-keys/private";
-          peers = [];
+          peers = [
+            {
+              publicKey = "N0gfeLuS0AuIEl58Xl80wwGY9Tvn+QyhCnymj64mX04=";
+              allowedIPs = [
+                "${wgPrefixV4}.2/32"
+                "${wgPrefixV6}:2/128"
+                # Multicast
+                "224.0.0.251/32"
+                "ff02::fb/128"
+              ];
+            }
+          ];
           postSetup = ''
                         ip link set wg0 multicast on
             	    ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
