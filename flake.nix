@@ -13,72 +13,85 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, ... }@attrs: {
-    nixosConfigurations = {
-      "maxhero-workstation" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = attrs;
-        modules = [
-          ./modules/common
-          ./modules/development
-          ./modules/gaming
-          ./modules/networking
-          ./modules/sound
-          ./modules/vfio
-          ./maxhero-workstation/configuration.nix
-          ./maxhero-workstation/hardware-configuration.nix
-          home-manager.nixosModules.home-manager ({
-            home-manager.useGlobalPkgs = true;
-            home-manager.users.maxhero = nixpkgs.lib.mkMerge [
-              nix-doom-emacs.hmModule
-              (import ./home/maxhero { seat = true; })
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, ... }@attrs: 
+    let
+      devShells = 
+        (flake-utils.lib.eachDefaultSystem (system:
+          let
+            pkgs = nixpkgs.legacyPackages.${system};
+          in
+          {
+            "maintain" = (import ./shells/maintain.nix { inherit pkgs; });
+          }
+        ));
+    in
+      {
+        devShells = devShells;
+        nixosConfigurations = {
+          "maxhero-workstation" = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = attrs;
+            modules = [
+              ./modules/common
+              ./modules/development
+              ./modules/gaming
+              ./modules/networking
+              ./modules/sound
+              ./modules/vfio
+              ./maxhero-workstation/configuration.nix
+              ./maxhero-workstation/hardware-configuration.nix
+              home-manager.nixosModules.home-manager ({
+                home-manager.useGlobalPkgs = true;
+                home-manager.users.maxhero = nixpkgs.lib.mkMerge [
+                  nix-doom-emacs.hmModule
+                  (import ./home/maxhero { seat = true; })
+                ];
+              })
             ];
-          })
-        ];
-      };
-      "uchigatana" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = attrs;
-        modules = [
-          ./modules/common
-          ./modules/development
-          ./modules/networking
-          ./modules/sound
-          ./modules/wireguard-client.nix
-          ./uchigatana/configuration.nix
-          ./uchigatana/hardware-configuration.nix
-          home-manager.nixosModules.home-manager ({
-            home-manager.useGlobalPkgs = true;
-            home-manager.users.maxhero = nixpkgs.lib.mkMerge [
-              nix-doom-emacs.hmModule
-              (import ./home/maxhero { seat = true; })
+          };
+          "uchigatana" = nixpkgs.lib.nixosSystem {
+            system = "x86_64-linux";
+            specialArgs = attrs;
+            modules = [
+              ./modules/common
+              ./modules/development
+              ./modules/networking
+              ./modules/sound
+              ./modules/wireguard-client.nix
+              ./uchigatana/configuration.nix
+              ./uchigatana/hardware-configuration.nix
+              home-manager.nixosModules.home-manager ({
+                home-manager.useGlobalPkgs = true;
+                home-manager.users.maxhero = nixpkgs.lib.mkMerge [
+                  nix-doom-emacs.hmModule
+                  (import ./home/maxhero { seat = true; })
+                ];
+              })
             ];
-          })
-        ];
-      };
-      "maxhero-vps" = nixpkgs.lib.nixosSystem {
-        system = "aarch64-linux";
-        specialArgs = attrs;
-        modules = [
-          (nixpkgs + "/nixos/modules/profiles/qemu-guest.nix")
-          ./shared/oci-options.nix
-          ./shared/oci-common.nix
-          ./maxhero-vps/core-configuration.nix
-          ./maxhero-vps/configuration.nix
-          ./maxhero-vps/servers/adguard.nix
-          ./maxhero-vps/servers/journal-remote.nix
-          ./maxhero-vps/servers/nginx.nix
-          ./maxhero-vps/servers/wireguard.nix
-          # home-manager
-          home-manager.nixosModules.home-manager ({
-            home-manager.useGlobalPkgs = true;
-            home-manager.users.maxhero = nixpkgs.lib.mkMerge [
-              nix-doom-emacs.hmModule
-              (import ./home/maxhero { seat = false; })
+          };
+          "maxhero-vps" = nixpkgs.lib.nixosSystem {
+            system = "aarch64-linux";
+            specialArgs = attrs;
+            modules = [
+              (nixpkgs + "/nixos/modules/profiles/qemu-guest.nix")
+              ./shared/oci-options.nix
+              ./shared/oci-common.nix
+              ./maxhero-vps/core-configuration.nix
+              ./maxhero-vps/configuration.nix
+              ./maxhero-vps/servers/adguard.nix
+              ./maxhero-vps/servers/journal-remote.nix
+              ./maxhero-vps/servers/nginx.nix
+              ./maxhero-vps/servers/wireguard.nix
+              # home-manager
+              home-manager.nixosModules.home-manager ({
+                home-manager.useGlobalPkgs = true;
+                home-manager.users.maxhero = nixpkgs.lib.mkMerge [
+                  nix-doom-emacs.hmModule
+                  (import ./home/maxhero { seat = false; })
+                ];
+              })
             ];
-          })
-        ];
+          };
+        };
       };
-    };
-  };
 }
