@@ -146,6 +146,9 @@
     forwardX11 = true;
     gatewayPorts = "yes";
     permitRootLogin = "no";
+    extraConfig = ''
+    AllowTCPForwarding yes 
+    ''
   };
 
   # Enable google-authenticator
