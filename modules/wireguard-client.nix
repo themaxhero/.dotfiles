@@ -3,6 +3,7 @@
   networking = {
     wireguard.interfaces.wg0 =
       {
+        privateKeyFile = "/home/maxhero/wireguard-keys/private";
         # In the configuration add `ips` and `privateKeyFile`.
         peers = [
           {

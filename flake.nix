@@ -43,6 +43,7 @@
           ./modules/development
           ./modules/networking
           ./modules/sound
+          ./modules/wireguard-client.nix
           ./uchigatana/configuration.nix
           ./uchigatana/hardware-configuration.nix
           home-manager.nixosModules.home-manager ({
