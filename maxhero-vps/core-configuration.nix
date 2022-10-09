@@ -148,7 +148,7 @@
     permitRootLogin = "no";
     extraConfig = ''
     AllowTCPForwarding yes 
-    ''
+    '';
   };
 
   # Enable google-authenticator
