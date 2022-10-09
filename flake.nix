@@ -11,19 +11,25 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
     flake-utils.url = "github:numtide/flake-utils";
+    devshell.url = "github:numtide/devshell";
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, ... }@attrs: 
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, devshell, ... }@attrs: 
     let
       devShells = 
         (flake-utils.lib.eachDefaultSystem (system:
           let
-            pkgs = nixpkgs.legacyPackages.${system};
+            pkgs = import nixpkgs {
+              inherit system;
+              overlays = [ devshell.overlay ];
+            };
           in
           {
-            "maintain" = (import ./shells/maintain.nix { inherit pkgs; });
+            devShells = {
+              "maintain" = (import ./shells/maintain.nix { inherit pkgs; });
+            };
           }
-        ));
+        )).devShells;
     in
       {
         devShells = devShells;

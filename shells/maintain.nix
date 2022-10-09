@@ -1,6 +1,6 @@
 { pkgs ? import <nixpkgs> { } }:
 with pkgs;
-devshell.mkShell {
+devshell.mkShell { 
   name = "Maintainance Shell";
 
   motd = ''
@@ -22,7 +22,7 @@ devshell.mkShell {
       name = "ru-vps";
       help = "Run update for VPS on Oracle Cloud remotely";
       category = "maintainance";
-      command = "ssh -t vps.maxhero.com.br 'sudo nixos-rebuild switch --flake github:themaxhero/.dotfiles#maxhero-vps --refresh --no-write-lock-file'";
+      command = "ssh -i ~/.ssh/id_ed25519 -t vps.maxhero.com.br 'sudo nixos-rebuild switch --flake github:themaxhero/.dotfiles#maxhero-vps --refresh --no-write-lock-file'";
     }
     {
       name = "upt-vps";
