@@ -144,6 +144,7 @@
     # TODO: Use openssh_hpn
     enable = true;
     forwardX11 = true;
+    gatewayPorts = "yes";
     permitRootLogin = "no";
   };
 
