@@ -3,7 +3,7 @@ let
   eth0 = "enp0s3";
 
   wgPrefixV4 = "10.100.0";
-  wgPrefixV6 = "fda4:4413:3bb1:";
+  wgPrefixV6 = "fdb7:2e96:8e57:";
 in
 {
   networking = {
@@ -21,11 +21,45 @@ in
           listenPort = 51820;
           privateKeyFile = "/home/maxhero/wireguard-keys/private";
           peers = [
+            # Desktop (Linux)
             {
-              publicKey = "N0gfeLuS0AuIEl58Xl80wwGY9Tvn+QyhCnymj64mX04=";
+              publicKey = "ciwz56c/HlbnNxlHkTdxjbD00HI2mZCM0DuZoM64GlU=";
               allowedIPs = [
                 "${wgPrefixV4}.2/32"
                 "${wgPrefixV6}:2/128"
+                # Multicast
+                "224.0.0.251/32"
+                "ff02::fb/128"
+              ];
+            }
+            # Desktop (Windows)
+            {
+              publicKey = "l4LYC2w9yD+r51qDiGaUG6Y8XNpsdUEp1h1yRzgJJ00=";
+              allowedIPs = [
+                "${wgPrefixV4}.3/32"
+                "${wgPrefixV6}:3/128"
+                # Multicast
+                "224.0.0.251/32"
+                "ff02::fb/128"
+              ];
+            }
+            # Laptop (Linux)
+            {
+              publicKey = "N0gfeLuS0AuIEl58Xl80wwGY9Tvn+QyhCnymj64mX04=";
+              allowedIPs = [
+                "${wgPrefixV4}.4/32"
+                "${wgPrefixV6}:4/128"
+                # Multicast
+                "224.0.0.251/32"
+                "ff02::fb/128"
+              ];
+            }
+            # Laptop (Windows)
+            {
+              publicKey = "NXSw6UHX600HCau1zyfzA3aDB7TYNnRUdnp37JGcWE4=";
+              allowedIPs = [
+                "${wgPrefixV4}.5/32"
+                "${wgPrefixV6}:5/128"
                 # Multicast
                 "224.0.0.251/32"
                 "ff02::fb/128"
