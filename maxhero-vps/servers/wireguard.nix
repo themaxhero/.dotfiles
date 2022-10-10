@@ -65,6 +65,17 @@ in
                 "ff02::fb/128"
               ];
             }
+            # Poco X3
+            {
+              publicKey = "GE+KyrEaZNRuT9SaQFlKU8gnBMEmFu9XX2O8mdca11U=";
+              allowedIPs = [
+                "${wgPrefixV4}.6/32"
+                "${wgPrefixV6}:6/128"
+                # Multicast
+                "224.0.0.251/32"
+                "ff02::fb/128"
+              ];
+            }
           ];
           postSetup = ''
                         ip link set wg0 multicast on
