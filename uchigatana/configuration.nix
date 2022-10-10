@@ -16,7 +16,7 @@ in
   # Nvidia Related Stuff
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.latestnvidiaPackage;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
       open = true;
 
       prime = {
