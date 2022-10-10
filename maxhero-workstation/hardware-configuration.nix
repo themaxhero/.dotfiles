@@ -36,31 +36,31 @@
 	# "vfio"
   ];
   boot.extraModulePackages = [ ];
-  boot.kernelPackages = pkgs.linuxPackages_lqx;
+  #boot.kernelPackages = pkgs.linuxPackages_lqx;
   # TODO: maybe remove after ZFS get merged.
-  boot.zfs.enableUnstable = true;
+  #boot.zfs.enableUnstable = true;
 
-  nixpkgs.overlays =
-    let
-      thisConfigsOverlay = final: prev: {
-        # Bump zfs-unstable in linux-lqx
-        linuxPackages_lqx = prev.linuxPackages_lqx.extend (lpFinal: lpPrev: {
-          zfsUnstable = lpPrev.zfsUnstable.overrideAttrs (oldAttrs: {
-            src = pkgs.fetchFromGitHub {
-              owner = "openzfs";
-              repo = "zfs";
-              rev = "zfs-2.1.6";
-              hash = "sha256-gd5WlNtnoSiVj4sKUGf0WhR7Z1GPebwu3Z1mkNsoC/I=";
-            };
-            version = "2.1.6";
-            kernelCompatible = lpFinal.kernelOlder "5.20";
-            passthru.latestCompatibleLinuxPackages = final.linuxKernel.packages.linuxPackages_5_19;
-            meta.broken = false;
-          });
-        });
-      };
-    in
-    [ thisConfigsOverlay ];
+  #nixpkgs.overlays =
+  #  let
+  #    thisConfigsOverlay = final: prev: {
+  #      # Bump zfs-unstable in linux-lqx
+  #      linuxPackages_lqx = prev.linuxPackages_lqx.extend (lpFinal: lpPrev: {
+  #        zfsUnstable = lpPrev.zfsUnstable.overrideAttrs (oldAttrs: {
+  #          src = pkgs.fetchFromGitHub {
+  #            owner = "openzfs";
+  #            repo = "zfs";
+  #            rev = "zfs-2.1.6";
+  #            hash = "sha256-gd5WlNtnoSiVj4sKUGf0WhR7Z1GPebwu3Z1mkNsoC/I=";
+  #          };
+  #          version = "2.1.6";
+  #          kernelCompatible = lpFinal.kernelOlder "5.20";
+  #          passthru.latestCompatibleLinuxPackages = final.linuxKernel.packages.linuxPackages_5_19;
+  #          meta.broken = false;
+  #        });
+  #      });
+  #    };
+  #  in
+  #  [ thisConfigsOverlay ];
 
   fileSystems."/" =
     { device = "zroot/ROOT/default";
