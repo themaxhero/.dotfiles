@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { }, ... }:
+{ pkgs, ... }:
 with pkgs;
 devshell.mkShell { 
   name = "Maintainance Shell";
