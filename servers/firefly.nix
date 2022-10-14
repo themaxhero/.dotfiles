@@ -15,7 +15,7 @@
       "DB_CONNECTION" = "pgsql";
       "DB_DATABASE" = "firefly";
       "DB_USERNAME" = "postgres";
-      "DB_PASSWORD" = "";
+      "DB_PASSWORD" = "postgres";
     };
   };
 }
