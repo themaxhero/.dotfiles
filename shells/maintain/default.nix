@@ -44,7 +44,5 @@ devshell.mkShell {
     }
   ];
 
-  packages = [
-
-  ];
+  packages = [];
 }
