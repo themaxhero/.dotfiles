@@ -3,11 +3,11 @@ nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = attrs;
   modules = [
-  ../modules/common
-  ../modules/development
-  ../modules/networking
-  ../modules/sound
-  ../modules/wireguard-client.nix
+  ../../modules/common
+  ../../modules/development
+  ../../modules/networking
+  ../../modules/sound
+  ../../modules/wireguard-client.nix
   ./configuration.nix
   ./hardware-configuration.nix
   home-manager.nixosModules.home-manager
@@ -15,8 +15,8 @@ nixpkgs.lib.nixosSystem {
       home-manager.useGlobalPkgs = true;
       home-manager.users.maxhero = nixpkgs.lib.mkMerge [
       nix-doom-emacs.hmModule
-      (import ./home/maxhero { seat = true; })
+      (import ../../home/maxhero { seat = true; })
       ];
   })
   ];
-};
+}
