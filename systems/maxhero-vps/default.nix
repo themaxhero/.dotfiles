@@ -7,6 +7,8 @@ nixpkgs.lib.nixosSystem {
     ./core-configuration.nix
     ./configuration.nix
     ../../servers/adguard.nix
+    ../../servers/postgres.nix
+    ../../servers/firefly.nix
     ../../servers/journal-remote.nix
     ../../servers/nginx.nix
     ../../servers/wireguard.nix
