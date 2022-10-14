@@ -1,6 +1,6 @@
 { ... }:
 {
-  service.postgres = {
+  services.postgres = {
     enable = true;
     ensureDatabases = [
       "firefly"
