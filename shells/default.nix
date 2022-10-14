@@ -5,6 +5,7 @@
       inherit system;
       overlays = [ devshell.overlay ];
   };
+  attrs = lib.mkMerge [{inherit pkgs;} attrs];
   in
   {
     devShells =
@@ -14,4 +15,4 @@
         (dirs: builtins.mapAttrs (shell: _: import (./. + "/${shell}") attrs) dirs)
       ];
   }
-)).devShells;
+)).devShells
