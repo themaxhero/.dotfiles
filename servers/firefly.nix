@@ -2,7 +2,6 @@
 {
   virtualisation.oci-containers.containers.firefly = {
     image = "fireflyiii/core:latest";
-    ports = ["8000:8080"];
     volumes = [
       "firefly_iii_upload:/var/www/html/storage/upload"
     ];
@@ -12,10 +11,11 @@
       "APP_KEY" = "opfUryV5FBAD7]yT[7py73IsqmU3M[lN";
       "DB_HOST" = "localhost";
       "DB_PORT" = "5432";
+      "PORT" = "8000";
       "DB_CONNECTION" = "pgsql";
       "DB_DATABASE" = "firefly";
       "DB_USERNAME" = "firefly";
-      "DB_PASSWORD" = "firefly";
+      "DB_PASSWORD" = "";
     };
   };
 }
