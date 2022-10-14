@@ -14,5 +14,10 @@
         };
       }
     ];
+    enableTCPIP = true;
+    authentication = ''
+      local all all trust
+      host all all ::1/128 trust
+    '';
   };
 }
