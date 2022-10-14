@@ -14,7 +14,7 @@
       "PORT" = "8000";
       "DB_CONNECTION" = "pgsql";
       "DB_DATABASE" = "firefly";
-      "DB_USERNAME" = "firefly";
+      "DB_USERNAME" = "postgres";
       "DB_PASSWORD" = "";
     };
   };
