@@ -10,6 +10,12 @@
   networking = {
     hostId = "be2568e2";
     hostName = "maxhero-vps";
+    nameservers = [
+      "1.1.1.1"
+      "1.0.0.1"
+      "8.8.8.8"
+      "8.8.4.4"
+    ];
   };
 
   # Let's Encrypt
