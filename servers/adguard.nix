@@ -55,6 +55,8 @@
         upstream_dns = [ "https://dns.google/dns-query" ];
         upstream_dns_file = "";
         bootstrap_dns = [
+          "1.1.1.1"
+          "1.0.0.1"
           "8.8.8.8"
           "8.8.4.4"
           "2001:4860:4860::8888"
