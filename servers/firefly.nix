@@ -11,7 +11,7 @@
       "APP_KEY" = "opfUryV5FBAD7]yT[7py73IsqmU3M[lN";
       "DB_HOST" = "host.docker.internal";
       "DB_PORT" = "5432";
-      "DB_CONNECTION" = "postgres";
+      "DB_CONNECTION" = "pgsql";
       "DB_DATABASE" = "firefly";
       "DB_USERNAME" = "firefly";
       "DB_PASSWORD" = "firefly";
