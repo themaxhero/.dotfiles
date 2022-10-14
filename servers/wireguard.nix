@@ -78,11 +78,11 @@ in
             }
           ];
           postSetup = ''
-                        ip link set wg0 multicast on
-            	    ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
-            	    ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${wgPrefixV4}.0/24 -o ${eth0} -j MASQUERADE
-            	    ${pkgs.iptables}/bin/ip6tables -A FORWARD -i wg0 -j ACCEPT
-            	    ${pkgs.iptables}/bin/ip6tables -t nat -A POSTROUTING -s ${wgPrefixV6}:0/64 -o ${eth0} -j MASQUERADE
+            ip link set wg0 multicast on
+            ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
+            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s ${wgPrefixV4}.0/24 -o ${eth0} -j MASQUERADE
+            ${pkgs.iptables}/bin/ip6tables -A FORWARD -i wg0 -j ACCEPT
+            ${pkgs.iptables}/bin/ip6tables -t nat -A POSTROUTING -s ${wgPrefixV6}:0/64 -o ${eth0} -j MASQUERADE
           '';
           postShutdown = ''
             ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
