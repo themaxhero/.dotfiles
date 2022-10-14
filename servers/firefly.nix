@@ -2,7 +2,7 @@
 {
   virtualisation.oci-containers.containers.firefly = {
     image = "fireflyiii/core:latest";
-    ports = ["6000:8080"];
+    ports = ["8000:8080"];
     volumes = [
       "firefly_iii_upload:/var/www/html/storage/upload"
     ];
