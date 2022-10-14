@@ -14,52 +14,52 @@ in
   };
   
   # Nvidia Related Stuff
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
-      open = true;
+  # services.xserver.videoDrivers = [ "nvidia" ];
+  # hardware.nvidia = {
+  #     package = config.boot.kernelPackages.nvidiaPackages.latest;
+  #     open = true;
 
-      prime = {
-      offload.enable = true;
-      amdgpuBusId = "PCI:5:0:0"; # Bus ID of the Intel GPU.
-      nvidiaBusId = "PCI:1:0:0"; # Bus ID of the NVIDIA GPU.
-      };
+  #     prime = {
+  #     offload.enable = true;
+  #     amdgpuBusId = "PCI:5:0:0"; # Bus ID of the Intel GPU.
+  #     nvidiaBusId = "PCI:1:0:0"; # Bus ID of the NVIDIA GPU.
+  #     };
 
-      powerManagement = {
-      enable = true;
-      finegrained = true;
-      };
-  };
-  environment = {
-      systemPackages = with pkgs; [
-      airgeddon
-      nvidia-offload
-      ];
-      variables = {
-      "VK_ICD_FILENAMES" = "/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json:/run/opengl-driver-32/share/vulkan/icd.d/in
-  tel_icd.i686.json";
-      };
-  };
+  #     powerManagement = {
+  #     enable = true;
+  #     finegrained = true;
+  #     };
+  # };
+  # environment = {
+  #     systemPackages = with pkgs; [
+  #     airgeddon
+  #     nvidia-offload
+  #     ];
+  #     variables = {
+  #     "VK_ICD_FILENAMES" = "/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json:/run/opengl-driver-32/share/vulkan/icd.d/in
+  # tel_icd.i686.json";
+  #     };
+  # };
 
 
   # Override some packages' settings, sources, etc...
-  nixpkgs.overlays =
-    let
-      thisConfigsOverlay = final: prev: {
-        # Allow steam to find nvidia-offload script
-        steam = prev.steam.override {
-          extraPkgs = pkgs: [ final.nvidia-offload ];
-        };
+  # nixpkgs.overlays =
+  #   let
+  #     thisConfigsOverlay = final: prev: {
+  #       # Allow steam to find nvidia-offload script
+  #       steam = prev.steam.override {
+  #         extraPkgs = pkgs: [ final.nvidia-offload ];
+  #       };
 
-        # NVIDIA Offloading (ajusted to work on Wayland and XWayland).
-        nvidia-offload = final.callPackage ../shared/nvidia-offload.nix { };
-      };
-    in
-    [ thisConfigsOverlay ];
+  #       # NVIDIA Offloading (ajusted to work on Wayland and XWayland).
+  #       nvidia-offload = final.callPackage ../shared/nvidia-offload.nix { };
+  #     };
+  #   in
+  #   [ thisConfigsOverlay ];
 
-  # Creates a second boot entry without nvidia-open
-  specialisation.nvidia-proprietary.configuration = {
-    system.nixos.tags = [ "nvidia-proprietary" ];
-    hardware.nvidia.open = lib.mkForce false;
-  };
+  # # Creates a second boot entry without nvidia-open
+  # specialisation.nvidia-proprietary.configuration = {
+  #   system.nixos.tags = [ "nvidia-proprietary" ];
+  #   hardware.nvidia.open = lib.mkForce false;
+  # };
 }
