@@ -12,5 +12,5 @@
         "ALL TABLES IN SCHEMA public" = "ALL PRIVILEGES";
       };
     };
-  }
+  };
 }

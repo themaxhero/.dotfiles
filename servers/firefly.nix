@@ -12,5 +12,5 @@
       "DB_USERNAME" = "firefly";
       "DB_PASSWORD" = "firefly";
     };
-  }
+  };
 }
