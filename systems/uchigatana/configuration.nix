@@ -12,19 +12,21 @@ in
     ips = [ "10.100.0.4/24" "fdb7:2e96:8e57::4/64" ];
     privateKeyFile = "/home/maxhero/wireguard-keys/private";
   };
-  
+
+  environment.systemPackages = with pkgs; [
+    waynergy
+  ];
+
   # Nvidia Related Stuff
   # services.xserver.videoDrivers = [ "nvidia" ];
   # hardware.nvidia = {
   #     package = config.boot.kernelPackages.nvidiaPackages.latest;
   #     open = true;
-
   #     prime = {
   #     offload.enable = true;
   #     amdgpuBusId = "PCI:5:0:0"; # Bus ID of the Intel GPU.
   #     nvidiaBusId = "PCI:1:0:0"; # Bus ID of the NVIDIA GPU.
   #     };
-
   #     powerManagement = {
   #     enable = true;
   #     finegrained = true;
