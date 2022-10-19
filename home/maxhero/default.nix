@@ -577,5 +577,7 @@ in {
       export QT_PLATFORMTHEME='kde'
     '';
   };
+
+  manual.manpages.enable = false;
   home.stateVersion = "21.11";
 }

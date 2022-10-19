@@ -77,7 +77,7 @@ in
     usbutils
     wget
     wpsoffice
-    xarchiver
+    #xarchiver
     xdg-utils
     zoom-us
 
@@ -88,7 +88,6 @@ in
     gimp
     archiver
     dotnet-sdk
-    xarchiver
     waybar
     helvum
     neofetch
