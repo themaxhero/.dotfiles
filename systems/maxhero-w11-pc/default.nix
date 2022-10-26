@@ -16,7 +16,7 @@ nixpkgs.lib.nixosSystem {
         home-manager.useGlobalPkgs = true;
         home-manager.users.maxhero = nixpkgs.lib.mkMerge [
         nix-doom-emacs.hmModule
-        (import ../../home/maxhero { seat = true; })
+        (import ../../home/maxhero { seat = false; })
         ];
     })
   ];
