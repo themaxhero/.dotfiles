@@ -258,5 +258,4 @@ in
   time.timeZone = "America/Sao_Paulo";
 
   system.autoUpgrade.enable = true;
-  system.stateVersion = "21.11";
 }

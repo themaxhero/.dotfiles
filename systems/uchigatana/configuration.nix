@@ -64,4 +64,6 @@ in
   #   system.nixos.tags = [ "nvidia-proprietary" ];
   #   hardware.nvidia.open = lib.mkForce false;
   # };
+
+  system.stateVersion = "21.11";
 }
