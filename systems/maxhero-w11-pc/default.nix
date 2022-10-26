@@ -9,7 +9,7 @@ nixpkgs.lib.nixosSystem {
     ../../modules/sound
     ../../modules/wireguard-client.nix
     ./configuration.nix
-    "${modulesPath}/profiles/minimal.nix"
+    "${nixpkgs}/nixos/modules/profiles/minimal.nix"
     nixos-wsl.nixosModules.wsl
     home-manager.nixosModules.home-manager
     ({
