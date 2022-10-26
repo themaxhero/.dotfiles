@@ -1,4 +1,4 @@
-{ nixpkgs, home-manager, nix-doom-emacs, ... }@attrs:
+{ nixpkgs, home-manager, nix-doom-emacs, nixos-wsl, modulesPath, ... }@attrs:
 nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = attrs;
@@ -9,6 +9,8 @@ nixpkgs.lib.nixosSystem {
     ../../modules/sound
     ../../modules/wireguard-client.nix
     ./configuration.nix
+    "${modulesPath}/profiles/minimal.nix"
+    nixos-wsl.nixosModules.wsl
     home-manager.nixosModules.home-manager
     ({
         home-manager.useGlobalPkgs = true;
