@@ -1,4 +1,4 @@
-{ nixpkgs, home-manager, nix-doom-emacs, nixos-wsl, modulesPath, ... }@attrs:
+{ nixpkgs, home-manager, nix-doom-emacs, nixos-wsl, ... }@attrs:
 nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = attrs;
