@@ -3,10 +3,6 @@ let
   nowl = (import ../../tools/nowl.nix) pkgs;
 in
 {
-  # Better voltage and temperature
-  boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
   users.users = {
     maxhero = {
       isNormalUser = true;
@@ -26,10 +22,6 @@ in
       shell = pkgs.bash;
     };
   };
-
-  # Use Systemd Boot
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.systemd-boot.enable = true;
 
   console = {
     font = "Lat2-Terminus16";
