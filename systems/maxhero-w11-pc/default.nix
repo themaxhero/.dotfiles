@@ -9,7 +9,6 @@ nixpkgs.lib.nixosSystem {
     ../../modules/sound
     ../../modules/wireguard-client.nix
     ./configuration.nix
-    ./hardware-configuration.nix
     home-manager.nixosModules.home-manager
     ({
         home-manager.useGlobalPkgs = true;
