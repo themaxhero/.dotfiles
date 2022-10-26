@@ -10,6 +10,7 @@ nixpkgs.lib.nixosSystem {
     ../../modules/sound
     ../../modules/vfio
     ../../modules/wireguard-client.nix
+    ../../modules/linux-only
     ./configuration.nix
     ./hardware-configuration.nix
     home-manager.nixosModules.home-manager

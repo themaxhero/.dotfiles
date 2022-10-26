@@ -4,6 +4,7 @@ nixpkgs.lib.nixosSystem {
   specialArgs = attrs;
   modules = [
     ../../modules/common
+    ../../modules/linux-only
     ../../modules/development
     ../../modules/networking
     ../../modules/sound
