@@ -9,25 +9,28 @@
     ];
 
   boot.initrd.availableKernelModules = [
-	"nvme"
-	"xhci_pci"
-	"ahci"
-	"usb_storage"
-	"usbhid"
-	"sd_mod"
-	"sr_mod"
+    "nvme"
+    "xhci_pci"
+    "ahci"
+    "usb_storage"
+    "usbhid"
+    "sd_mod"
+    "sr_mod"
   ];
+
   boot.kernelParams = [
 	"amd_iommu=on"
 	# "vfio-pci.ids=1002:67df,1002:aaf0"
 	"libata.force=4.00:disable"
   ];
+
   boot.initrd.kernelModules = [
 	# "vfio_virqfd"
 	# "vfio_pci"
 	# "vfio_iommu_type1"
 	# "vfio"
   ];
+
   boot.kernelModules = [
 	"kvm-amd"
 	# "vfio_virqfd"
@@ -35,64 +38,63 @@
 	# "vfio_iommu_type1"
 	# "vfio"
   ];
+
   boot.extraModulePackages = [ ];
   #boot.kernelPackages = pkgs.linuxPackages_lqx;
   # TODO: maybe remove after ZFS get merged.
   #boot.zfs.enableUnstable = true;
 
-  fileSystems."/" =
-    { device = "zroot/ROOT/default";
-      fsType = "zfs";
-    };
+  fileSystems."/" = {
+    device = "zroot/ROOT/default";
+    fsType = "zfs";
+  };
 
-  fileSystems."/etc/ssh" =
-    { device = "zroot/data/ssh";
-      fsType = "zfs";
-    };
+  fileSystems."/etc/ssh" = {
+    device = "zroot/data/ssh";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    { device = "zroot/data/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home" = {
+    device = "zroot/data/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/usr/local" =
-    { device = "zroot/data/usr-local";
-      fsType = "zfs";
-    };
+  fileSystems."/usr/local" = {
+    device = "zroot/data/usr-local";
+    fsType = "zfs";
+  };
 
-  fileSystems."/etc/NetworkManager/system-connections" =
-    { device = "zroot/data/connections";
-      fsType = "zfs";
-    };
+  fileSystems."/etc/NetworkManager/system-connections" = {
+    device = "zroot/data/connections";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home/maxhero/Games" =
-    { device = "zroot/games/home";
-      fsType = "zfs";
-    };
+  fileSystems."/home/maxhero/Games" = {
+    device = "zroot/games/home";
+    fsType = "zfs";
+ };
 
-  fileSystems."/home/maxhero/.cache/btdownloads" =
-    { device = "zroot/data/btdownloads";
-      fsType = "zfs";
-    };
+  fileSystems."/home/maxhero/.cache/btdownloads" = {
+    device = "zroot/data/btdownloads";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home/maxhero/.local/share/Steam/steamapps/common" =
-    { device = "zroot/games/steam";
-      fsType = "zfs";
-    };
+  fileSystems."/home/maxhero/.local/share/Steam/steamapps/common" = {
+    device = "zroot/games/steam";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/5E85-DE1E";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/5E85-DE1E";
+    fsType = "vfat";
+  };
 
-  fileSystems."/data/puppet" =
-    { device = "/dev/disk/by-uuid/f810ae2c-7956-4300-93a4-1894b50501f7";
-      fsType = "ext4";
-    };
+  fileSystems."/data/puppet" = {
+    device = "/dev/disk/by-uuid/f810ae2c-7956-4300-93a4-1894b50501f7";
+    fsType = "ext4";
+  };
 
-  swapDevices =
-    [ { device = "/dev/disk/by-uuid/66fee4ef-15f3-434b-b567-54f7e0ca0ef3"; }
-    ];
+  swapDevices = [ { device = "/dev/disk/by-uuid/66fee4ef-15f3-434b-b567-54f7e0ca0ef3"; } ];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   # high-resolution display

@@ -13,11 +13,11 @@ nixpkgs.lib.nixosSystem {
     nixos-wsl.nixosModules.wsl
     home-manager.nixosModules.home-manager
     ({
-        home-manager.useGlobalPkgs = true;
-        home-manager.users.maxhero = nixpkgs.lib.mkMerge [
-        nix-doom-emacs.hmModule
-        (import ../../home/maxhero { seat = false; })
-        ];
+      home-manager.useGlobalPkgs = true;
+      home-manager.users.maxhero = ../../home/maxhero;
+      home-manager.users.maxhero.graphical-interface.enable = false;
+      home-manager.users.maxhero.gaming.enable = false;
+      home-manager.users.maxhero.development.enable = true;
     })
   ];
 }

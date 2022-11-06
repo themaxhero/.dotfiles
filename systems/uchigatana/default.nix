@@ -4,7 +4,8 @@ nixpkgs.lib.nixosSystem {
   specialArgs = attrs;
   modules = [
     ../../modules/common
-    ../../modules/linux-only
+    ../../modules/bare-metal
+    ../../modules/graphical-interface
     ../../modules/development
     ../../modules/networking
     ../../modules/sound
@@ -13,11 +14,11 @@ nixpkgs.lib.nixosSystem {
     ./hardware-configuration.nix
     home-manager.nixosModules.home-manager
     ({
-        home-manager.useGlobalPkgs = true;
-        home-manager.users.maxhero = nixpkgs.lib.mkMerge [
-        nix-doom-emacs.hmModule
-        (import ../../home/maxhero { seat = true; })
-        ];
+      home-manager.useGlobalPkgs = true;
+      home-manager.users.maxhero = ../../home/maxhero;
+      home-manager.users.maxhero.graphical-interface.enable = true;
+      home-manager.users.maxhero.gaming.enable = false;
+      home-manager.users.maxhero.development.enable = true;
     })
   ];
 }

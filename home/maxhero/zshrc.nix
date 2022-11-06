@@ -1,12 +1,13 @@
-pkgs: theme:
+{ pkgs, theme }:
 let
   cowsay = "${pkgs.cowsay}/bin/cowsay";
   cows = "${pkgs.cowsay}/share/cows";
   fortune = "${pkgs.fortune}/bin/fortune";
   lolcat = "${pkgs.lolcat}/bin/lolcat";
+  oh-my-zsh = "${pkgs.oh-my-zsh}/share/oh-my-zsh/oh-my-zsh.sh";
 in
 ''
-fortune | ${cowsay} -f $(ls ${cows} | grep .cow | grep -v sodomized | grep -v telebears | shuf -n 1) | ${lolcat}
+${fortune} | ${cowsay} -f $(ls ${cows} | grep .cow | grep -v sodomized | grep -v telebears | shuf -n 1) | ${lolcat}
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -78,7 +79,7 @@ HIST_STAMPS="dd/mm/yyyy"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git asdf mix archlinux gitignore vi-mode)
 
-source ${pkgs.oh-my-zsh}/share/oh-my-zsh/oh-my-zsh.sh
+source ${oh-my-zsh}
 
 # User configuration
 

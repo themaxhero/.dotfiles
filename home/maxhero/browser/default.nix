@@ -1,4 +1,7 @@
 { pkgs, nur, lib, ... }:
+let
+  firefox = "${pkgs.firefox}/bin/firefox";
+in
 {
   # TODO: Find out why this import is causing problems.
   # This import is necessary to get NUR working
@@ -31,27 +34,18 @@
   xdg = {
     desktopEntries = {
       "firefox-mindlab" = {
-        name = "Firefox (MindLab)";
+        name = "Firefox (Wayland - Profile: MindLab)";
         genericName = "Web Browser";
-        exec = "${pkgs.firefox}/bin/firefox -p mindlab %U";
+        exec = "${firefox} -p mindlab %U";
         terminal = false;
         icon = "firefox";
         categories = [ "Application" "Network" "WebBrowser" ];
-        mimeType = [
-          "application/pdf"
-          "application/vnd.mozilla.xul+xml"
-          "application/xhtml+xml"
-          "text/html"
-          "text/xml"
-          "x-scheme-handler/http"
-          "x-scheme-handler/https"
-        ];
         type = "Application";
       };
       "firefox" = {
         name = "Firefox (Wayland)";
         genericName = "Web Browser";
-        exec = "${pkgs.firefox}/bin/firefox %U";
+        exec = "${firefox} %U";
         terminal = false;
         icon = "firefox";
         categories = [ "Application" "Network" "WebBrowser" ];

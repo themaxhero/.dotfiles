@@ -23,10 +23,10 @@
     fsType = "ext4";
   };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/7068-CB8C";
-      fsType = "vfat";
-    };
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/7068-CB8C";
+    fsType = "vfat";
+  };
 
   swapDevices = [ ];
 

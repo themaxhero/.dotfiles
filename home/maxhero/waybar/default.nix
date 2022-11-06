@@ -1,14 +1,14 @@
 { config, pkgs, lib, ... }:
 let
-    hostName = builtins.getEnv "HOSTNAME";
+    isUchigatana = config.networking.hostName == "uchigatana";
     desktopHostname = "maxhero-workstation";
     batteryComponent = ''
     "custom/left-arrow-dark",
     "battery",
     "custom/left-arrow-light",
     '';
-    battery = if (hostName == desktopHostname) then batteryComponent else "";
-    fontSize = if (hostName == desktopHostname) then 24 else 16;
+    battery = if isUchigatana then batteryComponent else "";
+    fontSize = if isUchigatana then 24 else 16;
     waybar = "${pkgs.waybar}/bin/waybar";
 in
 {
@@ -349,7 +349,7 @@ in
 
     xdg.configFile."waybar.sh" = {
         text = ''
-        #!/usr/bin/env bash
+        #!${pkgs.bash}/bin/bash
         # Terminate already running bar instances
         killall -q ${waybar}
         killall -q .waybar-wrapped

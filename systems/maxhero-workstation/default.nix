@@ -5,21 +5,22 @@ nixpkgs.lib.nixosSystem {
   modules = [
     ../../modules/common
     ../../modules/development
+    ../../modules/graphical-interface
     ../../modules/gaming
     ../../modules/networking
     ../../modules/sound
     ../../modules/vfio
     ../../modules/wireguard-client.nix
-    ../../modules/linux-only
+    ../../modules/bare-metal
     ./configuration.nix
     ./hardware-configuration.nix
     home-manager.nixosModules.home-manager
     ({
-        home-manager.useGlobalPkgs = true;
-        home-manager.users.maxhero = nixpkgs.lib.mkMerge [
-        nix-doom-emacs.hmModule
-        (import ../../home/maxhero { seat = true; })
-        ];
+      home-manager.useGlobalPkgs = true;
+      home-manager.users.maxhero = ../../home/maxhero;
+      home-manager.users.maxhero.graphical-interface.enable = true;
+      home-manager.users.maxhero.gaming.enable = true;
+      home-manager.users.maxhero.development.enable = true;
     })
   ];
 }

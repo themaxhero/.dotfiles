@@ -1,7 +1,7 @@
-pkgs:
-defaultBrowser:
-iconTheme:
-terminal:
+{pkgs, defaultBrowser, iconTheme, terminal}:
+let
+  lxqt-sudo = "${pkgs.lxqt.lxqt-sudo}/bin/lxqt-sudo";
+in
 with pkgs.lib;
 {
   xdg = {
@@ -18,7 +18,7 @@ with pkgs.lib;
             Archiver = "xarchiver";
             FallbackIconThemeName = iconTheme;
             Terminal = "${terminal}";
-            SuCommand = "${pkgs.lxqt.lxqt-sudo}/bin/lxqt-sudo %s";
+            SuCommand = "${lxqt-sudo} %s";
           };
           Thumbnail = { ShowThumbnails = true; };
           Volume = {

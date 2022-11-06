@@ -10,13 +10,6 @@
     automountPath = "/mnt";
     defaultUser = "maxhero";
     startMenuLaunchers = true;
-
-    # Enable native Docker support
-    # docker-native.enable = true;
-
-    # Enable integration with Docker Desktop (needs to be installed)
-    # docker-desktop.enable = true;
-
   };
 
   # Enable nix flakes

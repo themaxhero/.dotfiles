@@ -1,30 +1,5 @@
 { pkgs, lib, ... }:
 let
-  emacs = (pkgs.emacsWithPackagesFromUsePackage {
-    package = pkgs.emacsGit;
-    extraEmacsPackages = epkgs:
-      with epkgs; [
-        vterm
-        magit
-        org
-        tide
-        neotree
-        hl-todo
-        doom-modeline
-        popup
-        vi-tilde-fringe
-        parinfer-rust-mode
-        multiple-cursors
-        consult
-        embark-consult
-        dockerfile-mode
-        docker-compose-mode
-        ansible
-        editorconfig
-        gist
-        alchemist
-      ];
-  });
   vsCodeExtensions = (with pkgs.vscode-extensions; [
     {
       name = "vscode-terminals";
@@ -74,8 +49,6 @@ let
   };
 in
 {
-  environment.variables.EDITOR = "vim";
-
   environment.systemPackages = with pkgs; [
     # AWS
     awscli
@@ -87,6 +60,10 @@ in
     kubernetes
     minikube
     k9s
+
+    # DotNet
+    dotnet-sdk
+
 
     # Development
     google-clasp
@@ -118,10 +95,8 @@ in
     # rtags
     ripgrep
 
-    # nix-doom-emacs.doom-emacs
     nodePackages.stylelint
     nodePackages.js-beautify
-    emacs28Packages.vterm
     mu
     zig
     python39Packages.nose
@@ -159,16 +134,12 @@ in
     jq
     fd
     xdelta
+
+    # Android Stuff
+    android-tools
+    adbfs-rootless
   ];
 
-  #nixpkgs.overlays = [
-  #  (import (builtins.fetchTarball {
-  #    url =
-  #      "https://github.com/nix-community/emacs-overlay/archive/master.tar.gz";
-  #  }))
-  #];
-
-  services.emacs.enable = true;
   services.postgresql.enable = true;
   services.postgresql.authentication = lib.mkForce ''
     # Generated file; do not edit!
@@ -181,16 +152,14 @@ in
   virtualisation = {
     podman = {
       enable = true;
-      dockerSocket = { enable = true; };
+      dockerSocket.enable = true;
       dockerCompat = true;
     };
   };
 
   # Make containers work properly
-  systemd.services."user@".serviceConfig = { Delegate = "yes"; };
-
+  systemd.services."user@".serviceConfig.Delegate = "yes";
   programs.gnupg.agent.enable = true;
   programs.gnupg.agent.enableSSHSupport = true;
-
   security.pam.enableSSHAgentAuth = true;
 }
