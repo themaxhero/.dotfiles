@@ -1,5 +1,4 @@
-{ config, ... }:
-{
+{ pkgs, config, ... }: {
   # Better voltage and temperature
   boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
@@ -12,10 +11,7 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      rocm-opencl-icd
-      rocm-opencl-runtime
-    ];
+    extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
   };
 
   programs.nm-applet.enable = true;

@@ -1,4 +1,4 @@
-{ config, pkgs, nur, lib, home-manager, nix-doom-emacs, ... }:
+{ options, config, pkgs, nur, lib, home-manager, nix-doom-emacs, ... }:
 with pkgs.lib;
 let
   modifier = "Mod4";
@@ -12,34 +12,21 @@ let
   shell = "${pkgs.zsh}/bin/zsh";
   defaultBrowser = "firefox.desktop";
   oh-my-zsh-theme = "lambda";
-  lock = "~/.config/sway/lock.sh --indicator --indicator-radius 100 --ring-color e40000 --clock";
-  zshrc = (import ./zshrc.nix) { inherit pkgs; theme = oh-my-zsh-theme; };
-in 
-lib.mkMerge [
+  lock =
+    "~/.config/sway/lock.sh --indicator --indicator-radius 100 --ring-color e40000 --clock";
+  zshrc = (import ./zshrc.nix) {
+    inherit pkgs;
+    theme = oh-my-zsh-theme;
+  };
+in lib.mkMerge [
   nix-doom-emacs.hmModule
   {
-    options.development.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = ''
-      Enable development tools for user
-      '';
-    };
-
-    options.gaming.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = ''
-      Enable gaming tools for user
-      '';
-    };
-
-    options.graphical-interface.enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = ''
-      Enable graphical interface for user
-      '';
+    options = {
+      development.enable =
+        lib.mkEnableOption "Enable development tools for user";
+      gaming.enable = lib.mkEnableOption "Enable gaming tools for user";
+      graphical-interface.enable =
+        lib.mkEnableOption "Enable graphical interface for user";
     };
 
     config = {
@@ -74,9 +61,7 @@ lib.mkMerge [
         };
         includes = [{
           condition = "gitdir:/home/maxhero/projects/mindlab/";
-          contents = {
-            user.email = "marcelo.amancio@mindlab.com.br";
-          };
+          contents = { user.email = "marcelo.amancio@mindlab.com.br"; };
         }];
       };
 
@@ -99,28 +84,19 @@ lib.mkMerge [
         };
       };
 
-      imports =
-        if config.development.enable then [
-          ./emacs.nix
-        ]
-        else [];
-
       programs.doom-emacs = lib.mkIf config.development.enable {
         enable = true;
         doomPrivateDir = ./doom.d;
         emacsPackagesOverlay = self: super: {
-          magit-delta = super.magit-delta.overrideAttrs (esuper: {
-            buildInputs = esuper.buildInputs ++ [ pkgs.git ];
-          });
+          magit-delta = super.magit-delta.overrideAttrs
+            (esuper: { buildInputs = esuper.buildInputs ++ [ pkgs.git ]; });
         };
       };
 
       programs.chromium = lib.mkIf config.graphical-interface.enable {
         enable = true;
         package = pkgs.ungoogled-chromium;
-        extensions = [
-          { id = "nngceckbapebfimnlniiiahkandclblb"; }
-        ];
+        extensions = [{ id = "nngceckbapebfimnlniiiahkandclblb"; }];
       };
 
       programs.mangohud = lib.mkIf config.gaming.enable {
@@ -165,8 +141,7 @@ lib.mkMerge [
         };
       };
 
-      home.packages = 
-        if config.graphical-interface.enable then
+      home.packages = if config.graphical-interface.enable then
         (with pkgs; [
           swaynotificationcenter
           sway-launcher-desktop
@@ -174,10 +149,12 @@ lib.mkMerge [
           tela-circle-icon-theme
           tenacity
         ])
-        else [];
+      else
+        [ ];
       services.blueman-applet.enable = config.graphical-interface.enable;
       services.mpd-discord-rpc.enable = config.graphical-interface.enable;
-      services.network-manager-applet.enable = config.graphical-interface.enable;
+      services.network-manager-applet.enable =
+        config.graphical-interface.enable;
       services.playerctld.enable = config.graphical-interface.enable;
       services.swayidle.enable = config.graphical-interface.enable;
       gtk = lib.mkIf config.graphical-interface.enable {
@@ -194,10 +171,13 @@ lib.mkMerge [
         ./waybar
         ./wofi
         ./browser
-        (import ./sway { inherit pkgs lib modifier modifier2 gtkTheme lock menu terminal; })
+        (import ./sway {
+          inherit pkgs lib modifier modifier2 gtkTheme lock menu terminal;
+        })
         (import ./xdg { inherit pkgs defaultBrowser iconTheme terminal; })
         (import ./dconf { inherit lib; })
-      ] else []);
+      ] else
+        [ ]) ++ (if config.development.enable then [ ./emacs.nix ] else [ ]);
 
       programs.aria2.enable = true;
       programs.bat.enable = true;
@@ -223,7 +203,7 @@ lib.mkMerge [
       programs.ssh = {
         enable = true;
         matchBlocks = {
-          "github.com-mindlab" = {
+          "github.com-mindlab" = lib.mkIf config.development.enable {
             hostname = "github.com";
             user = "maxhero-mindlab";
             identityFile = "~/.ssh/mindlab_ed25519";

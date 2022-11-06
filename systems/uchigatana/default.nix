@@ -15,10 +15,13 @@ nixpkgs.lib.nixosSystem {
     home-manager.nixosModules.home-manager
     ({
       home-manager.useGlobalPkgs = true;
-      home-manager.users.maxhero = ../../home/maxhero;
-      home-manager.users.maxhero.graphical-interface.enable = true;
-      home-manager.users.maxhero.gaming.enable = false;
-      home-manager.users.maxhero.development.enable = true;
+      home-manager.users.maxhero = nixpkgs.lib.mkMerge [
+        ../../home/maxhero
+        {
+          graphical-interface.enable = true;
+          development.enable = true;
+        }
+      ];
     })
   ];
 }
