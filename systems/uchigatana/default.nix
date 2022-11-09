@@ -16,11 +16,16 @@ nixpkgs.lib.nixosSystem {
     ({
       home-manager.useGlobalPkgs = true;
       home-manager.users.maxhero = nixpkgs.lib.mkMerge [
-        ../../home/maxhero
-        {
+        (import ../../home/maxhero {
+          inherit nix-doom-emacs;
+          pkgs = nixpkgs;
+          lib = nixpkgs.lib;
+        })
+        ({ ... }: {
           graphical-interface.enable = true;
           development.enable = true;
-        }
+          home.stateVersion = "21.11";
+        })
       ];
     })
   ];

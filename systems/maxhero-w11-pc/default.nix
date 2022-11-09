@@ -14,10 +14,19 @@ nixpkgs.lib.nixosSystem {
     home-manager.nixosModules.home-manager
     ({
       home-manager.useGlobalPkgs = true;
-      home-manager.users.maxhero = ../../home/maxhero;
-      home-manager.users.maxhero.graphical-interface.enable = false;
-      home-manager.users.maxhero.gaming.enable = false;
-      home-manager.users.maxhero.development.enable = true;
+      home-manager.users.maxhero = nixpkgs.lib.mkMerge [
+        (import ../../home/maxhero {
+          inherit nix-doom-emacs;
+          pkgs = nixpkgs;
+          lib = nixpkgs.lib;
+        })
+        ({ ... }: {
+          graphical-interface.enable = false;
+          development.enable = true;
+          gaming.enable = false;
+          home.stateVersion = "21.11";
+        })
+      ];
     })
   ];
 }

@@ -1,44 +1,45 @@
-{...}:
-{
+{ config, lib, ... }: {
+  config = lib.mkIf config.graphical-interface.enable {
     xdg.configFile."wofi/style.css".text = ''
-    window {
-    margin: 0px;
-    border: 1px solid #fb246f;
-    background-color: #272822;
-    }
+      window {
+      margin: 0px;
+      border: 1px solid #fb246f;
+      background-color: #272822;
+      }
 
-    #input {
-    margin: 5px;
-    border: none;
-    color: #a0e300;
-    background-color: #32332b;
-    }
+      #input {
+      margin: 5px;
+      border: none;
+      color: #a0e300;
+      background-color: #32332b;
+      }
 
-    #inner-box {
-    margin: 5px;
-    border: none;
-    background-color: #272822;
-    }
+      #inner-box {
+      margin: 5px;
+      border: none;
+      background-color: #272822;
+      }
 
-    #outer-box {
-    margin: 5px;
-    border: none;
-    background-color: #272822;
-    }
+      #outer-box {
+      margin: 5px;
+      border: none;
+      background-color: #272822;
+      }
 
-    #scroll {
-    margin: 0px;
-    border: none;
-    }
+      #scroll {
+      margin: 0px;
+      border: none;
+      }
 
-    #text {
-    margin: 5px;
-    border: none;
-    color: #f8f8f2;
-    } 
+      #text {
+      margin: 5px;
+      border: none;
+      color: #f8f8f2;
+      }
 
-    #entry:selected {
-    background-color: #32332b;
-    }
+      #entry:selected {
+      background-color: #32332b;
+      }
     '';
+  };
 }

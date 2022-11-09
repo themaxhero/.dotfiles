@@ -1,8 +1,4 @@
-{ config, pkgs, lib, home-manager, nix-gaming, ... }:
-let
-  nowl = (import ../tools/nowl.nix) pkgs;
-in
-{
+{ config, pkgs, lib, home-manager, nix-gaming, ... }: {
   networking = {
     hostId = "cc1f83cb";
     hostName = "uchigatana";
@@ -13,9 +9,7 @@ in
     privateKeyFile = "/home/maxhero/wireguard-keys/private";
   };
 
-  environment.systemPackages = with pkgs; [
-    waynergy
-  ];
+  environment.systemPackages = with pkgs; [ waynergy ];
 
   system.stateVersion = "21.11";
 }

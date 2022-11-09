@@ -1,4 +1,4 @@
-{nixpkgs, home-manager, nix-doom-emacs, ...}@attrs:
+{ nixpkgs, home-manager, nix-doom-emacs, ... }@attrs:
 nixpkgs.lib.nixosSystem {
   system = "aarch64-linux";
   specialArgs = attrs;
@@ -15,11 +15,21 @@ nixpkgs.lib.nixosSystem {
     ../../shared/oci-options.nix
     ../../shared/oci-common.nix
     # home-manager
-    home-manager.nixosModules.home-manager
     ({
       home-manager.useGlobalPkgs = true;
-      home-manager.users.maxhero = ../../home/maxhero;
-      home-manager.users.maxhero.graphical-interface.enable = false;
+      home-manager.users.maxhero = nixpkgs.lib.mkMerge [
+        (import ../../home/maxhero {
+          inherit nix-doom-emacs;
+          pkgs = nixpkgs;
+          lib = nixpkgs.lib;
+        })
+        ({ ... }: {
+          graphical-interface.enable = false;
+          development.enable = false;
+          gaming.enable = false;
+          home.stateVersion = "21.11";
+        })
+      ];
     })
   ];
 }
