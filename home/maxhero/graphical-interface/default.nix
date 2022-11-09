@@ -435,9 +435,15 @@ in {
     # Create Firefox .desktop for each profile
     xdg = {
       desktopEntries = {
+        "reboot" = {
+          name = "Reboot";
+          exec = "${lxqt-sudo} reboot";
+          terminal = false;
+        };
         "discord" = {
           name = "Discord (XWayland)";
           exec = "nowl ${discord}";
+          icon = "${pkgs.discord}/share/icons/hicolor/256x256/apps/discord.png";
           terminal = false;
           categories = [ "Application" "Network" ];
         };
