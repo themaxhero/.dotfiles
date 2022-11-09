@@ -31,7 +31,7 @@ let
     "custom/left-arrow-light",
   '';
   battery = if isUchigatana then batteryComponent else "";
-  fontSize = if isUchigatana then 24 else 16;
+  fontSize = if isUchigatana then 16 else 24;
   waybar = "${pkgs.waybar}/bin/waybar";
 in {
   config = lib.mkIf config.graphical-interface.enable {
