@@ -1,4 +1,6 @@
 { nixpkgs, home-manager, nix-doom-emacs, ... }@attrs:
+let inherit (nixpkgs.lib) mkMerge;
+in
 nixpkgs.lib.nixosSystem {
   system = "aarch64-linux";
   specialArgs = attrs;
@@ -17,12 +19,8 @@ nixpkgs.lib.nixosSystem {
     # home-manager
     ({
       home-manager.useGlobalPkgs = true;
-      home-manager.users.maxhero = nixpkgs.lib.mkMerge [
-        (import ../../home/maxhero {
-          inherit nix-doom-emacs;
-          pkgs = nixpkgs;
-          lib = nixpkgs.lib;
-        })
+      home-manager.users.maxhero = mkMerge [
+        (import ../../home/maxhero { inherit nix-doom-emacs mkMerge; })
         ({ ... }: {
           graphical-interface.enable = false;
           development.enable = false;
