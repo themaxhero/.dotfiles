@@ -438,6 +438,8 @@ in {
         "reboot" = {
           name = "Reboot";
           exec = "${lxqt-sudo} reboot";
+          icon =
+            "${pkgs.tela-circle-icon-theme}/share/icons/Tela-circle-dark/scalable@2x/apps/xfsm-reboot.svg";
           terminal = false;
         };
         "discord" = {
