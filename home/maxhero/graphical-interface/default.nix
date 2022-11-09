@@ -1,5 +1,5 @@
-{ config, pkgs, nur, lib, ... }: 
-let 
+{ config, pkgs, nur, lib, ... }:
+let
   firefox = "${pkgs.firefox}/bin/firefox";
   modifier = "Mod4";
   modifier2 = "Mod1";
@@ -22,7 +22,6 @@ let
   clipman = "${pkgs.clipman}/bin/clipman";
   nm-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet";
   gtk2-rc-files = "${pkgs.orchis-theme}/share/themes/${gtkTheme}/gtk-2.0/gtkrc";
-  iconTheme = "Tela-circle-dark";
   printCmd =
     "${grim} -t png -g \"$(${slurp})\" - | tee /tmp/screenshot.png | ${wl-copy} -t 'image/png'";
   isUchigatana = config.graphical-interface.battery-widget.enable;
@@ -424,7 +423,7 @@ in {
 
     gtk = {
       cursorTheme.name = "Adwaita";
-      iconTheme.package = tela-circle-icon-theme;
+      iconTheme.package = pkgs.tela-circle-icon-theme;
     };
     programs.obs-studio.enable = true;
     programs.waybar = {
@@ -436,6 +435,12 @@ in {
     # Create Firefox .desktop for each profile
     xdg = {
       desktopEntries = {
+        "discord" = {
+          name = "Discord (XWayland)";
+          exec = "nowl ${discord}";
+          terminal = false;
+          categories = [ "Application" "Network" ];
+        };
         "firefox-mindlab" = {
           name = "Firefox (Wayland - Profile: MindLab)";
           genericName = "Web Browser";
@@ -712,9 +717,8 @@ in {
           }
       }
     '';
-    xdg.configFile."waybar/modules".source = ./modules;
+    xdg.configFile."waybar/modules".source = ./waybar/modules;
 
-    programs.waybar.enable = true;
     programs.waybar.style = ''
       * {
           font-size: ${toString fontSize}px;
@@ -816,17 +820,17 @@ in {
     };
 
     xdg.configFile."waybar/mediaplayer.py" = {
-      source = ./mediaplayer.py;
+      source = ./waybar/mediaplayer.py;
       executable = true;
     };
 
     xdg.configFile."waybar/waybar-khal.py" = {
-      source = ./waybar-khal.py;
+      source = ./waybar/waybar-khal.py;
       executable = true;
     };
 
     xdg.configFile."waybar/waybar-wttr.py" = {
-      source = ./waybar-wttr.py;
+      source = ./waybar/waybar-wttr.py;
       executable = true;
     };
 
@@ -872,45 +876,37 @@ in {
       }
     '';
 
+    xdg.configFile.pcmanfm = {
+      target = "pcmanfm-qt/default/settings.conf";
+      text = lib.generators.toINI { } {
+        Behavior = {
+          NoUsbTrash = true;
+          SingleWindowMode = true;
+        };
+        System = {
+          Archiver = "xarchiver";
+          FallbackIconThemeName = iconTheme;
+          Terminal = "${terminal}";
+          SuCommand = "${lxqt-sudo} %s";
+        };
+        Thumbnail = { ShowThumbnails = true; };
+        Volume = {
+          AutoRun = false;
+          CloseOnUnmount = true;
+          MountOnStartup = false;
+          MountRemovable = false;
+        };
+      };
+
+    };
+
     home.file = {
       ".anthy".source = ./.anthy;
       ".wallpaper.png".source = ./.wallpaper.png;
     };
 
     xdg = {
-      desktopEntries = {
-        "discord" = {
-          name = "Discord (XWayland)";
-          exec = "nowl ${discord}";
-          terminal = false;
-          categories = [ "Application" "Network" ];
-        };
-      };
       # Need to solve this later for better looking stuff
-      configFile = {
-        pcmanfm = {
-          target = "pcmanfm-qt/default/settings.conf";
-          text = lib.generators.toINI { } {
-            Behavior = {
-              NoUsbTrash = true;
-              SingleWindowMode = true;
-            };
-            System = {
-              Archiver = "xarchiver";
-              FallbackIconThemeName = iconTheme;
-              Terminal = "${terminal}";
-              SuCommand = "${lxqt-sudo} %s";
-            };
-            Thumbnail = { ShowThumbnails = true; };
-            Volume = {
-              AutoRun = false;
-              CloseOnUnmount = true;
-              MountOnStartup = false;
-              MountRemovable = false;
-            };
-          };
-        };
-      };
       mimeApps = {
         enable = true;
         defaultApplications = {

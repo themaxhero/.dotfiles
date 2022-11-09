@@ -5,7 +5,8 @@ with pkgs.lib; {
     gaming.enable = mkEnableOption "Enable gaming tools for user";
     graphical-interface.enable =
       mkEnableOption "Enable graphical interface for user";
-    graphical-interface.battery-widget.enable = mkEnableOption "Enable battery widget for user";
+    graphical-interface.battery-widget.enable =
+      mkEnableOption "Enable battery widget for user";
   };
 
   config = {
@@ -16,6 +17,12 @@ with pkgs.lib; {
       time = "pt_BR.UTF-8";
       monetary = "pt_BR.UTF-8";
       numeric = "pt_BR.UTF-8";
+    };
+    home.file = {
+      ".zshrc".text = (import ./zshrc.nix) {
+        inherit pkgs;
+        theme = "lambda";
+      };
     };
     programs.aria2.enable = true;
     programs.bat.enable = true;
@@ -54,8 +61,7 @@ with pkgs.lib; {
     };
 
     programs.alacritty = {
-      enable = config.development.enable
-        || config.graphical-interface.enable;
+      enable = config.development.enable || config.graphical-interface.enable;
       package = pkgs.alacritty;
       settings = {
         window.opacity = 0.8;
@@ -82,13 +88,6 @@ with pkgs.lib; {
           identityFile = "~/.ssh/id_ed25519";
         };
       };
-    };
-  };
-  
-  home.file = {
-    ".zshrc".text = (import ./zshrc.nix) {
-      inherit pkgs;
-      theme = "lambda";
     };
   };
 }
