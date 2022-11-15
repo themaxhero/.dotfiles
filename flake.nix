@@ -17,8 +17,8 @@
 
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, devshell, ... }@attrs:
   {
-    devShells = import ./shells attrs;
-    nixosConfigurations = import ./systems attrs;
-    nixosModules = import ./modules attrs;
+    devShells = (import ./shells attrs);
+    nixosModules = (import ./modules attrs);
+    nixosConfigurations = (import ./systems attrs);
   };
 }

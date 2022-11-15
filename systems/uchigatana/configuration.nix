@@ -1,9 +1,9 @@
 { pkgs, hostName, ... }: {
   networking = {
     hostId = "cc1f83cb";
-    inherit hostName;
+    inherit "uchigatana";
   };
-  services.minidlna.friendlyName = hostName;
+  services.minidlna.friendlyName = "uchigatana";
   vpn = {
     enable = true;
     ips = [ "10.100.0.4/24" "fdb7:2e96:8e57::4/64" ];
