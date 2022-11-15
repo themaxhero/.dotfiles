@@ -1,5 +1,6 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, lib, nix-doom-emacs, ... }:
 let
+  username = config.username;
   vsCodeExtensions = (with pkgs.vscode-extensions; [
     {
       name = "vscode-terminals";
@@ -49,117 +50,162 @@ let
   };
 in
 {
-  environment.systemPackages = with pkgs; [
-    # AWS
-    awscli
-    aws-iam-authenticator
-    eksctl
-    oci-cli
+  options.development.enable = lib.mkEnableOption "Enable Development module";
+  config = lib.mkIf config.development.enable {
+    environment.systemPackages = with pkgs; [
+      # AWS
+      awscli
+      aws-iam-authenticator
+      eksctl
+      oci-cli
 
-    # Cloud
-    kubernetes
-    minikube
-    k9s
+      # Cloud
+      kubernetes
+      minikube
+      k9s
 
-    # DotNet
-    dotnet-sdk
+      # DotNet
+      dotnet-sdk
 
 
-    # Development
-    google-clasp
-    vscode-with-extensions
-    vscodium
-    dbeaver
-    vim
-    elmPackages.elm
-    elmPackages.elm-format
-    elmPackages.create-elm-app
-    elmPackages.elm-language-server
-    gnumake
-    libtool
-    libvterm
-    nixpkgs-fmt
-    shellcheck
-    shfmt
-    elixir_1_13
-    yarn
-    nodejs
-    nushell
+      # Development
+      google-clasp
+      vscode-with-extensions
+      vscodium
+      dbeaver
+      vim
+      elmPackages.elm
+      elmPackages.elm-format
+      elmPackages.create-elm-app
+      elmPackages.elm-language-server
+      gnumake
+      libtool
+      libvterm
+      nixpkgs-fmt
+      shellcheck
+      shfmt
+      elixir_1_13
+      yarn
+      nodejs
+      nushell
 
-    inotify-tools
-    chromedriver
+      inotify-tools
+      chromedriver
 
-    cmigemo
-    ansible
+      cmigemo
+      ansible
 
-    # rtags
-    ripgrep
+      # rtags
+      ripgrep
 
-    nodePackages.stylelint
-    nodePackages.js-beautify
-    mu
-    zig
-    python39Packages.nose
-    cargo
-    rustc
-    rustfmt
-    rust-analyzer
-    rust-code-analysis
-    ocamlPackages.utop
-    python3Full
-    black
-    icr
-    fsharp
-    haskellPackages.Cabal_3_6_3_0
-    haskellPackages.brittany
-    haskellPackages.hlint
-    haskellPackages.hoogle
-    haskellPackages.nixfmt
-    clj-kondo
-    terraform
-    metals
-    ruby_3_1
+      nodePackages.stylelint
+      nodePackages.js-beautify
+      mu
+      zig
+      python39Packages.nose
+      cargo
+      rustc
+      rustfmt
+      rust-analyzer
+      rust-code-analysis
+      ocamlPackages.utop
+      python3Full
+      black
+      icr
+      fsharp
+      haskellPackages.Cabal_3_6_3_0
+      haskellPackages.brittany
+      haskellPackages.hlint
+      haskellPackages.hoogle
+      haskellPackages.nixfmt
+      clj-kondo
+      terraform
+      metals
+      ruby_3_1
 
-    chromedriver
-    wireguard-tools
+      chromedriver
+      wireguard-tools
 
-    racket
+      racket
 
-    podman-compose
+      podman-compose
 
-    cmake
-    gcc
+      cmake
+      gcc
 
-    # GI
-    jq
-    fd
-    xdelta
+      # GI
+      jq
+      fd
+      xdelta
 
-    # Android Stuff
-    android-tools
-    adbfs-rootless
-  ];
+      # Android Stuff
+      android-tools
+      adbfs-rootless
+    ];
 
-  services.postgresql.enable = true;
-  services.postgresql.authentication = lib.mkForce ''
-    # Generated file; do not edit!
-    local all all              trust
-    host  all all 127.0.0.1/32 trust
-    host  all all ::1/128      trust
-  '';
-  systemd.enableUnifiedCgroupHierarchy = true;
-  virtualisation.oci-containers.backend = "podman";
-  virtualisation = {
-    podman = {
-      enable = true;
-      dockerSocket.enable = true;
-      dockerCompat = true;
+    services.postgresql.enable = true;
+    services.postgresql.authentication = lib.mkForce ''
+      # Generated file; do not edit!
+      local all all              trust
+      host  all all 127.0.0.1/32 trust
+      host  all all ::1/128      trust
+    '';
+    systemd.enableUnifiedCgroupHierarchy = true;
+    virtualisation.oci-containers.backend = "podman";
+    virtualisation = {
+      podman = {
+        enable = true;
+        dockerSocket.enable = true;
+        dockerCompat = true;
+      };
+    };
+
+    # Make containers work properly
+    systemd.services."user@".serviceConfig.Delegate = "yes";
+    programs.gnupg.agent.enable = true;
+    programs.gnupg.agent.enableSSHSupport = true;
+    security.pam.enableSSHAgentAuth = true;
+
+    # User-level stuff
+    home-manager.users."${username}" = lib.mkMerge [
+      nix-doom-emacs.hmModule
+      { ... }: {
+        programs.git = {
+          enable = true;
+          userName = "Marcelo Amancio de Lima Santos";
+          userEmail = "contact@maxhero.dev";
+          extraConfig = {
+            rerere.enabled = true;
+            pull.rebase = true;
+            tag.gpgsign = true;
+            init.defaultBranch = "master";
+            core = {
+              excludesfile = "$NIXOS_CONFIG_DIR/scripts/gitignore";
+              editor = "${pkgs.vim}/bin/vim";
+            };
+          };
+          includes = [{
+            condition = "gitdir:/home/maxhero/projects/mindlab/";
+            contents = { user.email = "marcelo.amancio@mindlab.com.br"; };
+          }];
+        };
+      }
+    ];
+
+      programs.doom-emacs = {
+        enable = true;
+        doomPrivateDir = ./doom.d;
+        emacsPackagesOverlay = self: super: {
+          magit-delta = super.magit-delta.overrideAttrs
+            (esuper: { buildInputs = esuper.buildInputs ++ [ pkgs.git ]; });
+        };
+      };
+
+      programs.ssh.matchBlocks."github.com-mindlab" = {
+        hostname = "github.com";
+        user = "maxhero-mindlab";
+        identityFile = "~/.ssh/mindlab_ed25519";
+      };
     };
   };
-
-  # Make containers work properly
-  systemd.services."user@".serviceConfig.Delegate = "yes";
-  programs.gnupg.agent.enable = true;
-  programs.gnupg.agent.enableSSHSupport = true;
-  security.pam.enableSSHAgentAuth = true;
 }

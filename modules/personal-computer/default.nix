@@ -4,6 +4,7 @@ let
   isSwayEnabled = builtins.elem "sway" cfg.desktop-environents;
   isGnomeEnabled = builtins.elem "sway" cfg.desktop-environents;
   isWaylandNecessary = builtins.any (x: builtins.elem x cfg.desktop-environents) [ "sway" "kde" "kde" ];
+  nowl = (import ../../tools/nowl.nix) pkgs;
 in
 {
   options = {
@@ -25,14 +26,23 @@ in
     };
   };
   config = lib.mkIf config.personal-computer.enable {
-    # Better voltage and temperature
-    boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
-    boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-    # Use Systemd Boot
-    boot.loader.efi.canTouchEfiVariables = true;
-    boot.loader.systemd-boot.enable = true;
+    environment.variables = {
+      AE_SINK = "ALSA";
+      SDL_AUDIODRIVER = "pipewire";
+      ALSOFT_DRIVERS = "alsa";
+    };
 
-    hardware.bluetooth.enable = true;
+    hardware.pulseaudio.enable = false;
+
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+      media-session.enable = false;
+      systemWide = false;
+      wireplumber.enable = true;
+    };
     hardware.opengl = {
       enable = true;
       driSupport = true;
@@ -80,6 +90,62 @@ in
         export GTK_IM_MODULE='/run/current-system/sw/lib/gtk-2.0/2.10.0/immodules/im-ibus.so'
       '';
     };
+    environment.systemPackages = with pkgs; [
+      kitty
+      discord
+      ffmpegthumbnailer
+      gnome.adwaita-icon-theme
+      gnome.eog
+      lxqt.pavucontrol-qt
+      lxqt.pcmanfm-qt
+      nowl
+      pamixer
+      qbittorrent
+      slack
+      spotify
+      tdesktop
+      wpsoffice
+      zoom-us
+      wdisplays
+      notion-app-enhanced
+      gimp
+      radeontop
+      filezilla
+      gparted
+      obsidian
+      gnome.gnome-tweaks
+      orchis-theme
+      libsForQt5.dolphin
+      libsForQt5.dolphin-plugins
+      tela-circle-icon-theme
+      #xarchiver
+    ];
+
+    i18n = {
+      inputMethod = {
+        enabled = "ibus";
+        ibus.engines = with pkgs.ibus-engines; [ mozc ];
+      };
+    };
+
+    fonts = {
+      fonts = with pkgs; [
+        cantarell-fonts
+        font-awesome_4
+        font-awesome_5
+        freefont_ttf
+        google-fonts
+        liberation_ttf
+        noto-fonts
+        ubuntu_font_family
+        scientifica
+        curie
+      ];
+      fontconfig.allowBitmaps = true;
+    };
+    programs.dconf.enable = true;
+    services.xserver.layout = "us";
+    services.xserver.enable = true;
 
     xdg.portal = lib.mkIf isWaylandNecessary {
       wlr.enable = true;
@@ -191,7 +257,7 @@ in
       # This import is necessary to get NUR working
       # NUR is necessary to install firefox-addons like bitwarden
       # import = (lib.attrValues nur.repos.moredhel.hmModules.modules);
-      programs.firefox = lib.mkIf (builtins.elem pkgs.firefox config.systemPackages) {
+      programs.firefox = lib.mkIf (builtins.elem pkgs.firefox config.environment.systemPackages) {
         enable = true;
         profiles = {
           "mindlab" = {
