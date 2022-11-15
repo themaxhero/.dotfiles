@@ -1,5 +1,7 @@
+{ fontSize, ... }:
+''
 * {
-	font-size: 24px;
+	font-size: ${toString fontSize}px;
 	font-family: scientifica, dina;
 }
 
@@ -80,3 +82,4 @@ window#waybar {
 #disk {
 	padding: 4px 16px;
 }
+''
