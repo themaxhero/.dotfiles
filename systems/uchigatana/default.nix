@@ -1,4 +1,4 @@
-{ nixpkgs, home-manager, nix-doom-emacs, ... }@attrs:
+{ nixpkgs, home-manager, nix-doom-emacs, sops-nix, ... }@attrs:
 let inherit (nixpkgs.lib) mkMerge;
 in nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
@@ -11,6 +11,7 @@ in nixpkgs.lib.nixosSystem {
     ../../modules/networking
     ../../modules/sound
     ../../modules/wireguard-client.nix
+    sops-nix.nixosModules.sops
     ./configuration.nix
     ./hardware-configuration.nix
     home-manager.nixosModules.home-manager
