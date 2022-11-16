@@ -1,8 +1,11 @@
-{ config, lib, ... }: {
+{ config, lib, ... }: 
+let
+  cfg = config.bare-metal;
+in {
   options = {
     bare-metal.enable = lib.mkEnableOption "Enable Bare-Metal Module";
   };
-  config = lib.mkIf config.bare-metal.enable {
+  config = lib.mkIf cfg.enable {
     # Better voltage and temperature
     boot.extraModulePackages = with config.boot.kernelPackages; [ zenpower ];
     boot.binfmt.emulatedSystems = [ "aarch64-linux" ];

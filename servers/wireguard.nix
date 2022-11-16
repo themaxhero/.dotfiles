@@ -1,7 +1,6 @@
 { pkgs, ... }:
 let
   eth0 = "enp0s3";
-
   wgPrefixV4 = "10.100.0";
   wgPrefixV6 = "fdb7:2e96:8e57:";
 in

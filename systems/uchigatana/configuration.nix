@@ -1,7 +1,7 @@
-{ pkgs, hostName, ... }: {
+{ ... }: {
   networking = {
     hostId = "cc1f83cb";
-    inherit "uchigatana";
+    hostName = "uchigatana";
   };
   services.minidlna.friendlyName = "uchigatana";
   vpn = {
@@ -17,7 +17,7 @@
     desktop-environments = ["sway"];
   };
   username = "maxhero";
-  environment.systemPackages = with pkgs; [ waynergy ];
+
   system.stateVersion = "21.11";
   home-manager.users.maxhero.home.stateVersion = "21.11";
 }

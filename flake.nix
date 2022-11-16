@@ -15,7 +15,7 @@
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, devshell, ... }@attrs:
+  outputs = { ... }@attrs:
   {
     devShells = (import ./shells attrs);
     nixosModules = (import ./modules attrs);

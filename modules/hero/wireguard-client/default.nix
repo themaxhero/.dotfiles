@@ -1,4 +1,7 @@
 { config, lib, ... }:
+let
+  cfg = config.vpn;
+in
 {
   options = {
     vpn = {
@@ -14,11 +17,11 @@
       };
     };
   };
-  config = lib.mkIf config.vpn.enable {
+  config = lib.mkIf cfg.enable {
     networking = {
       wireguard.interfaces.wg0 =
         {
-          ips = config.vpn.ips;
+          ips = cfg.ips;
           privateKeyFile = "/home/maxhero/wireguard-keys/private";
           peers = [
             {

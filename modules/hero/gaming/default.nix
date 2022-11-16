@@ -1,10 +1,10 @@
-{ pkgs, nixpkgs, ... }:
+{ config, pkgs, nixpkgs, ... }:
 let
-  username = config.username;
+  cfg = config.gaming;
 in
 {
   options.gaming.enable = lib.mkEnableOption "Enable Gaming Module";
-  config = lib.mkIf config.gaming.enable {
+  config = lib.mkIf cfg.enable {
     environment.variables = {
       GAMEMODERUNEXEC = "mangohud WINEFSYNC=1 PROTON_WINEDBG_DISABLE=1 DXVK_LOG_PATH=none DXVK_HUD=compiler ALSOFT_DRIVERS=alsa";
     };
@@ -58,31 +58,5 @@ in
       # DualShock 4 Slim over bluetooth hidraw
       KERNEL=="hidraw*", KERNELS=="*054C:09CC*", MODE="0666"
     '';
-
-    # User-Level Stuff
-    home-manager.users."${username}" = lib.mkDefault {
-      programs.mangohud = {
-        enable = true;
-        settings = {
-          arch = true;
-          background_alpha = "0.05";
-          battery = true;
-          cpu_temp = true;
-          engine_version = true;
-          font_size = 17;
-          gl_vsync = -1;
-          gpu_temp = true;
-          io_read = true;
-          io_write = true;
-          position = "top-right";
-          round_corners = 8;
-          vram = true;
-          vsync = 0;
-          vulkan_driver = true;
-          width = 260;
-          wine = true;
-        };
-      };
-    };
   };
 }
