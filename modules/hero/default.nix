@@ -2,8 +2,9 @@
   imports = [
     ./common
     ./bare-metal
-    ./graphical-interface
     ./development
+    ./personal-computer
+    ./gaming
     ./wireguard-client
     ./home
   ];

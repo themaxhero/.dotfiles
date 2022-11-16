@@ -3,7 +3,7 @@ let
   cfg = config.personal-computer;
   isSwayEnabled = builtins.elem "sway" cfg.desktop-environents;
   isGnomeEnabled = builtins.elem "sway" cfg.desktop-environents;
-  isWaylandNecessary = builtins.any (x: builtins.elem x cfg.desktop-environents) [ "sway" "kde" "kde" ];
+  isWaylandNecessary = builtins.any (x: builtins.elem x cfg.desktop-environents) [ "sway" "kde" "gnome" ];
   nowl = (import ../../tools/nowl.nix) pkgs;
 in
 {
@@ -43,6 +43,7 @@ in
       systemWide = false;
       wireplumber.enable = true;
     };
+
     hardware.opengl = {
       enable = true;
       driSupport = true;
