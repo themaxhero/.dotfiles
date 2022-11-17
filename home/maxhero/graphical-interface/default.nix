@@ -726,6 +726,10 @@ in {
       }
     '';
     xdg.configFile."waybar/modules".source = ./waybar/modules;
+    programs.eww = {
+      enable = true;
+      configDir = ./eww-config-dir;
+    };
 
     programs.waybar.style = ''
       * {
