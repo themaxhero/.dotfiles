@@ -107,7 +107,18 @@ let
 
     "${modifier}+z" = lock;
   });
-  i3AndSwayFloatingCriteria = [
+  i3FloatingCriteria = [
+    {
+      id = "firefox";
+      title = "moz-extension:.+";
+    }
+    {
+      id = "firefox";
+      title = "Password Required";
+    }
+
+  ];
+  swayFloatingCriteria = [
     {
       app_id = "firefox";
       title = "moz-extension:.+";
@@ -117,7 +128,113 @@ let
       title = "Password Required";
     }
   ];
-  i3AndSwayWindow = {
+  i3Window = {
+    border = 1;
+    titlebar = false;
+    hideEdgeBorders = "both";
+
+    commands = [
+      {
+        criteria = { class = "^.*"; };
+        command = "border pixel 1";
+      }
+      {
+        criteria = {
+          id = "firefox";
+          title = "Picture-in-Picture";
+        };
+        command = "floating enable sticky enable";
+      }
+      {
+        criteria = {
+          id = "firefox";
+          title = "Firefox — Sharing Indicator";
+        };
+        command = "floating enable sticky enable";
+      }
+      {
+        criteria = { title = "alsamixer"; };
+        command = "floating enable border pixel 1";
+      }
+      {
+        criteria = { class = "Clipgrab"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { title = "File Transfer*"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { class = "bauh"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { class = "Galculator"; };
+        command = "floating enable border pixel 1";
+      }
+      {
+        criteria = { class = "GParted"; };
+        command = "floating enable border normal";
+      }
+      {
+        criteria = { title = "i3_help"; };
+        command = "floating enable sticky enable border normal";
+      }
+      {
+        criteria = { class = "Lightdm-settings"; };
+        command = "floating enable sticky enable border normal";
+      }
+      {
+        criteria = { class = "Lxappearance"; };
+        command = "floating enable border normal";
+      }
+      {
+        criteria = { class = "Pavucontrol"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { class = "Pavucontrol"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { class = "Qtconfig-qt4"; };
+        command = "floating enable border normal";
+      }
+      {
+        criteria = { class = "qt5ct"; };
+        command = "floating enable sticky enable border normal";
+      }
+      {
+        criteria = { title = "sudo"; };
+        command = "floating enable sticky enable border normal";
+      }
+      {
+        criteria = { class = "Skype"; };
+        command = "floating enable border normal";
+      }
+      {
+        criteria = { class = "(?i)virtualbox"; };
+        command = "floating enable border normal";
+      }
+      {
+        criteria = { class = "Xfburn"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { class = "keepassxc"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { instance = "origin.exe"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { title = "Slack \\| mini panel"; };
+        command = "floating enable; stick enable";
+      }
+    ];
+  };
+  swayWindow = {
     border = 1;
     titlebar = false;
     hideEdgeBorders = "both";
@@ -224,8 +341,8 @@ let
     ];
   };
   commandMode = {
-    "p" = "exec ~/.config/sway/power-menu.sh";
-    "o" = "exec ~/.config/sway/projects.sh";
+    "p" = ''exec --no-startup-id "~/.config/sway/power-menu.sh"'';
+    "o" = ''exec --no-startup-id "~/.config/sway/projects.sh"'';
     "Escape" = "mode default";
   };
 in {
@@ -312,23 +429,71 @@ in {
       enable = true;
       package = pkgs.i3-gaps;
       config = {
-        inherit modifier terminal menu;
-        assigns = {};
-        bars = [];
-        colors = {};
-        floating = {}; 
-        focus.followMouse = "yes";
-        fonts = {};
-        gaps = {};
+        inherit modifier terminal;
+        menu = "${pkgs.rofi}/bin/rofi -I -show drun";
+        assigns = { };
+        bars = [
+         {
+           mode = "dock";
+           hiddenState = "hide";
+           position = "top";
+           workspaceButtons = true;
+           workspaceNumbers = true;
+           statusCommand = "${pkgs.i3status}/bin/i3status";
+           fonts = {
+             names = [ "scientifica" ];
+             size = 12.0;
+           };
+           trayOutput = "primary";
+           colors = {
+              background = "#000000";
+              statusline = "#ffffff";
+              separator = "#666666";
+              focusedWorkspace = {
+                border = "#4c7899";
+                background = "#285577";
+                text = "#ffffff";
+              };
+              activeWorkspace = {
+                border = "#333333";
+                background = "#5f676a";
+                text = "#ffffff";
+              };
+              inactiveWorkspace = {
+                border = "#333333";
+                background = "#222222";
+                text = "#888888";
+              };
+              urgentWorkspace = {
+                border = "#2f343a";
+                background = "#900000";
+                text = "#ffffff";
+              };
+              bindingMode = {
+                border = "#2f343a";
+                background = "#900000";
+                text = "#ffffff";
+              };
+            };
+          } 
+        ];
+        colors = { };
+        focus.followMouse = true;
+        fonts = {
+          names = [ "scientifica" ];
+          size = 8.0;
+        };
+        # gaps = { };
         keybindings = i3AndSwayKeybindings;
-        floating.criteria = i3AndSwayFloatingCriteria;
-        window = i3AndSwayWindow;
+        floating.criteria = i3FloatingCriteria;
+        window = i3Window;
         modes = lib.mkOptionDefault { "command_mode" = commandMode; };
         # Could be the same as sway if I find tools/daemons that are compatible with both Xorg and Wayland
         startup = [
-          { command = ""; } # TODO: Put some notification Daemon compatible with Xorg
-          { command = "${nm-applet} --indicator"; }
-          { command = clipman; }
+          { command = "--no-startup-id ${pkgs.dunst}/bin/dunst"; }
+          { command = "--no-startup-id ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.png"; }
+          { command = " --no-startup-id ${nm-applet} --indicator"; }
+          { command = "--no-startup-id ${clipman}"; }
 
         ];
       };
@@ -345,8 +510,8 @@ in {
         bars = [ ];
         focus.followMouse = "yes";
         keybindings = i3AndSwayKeybindings;
-        window = i3AndSwayWindow;
-        floating.criteria = i3AndSwayFloatingCriteria;
+        window = swayWindow;
+        floating.criteria = swayFloatingCriteria;
         fonts = {
           names = [ "scientifica" ];
           size = 8.0;
@@ -443,32 +608,45 @@ in {
     services.network-manager-applet.enable = true;
     services.playerctld.enable = true;
     services.swayidle.enable = true;
-    services.kanshi = {
+    programs.autorandr = {
       enable = true;
-      systemdTarget = "i3-session.target";
       profiles = {
-        undocked = {
-          exec = ''
-          ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.png
-          '';
-          outputs = [
-            { criteria = "eDP-1"; mode = "1920x1080@165.004"; position = "0,0"; status = "enable"; }
-            { criteria = "HDMI-1"; mode = "3840x2160@60"; position = "1920,0"; status = "disable"; }
-          ];
+        "docked" = {
+          config = {
+            eDP1 = {
+              enable = true;
+              primary = false;
+              position = "0x1080";
+              mode = "1920x1080";
+              rate = "165.00";
+            };
+            HDMI1 = {
+              enable = true;
+              primary = true;
+              position = "1920x0";
+              mode = "3840x2160";
+              rate = "60.00";
+            };
+          };
         };
-        docked = {
-          exec = ''
-          ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.png
-          '';
-          outputs = [
-            { criteria = "eDP-1"; mode = "1920x1080@165.004"; position = "0,1920"; status = "enable"; }
-            { criteria = "HDMI-1"; mode = "3840x2160@60"; position = "1920,0"; status = "enable"; }
-          ];
+        "undocked" = {
+          config = {
+            eDP1 = {
+              enable = true;
+              primary = false;
+              position = "0x0";
+              mode = "1920x1080";
+              rate = "165.00";
+            };
+            HDMI1 = {
+              enable = false;
+              primary = false;
+            };
+          };
         };
       };
     };
     services.picom.enable = true;
-    services.playerctld.enable = true;
     programs.rofi = {
       enable = true;
       package = pkgs.rofi.override {

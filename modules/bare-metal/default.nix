@@ -63,8 +63,17 @@
         xdg-desktop-portal-wlr
       ];
   };
+  services.xserver.windowManager.i3.enable = true;
+  services.xserver.windowManager.i3.package = pkgs.i3-gaps;
+  systemd.targets."i3-session" = {
+    enable = true;
+    description = "i3 session";
+    bindsTo = [
+      "graphical-session.target"
+    ];
+  };
   services.udisks2.enable = true;
-  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
   sound.mediaKeys.enable = true;
   services.blueman.enable = true;
   services.flatpak.enable = true;
