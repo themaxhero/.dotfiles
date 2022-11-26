@@ -33,6 +33,201 @@ let
   battery = if isUchigatana then batteryComponent else "";
   fontSize = if isUchigatana then 16 else 24;
   waybar = "${pkgs.waybar}/bin/waybar";
+  i3AndSwayKeybindings = lib.mkOptionDefault ({
+    # Window helpers
+    "${modifier}+Shift+f" = "fullscreen toggle global";
+    "${modifier}+Shift+t" = "sticky toggle";
+
+    # Volume controls
+    "XF86AudioRaiseVolume" = "exec ${volumectl} -u up";
+    "XF86AudioLowerVolume" = "exec ${volumectl} -u down";
+    "XF86AudioMute" = "exec ${volumectl} toggle-mute";
+
+    # Lightweight screenshot to cliboard and temporary file
+    "Print" = "exec ${printCmd}";
+
+    # Notifications tray
+    "${modifier}+Shift+n" = "exec ${swaync-client} -t -sw";
+
+    # Enter my extra modes
+    "${modifier}+c" = "mode command_mode";
+
+    # Navigation Between Workspaces
+    "${modifierCombo}+left" = "workspace prev";
+    "${modifierCombo}+right" = "workspace next";
+
+    # Reload/Restart
+    "${modifier}+Shift+c" = "reload";
+    "${modifier}+Shift+r" = "restart";
+
+    "${modifierCombo}+v" = "split v";
+    "${modifierCombo}+h" = "split h";
+
+    # My extra lot of workspaces
+    "${modifier}+1" = "workspace 1";
+    "${modifier}+2" = "workspace 2";
+    "${modifier}+3" = "workspace 3";
+    "${modifier}+4" = "workspace 4";
+    "${modifier}+5" = "workspace 5";
+    "${modifier}+6" = "workspace 6";
+    "${modifier}+7" = "workspace 7";
+    "${modifier}+8" = "workspace 8";
+    "${modifier}+9" = "workspace 9";
+    "${modifier}+0" = "workspace 10";
+    "${modifierCombo}+1" = "workspace 11";
+    "${modifierCombo}+2" = "workspace 12";
+    "${modifierCombo}+3" = "workspace 13";
+    "${modifierCombo}+4" = "workspace 14";
+    "${modifierCombo}+5" = "workspace 15";
+    "${modifierCombo}+6" = "workspace 16";
+    "${modifierCombo}+7" = "workspace 17";
+    "${modifierCombo}+8" = "workspace 18";
+    "${modifierCombo}+9" = "workspace 19";
+    "${modifierCombo}+0" = "workspace 20";
+    "${modifier}+Shift+1" = "move container to workspace 1";
+    "${modifier}+Shift+2" = "move container to workspace 2";
+    "${modifier}+Shift+3" = "move container to workspace 3";
+    "${modifier}+Shift+4" = "move container to workspace 4";
+    "${modifier}+Shift+5" = "move container to workspace 5";
+    "${modifier}+Shift+6" = "move container to workspace 6";
+    "${modifier}+Shift+7" = "move container to workspace 7";
+    "${modifier}+Shift+8" = "move container to workspace 8";
+    "${modifier}+Shift+9" = "move container to workspace 9";
+    "${modifier}+Shift+0" = "move container to workspace 10";
+    "${modifierCombo}+Shift+1" = "move container to workspace 11";
+    "${modifierCombo}+Shift+2" = "move container to workspace 12";
+    "${modifierCombo}+Shift+3" = "move container to workspace 13";
+    "${modifierCombo}+Shift+4" = "move container to workspace 14";
+    "${modifierCombo}+Shift+5" = "move container to workspace 15";
+    "${modifierCombo}+Shift+6" = "move container to workspace 16";
+    "${modifierCombo}+Shift+7" = "move container to workspace 17";
+    "${modifierCombo}+Shift+8" = "move container to workspace 18";
+    "${modifierCombo}+Shift+9" = "move container to workspace 19";
+    "${modifierCombo}+Shift+0" = "move container to workspace 20";
+
+    "${modifier}+z" = lock;
+  });
+  i3AndSwayFloatingCriteria = [
+    {
+      app_id = "firefox";
+      title = "moz-extension:.+";
+    }
+    {
+      app_id = "firefox";
+      title = "Password Required";
+    }
+  ];
+  i3AndSwayWindow = {
+    border = 1;
+    titlebar = false;
+    hideEdgeBorders = "both";
+
+    commands = [
+      {
+        criteria = { class = "^.*"; };
+        command = "border pixel 1";
+      }
+      {
+        criteria = {
+          app_id = "firefox";
+          title = "Picture-in-Picture";
+        };
+        command = "floating enable sticky enable";
+      }
+      {
+        criteria = {
+          app_id = "firefox";
+          title = "Firefox — Sharing Indicator";
+        };
+        command = "floating enable sticky enable";
+      }
+      {
+        criteria = { title = "alsamixer"; };
+        command = "floating enable border pixel 1";
+      }
+      {
+        criteria = { class = "Clipgrab"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { title = "File Transfer*"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { class = "bauh"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { class = "Galculator"; };
+        command = "floating enable border pixel 1";
+      }
+      {
+        criteria = { class = "GParted"; };
+        command = "floating enable border normal";
+      }
+      {
+        criteria = { title = "i3_help"; };
+        command = "floating enable sticky enable border normal";
+      }
+      {
+        criteria = { class = "Lightdm-settings"; };
+        command = "floating enable sticky enable border normal";
+      }
+      {
+        criteria = { class = "Lxappearance"; };
+        command = "floating enable border normal";
+      }
+      {
+        criteria = { class = "Pavucontrol"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { class = "Pavucontrol"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { class = "Qtconfig-qt4"; };
+        command = "floating enable border normal";
+      }
+      {
+        criteria = { class = "qt5ct"; };
+        command = "floating enable sticky enable border normal";
+      }
+      {
+        criteria = { title = "sudo"; };
+        command = "floating enable sticky enable border normal";
+      }
+      {
+        criteria = { class = "Skype"; };
+        command = "floating enable border normal";
+      }
+      {
+        criteria = { class = "(?i)virtualbox"; };
+        command = "floating enable border normal";
+      }
+      {
+        criteria = { class = "Xfburn"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { class = "keepassxc"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { instance = "origin.exe"; };
+        command = "floating enable";
+      }
+      {
+        criteria = { title = "Slack \\| mini panel"; };
+        command = "floating enable; stick enable";
+      }
+    ];
+  };
+  commandMode = {
+    "p" = "exec ~/.config/sway/power-menu.sh";
+    "o" = "exec ~/.config/sway/projects.sh";
+    "Escape" = "mode default";
+  };
 in {
   config = lib.mkIf config.graphical-interface.enable {
     dconf.settings = {
@@ -113,6 +308,32 @@ in {
       };
     };
 
+    xsession.windowManager.i3 = {
+      enable = true;
+      package = pkgs.i3-gaps;
+      config = {
+        inherit modifier terminal menu;
+        assigns = {};
+        bars = [];
+        colors = {};
+        floating = {}; 
+        focus.followMouse = "yes";
+        fonts = {};
+        gaps = {};
+        keybindings = i3AndSwayKeybindings;
+        floating.criteria = i3AndSwayFloatingCriteria;
+        window = i3AndSwayWindow;
+        modes = lib.mkOptionDefault { "command_mode" = commandMode; };
+        # Could be the same as sway if I find tools/daemons that are compatible with both Xorg and Wayland
+        startup = [
+          { command = ""; } # TODO: Put some notification Daemon compatible with Xorg
+          { command = "${nm-applet} --indicator"; }
+          { command = clipman; }
+
+        ];
+      };
+    };
+
     wayland.windowManager.sway = {
       enable = true;
       wrapperFeatures.gtk = true; # so that gtk works properly
@@ -122,200 +343,10 @@ in {
         inherit modifier terminal menu;
         floating.modifier = modifier;
         bars = [ ];
-        focus = { followMouse = "yes"; };
-        keybindings = lib.mkOptionDefault ({
-          # Window helpers
-          "${modifier}+Shift+f" = "fullscreen toggle global";
-          "${modifier}+Shift+t" = "sticky toggle";
-
-          # Volume controls
-          "XF86AudioRaiseVolume" = "exec ${volumectl} -u up";
-          "XF86AudioLowerVolume" = "exec ${volumectl} -u down";
-          "XF86AudioMute" = "exec ${volumectl} toggle-mute";
-
-          # Lightweight screenshot to cliboard and temporary file
-          "Print" = "exec ${printCmd}";
-
-          # Notifications tray
-          "${modifier}+Shift+n" = "exec ${swaync-client} -t -sw";
-
-          # Enter my extra modes
-          "${modifier}+c" = "mode command_mode";
-
-          # Navigation Between Workspaces
-          "${modifierCombo}+left" = "workspace prev";
-          "${modifierCombo}+right" = "workspace next";
-
-          # Reload/Restart
-          "${modifier}+Shift+c" = "reload";
-          "${modifier}+Shift+r" = "restart";
-
-          "${modifierCombo}+v" = "split v";
-          "${modifierCombo}+h" = "split h";
-
-          # My extra lot of workspaces
-          "${modifier}+1" = "workspace 1";
-          "${modifier}+2" = "workspace 2";
-          "${modifier}+3" = "workspace 3";
-          "${modifier}+4" = "workspace 4";
-          "${modifier}+5" = "workspace 5";
-          "${modifier}+6" = "workspace 6";
-          "${modifier}+7" = "workspace 7";
-          "${modifier}+8" = "workspace 8";
-          "${modifier}+9" = "workspace 9";
-          "${modifier}+0" = "workspace 10";
-          "${modifierCombo}+1" = "workspace 11";
-          "${modifierCombo}+2" = "workspace 12";
-          "${modifierCombo}+3" = "workspace 13";
-          "${modifierCombo}+4" = "workspace 14";
-          "${modifierCombo}+5" = "workspace 15";
-          "${modifierCombo}+6" = "workspace 16";
-          "${modifierCombo}+7" = "workspace 17";
-          "${modifierCombo}+8" = "workspace 18";
-          "${modifierCombo}+9" = "workspace 19";
-          "${modifierCombo}+0" = "workspace 20";
-          "${modifier}+Shift+1" = "move container to workspace 1";
-          "${modifier}+Shift+2" = "move container to workspace 2";
-          "${modifier}+Shift+3" = "move container to workspace 3";
-          "${modifier}+Shift+4" = "move container to workspace 4";
-          "${modifier}+Shift+5" = "move container to workspace 5";
-          "${modifier}+Shift+6" = "move container to workspace 6";
-          "${modifier}+Shift+7" = "move container to workspace 7";
-          "${modifier}+Shift+8" = "move container to workspace 8";
-          "${modifier}+Shift+9" = "move container to workspace 9";
-          "${modifier}+Shift+0" = "move container to workspace 10";
-          "${modifierCombo}+Shift+1" = "move container to workspace 11";
-          "${modifierCombo}+Shift+2" = "move container to workspace 12";
-          "${modifierCombo}+Shift+3" = "move container to workspace 13";
-          "${modifierCombo}+Shift+4" = "move container to workspace 14";
-          "${modifierCombo}+Shift+5" = "move container to workspace 15";
-          "${modifierCombo}+Shift+6" = "move container to workspace 16";
-          "${modifierCombo}+Shift+7" = "move container to workspace 17";
-          "${modifierCombo}+Shift+8" = "move container to workspace 18";
-          "${modifierCombo}+Shift+9" = "move container to workspace 19";
-          "${modifierCombo}+Shift+0" = "move container to workspace 20";
-
-          "${modifier}+z" = lock;
-        });
-
-        window = {
-          border = 1;
-          titlebar = false;
-          hideEdgeBorders = "both";
-
-          commands = [
-            {
-              criteria = { class = "^.*"; };
-              command = "border pixel 1";
-            }
-            {
-              criteria = {
-                app_id = "firefox";
-                title = "Picture-in-Picture";
-              };
-              command = "floating enable sticky enable";
-            }
-            {
-              criteria = {
-                app_id = "firefox";
-                title = "Firefox — Sharing Indicator";
-              };
-              command = "floating enable sticky enable";
-            }
-            {
-              criteria = { title = "alsamixer"; };
-              command = "floating enable border pixel 1";
-            }
-            {
-              criteria = { class = "Clipgrab"; };
-              command = "floating enable";
-            }
-            {
-              criteria = { title = "File Transfer*"; };
-              command = "floating enable";
-            }
-            {
-              criteria = { class = "bauh"; };
-              command = "floating enable";
-            }
-            {
-              criteria = { class = "Galculator"; };
-              command = "floating enable border pixel 1";
-            }
-            {
-              criteria = { class = "GParted"; };
-              command = "floating enable border normal";
-            }
-            {
-              criteria = { title = "i3_help"; };
-              command = "floating enable sticky enable border normal";
-            }
-            {
-              criteria = { class = "Lightdm-settings"; };
-              command = "floating enable sticky enable border normal";
-            }
-            {
-              criteria = { class = "Lxappearance"; };
-              command = "floating enable border normal";
-            }
-            {
-              criteria = { class = "Pavucontrol"; };
-              command = "floating enable";
-            }
-            {
-              criteria = { class = "Pavucontrol"; };
-              command = "floating enable";
-            }
-            {
-              criteria = { class = "Qtconfig-qt4"; };
-              command = "floating enable border normal";
-            }
-            {
-              criteria = { class = "qt5ct"; };
-              command = "floating enable sticky enable border normal";
-            }
-            {
-              criteria = { title = "sudo"; };
-              command = "floating enable sticky enable border normal";
-            }
-            {
-              criteria = { class = "Skype"; };
-              command = "floating enable border normal";
-            }
-            {
-              criteria = { class = "(?i)virtualbox"; };
-              command = "floating enable border normal";
-            }
-            {
-              criteria = { class = "Xfburn"; };
-              command = "floating enable";
-            }
-            {
-              criteria = { class = "keepassxc"; };
-              command = "floating enable";
-            }
-            {
-              criteria = { instance = "origin.exe"; };
-              command = "floating enable";
-            }
-            {
-              criteria = { title = "Slack \\| mini panel"; };
-              command = "floating enable; stick enable";
-            }
-          ];
-        };
-
-        floating.criteria = [
-          {
-            app_id = "firefox";
-            title = "moz-extension:.+";
-          }
-          {
-            app_id = "firefox";
-            title = "Password Required";
-          }
-        ];
-
+        focus.followMouse = "yes";
+        keybindings = i3AndSwayKeybindings;
+        window = i3AndSwayWindow;
+        floating.criteria = i3AndSwayFloatingCriteria;
         fonts = {
           names = [ "scientifica" ];
           size = 8.0;
@@ -346,15 +377,7 @@ in {
         right = "l";
         up = "k";
         down = "j";
-
-        modes = lib.mkOptionDefault {
-          "command_mode" = {
-            "p" = "exec ~/.config/sway/power-menu.sh";
-            "o" = "exec ~/.config/sway/projects.sh";
-            "Escape" = "mode default";
-          };
-        };
-
+        modes = lib.mkOptionDefault { "command_mode" = commandMode; };
         startup = [
           { command = swaync; }
           { command = "${nm-applet} --indicator"; }
@@ -420,6 +443,49 @@ in {
     services.network-manager-applet.enable = true;
     services.playerctld.enable = true;
     services.swayidle.enable = true;
+    services.kanshi = {
+      enable = true;
+      systemdTarget = "i3-session.target";
+      profiles = {
+        undocked = {
+          exec = ''
+          ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.png
+          '';
+          outputs = [
+            { criteria = "eDP-1"; mode = "1920x1080@165.004"; position = "0,0"; status = "enable"; }
+            { criteria = "HDMI-1"; mode = "3840x2160@60"; position = "1920,0"; status = "disable"; }
+          ];
+        };
+        docked = {
+          exec = ''
+          ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.png
+          '';
+          outputs = [
+            { criteria = "eDP-1"; mode = "1920x1080@165.004"; position = "0,1920"; status = "enable"; }
+            { criteria = "HDMI-1"; mode = "3840x2160@60"; position = "1920,0"; status = "enable"; }
+          ];
+        };
+      };
+    };
+    services.picom.enable = true;
+    services.playerctld.enable = true;
+    programs.rofi = {
+      enable = true;
+      package = pkgs.rofi.override {
+        plugins = with pkgs; [
+          rofi-emoji
+          rofi-calc
+          rofi-systemd
+          rofi-menugen
+          rofi-bluetooth
+          rofi-power-menu
+          rofi-pulse-select
+          rofi-file-browser
+          rofi-mpd
+          rofi-pass
+        ];
+      };
+    };
 
     gtk = {
       cursorTheme.name = "Adwaita";
