@@ -27,7 +27,7 @@
           extraPkgs = pkgs: [ final.nvidia-offload ];
         };
          # NVIDIA Offloading (ajusted to work on Wayland and XWayland).
-        nvidia-offload = final.callPackage ../shared/nvidia-offload.nix { };
+        nvidia-offload = final.callPackage ../../shared/nvidia-offload.nix { };
       };
     in
     [ thisConfigsOverlay ];
