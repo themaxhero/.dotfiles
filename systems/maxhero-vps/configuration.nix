@@ -1,5 +1,5 @@
 # The top lambda and it super set of parameters.
-{ config, lib, pkgs, home-manager, ... }:
+{ config, lib, pkgs, ... }:
 
 # NixOS-defined options
 {

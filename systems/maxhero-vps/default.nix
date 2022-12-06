@@ -17,17 +17,17 @@ nixpkgs.lib.nixosSystem {
     ../../shared/oci-options.nix
     ../../shared/oci-common.nix
     # home-manager
-    ({
-      home-manager.useGlobalPkgs = true;
-      home-manager.users.maxhero = mkMerge [
-        (import ../../home/maxhero { inherit nix-doom-emacs mkMerge; })
-        ({ ... }: {
-          graphical-interface.enable = false;
-          development.enable = false;
-          gaming.enable = false;
-          home.stateVersion = "21.11";
-        })
-      ];
-    })
+    #({
+    #  home-manager.useGlobalPkgs = true;
+    #  home-manager.users.maxhero = mkMerge [
+    #    (import ../../home/maxhero { inherit nix-doom-emacs mkMerge; })
+    #    ({ ... }: {
+    #      graphical-interface.enable = false;
+    #      development.enable = false;
+    #      gaming.enable = false;
+    #      home.stateVersion = "21.11";
+    #    })
+    #  ];
+    #})
   ];
 }
