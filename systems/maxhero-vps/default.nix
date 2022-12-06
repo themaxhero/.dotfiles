@@ -1,4 +1,4 @@
-{ nixpkgs, home-manager, nix-doom-emacs, ... }@attrs:
+{ nixpkgs, nix-doom-emacs, ... }@attrs:
 let inherit (nixpkgs.lib) mkMerge;
 in
 nixpkgs.lib.nixosSystem {
