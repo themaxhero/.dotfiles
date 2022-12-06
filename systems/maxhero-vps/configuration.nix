@@ -31,6 +31,28 @@
     "net.ipv4.tcp_congestion_control" = "bbr";
   };
 
+  services._3proxy = {
+    enable = true;
+    services = [
+      {
+        type = "socks";
+          auth = [ "strong" ];
+          acl = [ {
+            rule = "allow";
+            users = [ "maxhero" ];
+          }
+        ];
+      }
+    ];
+    usersFile = "/etc/3proxy.passwd";
+  };
+
+  environment.etc = {
+    "3proxy.passwd".text = ''
+      maxhero:CR:$1$XQ/ceZ6w$Cetl9.PIz53JQ0RZcJnYF.
+    '';
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
