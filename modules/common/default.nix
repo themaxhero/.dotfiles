@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, nur, nix-doom-emacs, ... }:
+{ pkgs, ... }:
 {
   users.users.maxhero = {
     isNormalUser = true;

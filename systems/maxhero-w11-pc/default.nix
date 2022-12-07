@@ -6,7 +6,6 @@ nixpkgs.lib.nixosSystem {
   specialArgs = attrs;
   modules = [
     ../../modules/common
-    ../../modules/development
     ../../modules/networking
     ../../modules/wireguard-client.nix
     ./configuration.nix
