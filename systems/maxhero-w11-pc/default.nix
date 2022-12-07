@@ -8,7 +8,6 @@ nixpkgs.lib.nixosSystem {
     ../../modules/common
     ../../modules/development
     ../../modules/networking
-    ../../modules/sound
     ../../modules/wireguard-client.nix
     ./configuration.nix
     "${nixpkgs}/nixos/modules/profiles/minimal.nix"

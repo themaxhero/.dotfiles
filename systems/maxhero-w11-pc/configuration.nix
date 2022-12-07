@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, nix-gaming, ... }:
+{ config, pkgs, lib, ... }:
 {
   networking = {
     hostId = "7ee3a466";
