@@ -19,7 +19,7 @@ nixpkgs.lib.nixosSystem {
         (import ../../home/maxhero {inherit nix-doom-emacs mkMerge;})
         ({ ... }: {
           graphical-interface.enable = false;
-          development.enable = true;
+          development.enable = false;
           gaming.enable = false;
           home.stateVersion = "21.11";
         })
