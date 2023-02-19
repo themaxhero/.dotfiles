@@ -65,17 +65,18 @@ in
 
     # Cloud
     kubernetes
-    kubernetes-helm
+    kubernetes-helm-wrapped
     minikube
     k9s
+
+    # Google Appscript
+    google-clasp
 
     # DotNet
     dotnet-sdk
 
-
     # Development
-    google-clasp
-    #vscode-with-extensions
+    # vscode-with-extensions
     vscodium
     dbeaver
     vim
@@ -118,6 +119,7 @@ in
     black
     icr
     fsharp
+    # Haskell Libraries
     #haskellPackages.Cabal_3_6_3_0
     #haskellPackages.brittany
     #haskellPackages.hlint
