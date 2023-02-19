@@ -49,7 +49,5 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;(unpin! t)
 
-(use-package org-auto-tangle
-  :load-path "site-lisp/org-auto-tangle/"    ;; this line is necessary only if you cloned the repo in your site-lisp directory
-  :defer t
-  :hook (org-mode . org-auto-tangle-mode))
+(package! org-auto-tangle
+	  :recipe (:host github :repo "yilkalargaw/org-auto-tangle"))

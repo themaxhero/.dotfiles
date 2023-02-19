@@ -1,5 +1,9 @@
 { pkgs, lib, ... }:
 let
+  kubernetes-helm-wrapped = pkgs.wrapHelm pkgs.kubernetes-helm {
+    plugins = with pkgs.kubernetes-helmPlugins; [ helm-diff ];
+  };
+  /*
   vsCodeExtensions = (with pkgs.vscode-extensions; [
     {
       name = "vscode-terminals";
@@ -47,6 +51,7 @@ let
   vscode-with-extensions = pkgs.vscode-with-extensions.override {
     vscodeExtensions = vsCodeExtensions;
   };
+  */
 in
 {
   environment.systemPackages = with pkgs; [
@@ -54,10 +59,13 @@ in
     awscli
     aws-iam-authenticator
     eksctl
+
+    # Oracle Cloud
     oci-cli
 
     # Cloud
     kubernetes
+    kubernetes-helm
     minikube
     k9s
 
@@ -67,7 +75,7 @@ in
 
     # Development
     google-clasp
-    vscode-with-extensions
+    #vscode-with-extensions
     vscodium
     dbeaver
     vim
@@ -110,11 +118,11 @@ in
     black
     icr
     fsharp
-    haskellPackages.Cabal_3_6_3_0
-    haskellPackages.brittany
-    haskellPackages.hlint
-    haskellPackages.hoogle
-    haskellPackages.nixfmt
+    #haskellPackages.Cabal_3_6_3_0
+    #haskellPackages.brittany
+    #haskellPackages.hlint
+    #haskellPackages.hoogle
+    #haskellPackages.nixfmt
     clj-kondo
     terraform
     metals
@@ -141,20 +149,37 @@ in
   ];
 
   services.postgresql.enable = true;
+  services.postgresql.package = pkgs.postgresql_14;
   services.postgresql.authentication = lib.mkForce ''
     # Generated file; do not edit!
     local all all              trust
+    host  all all 192.168.0.88/32 trust
     host  all all 127.0.0.1/32 trust
     host  all all ::1/128      trust
   '';
+  services.postgresql.settings.listen_addresses = lib.mkForce "*";
   systemd.enableUnifiedCgroupHierarchy = true;
-  virtualisation.oci-containers.backend = "podman";
-  virtualisation = {
-    podman = {
-      enable = true;
-      dockerSocket.enable = true;
-      dockerCompat = true;
+  virtualisation.oci-containers = {
+    backend = "podman";
+    containers = {
+      code-server = {
+        image = "codercom/code-server";
+        ports = ["7654:8080"];
+        volumes = [
+          "/home/maxhero/projects/:/home/coder/project/"
+          "/home/maxhero/.config:/home/coder/.config"
+        ];
+        environment = {
+          PASSWORD = "code-space-666";
+        };
+        cmd = ["code-server --allow-http --auth password"];
+      };
     };
+  };
+  virtualisation.podman = {
+    enable = true;
+    dockerSocket.enable = true;
+    dockerCompat = true;
   };
 
   # Make containers work properly
