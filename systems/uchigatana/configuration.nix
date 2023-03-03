@@ -8,6 +8,7 @@
     ips = [ "10.100.0.4/24" "fdb7:2e96:8e57::4/64" ];
     privateKeyFile = "/home/maxhero/wireguard-keys/private";
   };
+
   development = {
     enable = true;
     languages = [
@@ -33,7 +34,9 @@
       "kubernetes"
     ];
   };
+
   graphical-interface.enable = true;
+
   gaming.enable = false;
 
   environment = {

@@ -47,6 +47,13 @@
     usersFile = "/etc/3proxy.passwd";
   };
 
+  development = {
+    enable = false;
+    languages = [];
+  };
+  graphical-interface.enable = false;
+  gaming.enable = false;
+
   environment.etc = {
     "3proxy.passwd".text = ''
       maxhero:CR:$1$XQ/ceZ6w$Cetl9.PIz53JQ0RZcJnYF.

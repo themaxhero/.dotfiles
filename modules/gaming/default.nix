@@ -17,7 +17,7 @@ in
       minecraft
       mesa-demos
       lutris
-      #nix-gaming.packages.x85_64-linux.wine-tkg
+      #nix-gaming.packages.x86_64-linux.wine-tkg
       vulkan-tools
       winetricks
     ];
