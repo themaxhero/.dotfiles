@@ -1,5 +1,7 @@
-{ config, lib, ... }: {
-  config = lib.mkIf config.gaming.enable {
+{ config, lib, specialArgs, ... }:
+with specialArgs;
+{
+  config = lib.mkIf nixosConfig.gaming.enable {
     programs.mangohud = {
       enable = true;
       settings = {

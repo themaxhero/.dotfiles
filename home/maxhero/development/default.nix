@@ -1,5 +1,7 @@
-{ pkgs, config, lib, ... }: {
-  config = lib.mkIf config.development.enable {
+{ pkgs, config, lib, specialArgs, ... }:
+with specialArgs;
+{
+  config = lib.mkIf nixosConfig.development.enable {
     programs.git = {
       enable = true;
       userName = "Marcelo Amancio de Lima Santos";

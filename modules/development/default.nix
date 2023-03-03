@@ -1,8 +1,8 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.development;
-  conditional-lang = x: y: if builtins.elem x cfg.development.languages then y else [];
-  laguages = with pkgs; (
+  conditional-lang = x: y: if builtins.elem x cfg.languages then y else [];
+  languages = with pkgs; (
     [
       mu
       python39Packages.nose
@@ -17,7 +17,7 @@ let
       libtool
       libvterm
       nixpkgs-fmt
-      spellcheck
+      shellcheck
       shfmt
       wireguard-tools
       racket
@@ -36,6 +36,7 @@ let
     ])
     ++ (conditional-lang "f#" [
       fsharp
+      dotnet-sdk
     ])
     ++ (conditional-lang "ocaml" [
       ocamlPackages.utop
@@ -95,9 +96,6 @@ let
       awscli
       aws-iam-authenticator
       eksctl
-      (kubernetes-helm-wrapped = pkgs.wrapHelm pkgs.kubernetes-helm {
-        plugins = with pkgs.kubernetes-helmPlugins; [ helm-diff ];
-      })
     ])
     ++ (conditional-lang "clasp" [
       google-clasp
@@ -111,15 +109,24 @@ let
     ])
     ++ (conditional-lang "kubernetes" [
       kubernetes
-      kubernetes-helm-wrapped
+      (wrapHelm kubernetes-helm {
+        plugins = with kubernetes-helmPlugins; [ helm-diff ];
+      })
       minikube
       k9s
     ])
   );
 in
 {
-  config = mkIf cfg.enable {
-    options.environment.systemPackages = languages;
+  options.development = {
+    enable = lib.mkEnableOption "Enable Development Module";
+    languages = lib.mkOption {
+      type = with lib.types; listOf string;
+      description = "Enabled Development modules";
+    };
+  };
+  config = lib.mkIf cfg.enable {
+    environment.systemPackages = languages;
     services.postgresql.enable = true;
     services.postgresql.package = pkgs.postgresql_14;
     services.postgresql.authentication = lib.mkForce ''
