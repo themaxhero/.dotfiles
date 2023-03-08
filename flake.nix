@@ -23,5 +23,29 @@
       (pairs: nixpkgs.lib.attrsets.filterAttrs (key: value: value == "directory") pairs)
       (dirs: builtins.mapAttrs (system: _: import (./. + "/systems/${system}") attrs) dirs)
     ];
+    homeConfigurations = {
+      maxhero = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+          modules = [
+            nix-doom-emacs.hmModule
+            ./home/maxhero/base
+            ./home/maxhero/development
+            ./home/maxhero/gaming
+            ./home/maxhero/graphical-interface
+          ];
+          extraSpecialArgs = {
+            inherit (attrs) nixpkgs home-manager;
+            nixosConfig = {
+              networking = { hostName = "maxhero-wsl"; };
+              development.enable = true;
+              graphical-interface.enable = false;
+              gaming.enable = false;
+            };
+          };
+        };
+    };
   };
 }

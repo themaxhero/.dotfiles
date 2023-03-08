@@ -2,6 +2,12 @@
 with specialArgs;
 {
   config = lib.mkIf nixosConfig.development.enable {
+    home.packages = with pkgs; [
+      ripgrep
+      roboto
+      scientifica
+    ];
+    fonts.fontconfig.enableProfileFonts = true;
     programs.git = {
       enable = true;
       userName = "Marcelo Amancio de Lima Santos";

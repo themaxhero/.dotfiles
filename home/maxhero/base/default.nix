@@ -25,7 +25,7 @@ with specialArgs;
     enable = true;
     pinentryFlavor = "qt";
   };
-  programs.home-manager.enable = true;
+  #programs.home-manager.enable = true;
   programs.jq.enable = true;
   programs.lsd = {
     enable = true;
