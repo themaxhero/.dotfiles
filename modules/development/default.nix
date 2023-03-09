@@ -11,6 +11,7 @@ let
       cmigemo
       black
       nushell
+      du-dust
       dbeaver
       vim
       gnumake

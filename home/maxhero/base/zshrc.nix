@@ -100,4 +100,9 @@ in ''
   export PATH=~/.emacs.d/bin:~/.local/bin:$PATH
   export FLYCTL_INSTALL="/home/maxhero/.fly"
   export PATH="$FLYCTL_INSTALL/bin:$PATH"
+
+  # direnv stuff
+  unset HISTFILE
+  export DIRENV_LOG_FORMAT=
+  eval "$(direnv hook zsh)"
 ''

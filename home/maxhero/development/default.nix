@@ -1,5 +1,9 @@
 { pkgs, config, lib, specialArgs, ... }:
 with specialArgs;
+let
+  bin = "${pkgs.direnv}/bin/direnv";
+  direnvAllow = (path: "$DRY_RUN_CMD sh -c 'if [ -f \"${path}/.envrc\" ]; then ${bin} allow \"${path}\"; fi;'");
+in
 {
   config = lib.mkIf nixosConfig.development.enable {
     home.packages = with pkgs; [
@@ -15,6 +19,17 @@ with specialArgs;
       };
     }; 
     fonts.fontconfig.enableProfileFonts = true;
+    programs.direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+
+    home.activation = {
+      direnvAllow = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        ${direnvAllow "$HOME"}
+      '';
+    };
+
     programs.git = {
       enable = true;
       userName = "Marcelo Amancio de Lima Santos";

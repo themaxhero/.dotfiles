@@ -23,7 +23,6 @@ in
       slack
       spotify
       tdesktop
-      wpsoffice
       zoom-us
       wdisplays
       notion-app-enhanced
