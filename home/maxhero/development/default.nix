@@ -10,7 +10,11 @@ in
       ripgrep
       roboto
       scientifica
+      powerline-fonts
       sshfs
+      bottom
+      exa
+      bat
     ];
     systemd.user.services.sshfs_laptop = {
       Unit.Description = "SSHFS to Uchigatana";
