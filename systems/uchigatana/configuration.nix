@@ -43,13 +43,13 @@
     systemPackages = with pkgs; [
       waynergy
       airgeddon
-      #nvidia-offload
+      nvidia-offload
     ];
-   #variables = {
-   #   "VK_ICD_FILENAMES" = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json:/run/opengl-driver-32/share/vulkan/icd.d/radeon_icd.i686.json";
-   # }; 
+   variables = {
+      "VK_ICD_FILENAMES" = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json:/run/opengl-driver-32/share/vulkan/icd.d/radeon_icd.i686.json";
+    };
   };
-  /*
+
   nixpkgs.overlays =
     let
       thisConfigsOverlay = final: prev: {
@@ -67,7 +67,7 @@
     system.nixos.tags = [ "nvidia-proprietary" ];
     hardware.nvidia.open = lib.mkForce false;
   };
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = [ "nvidia" "modesetting" ];
   hardware.nvidia = {
     package = config.boot.kernelPackages.nvidiaPackages.latest;
     open = true;
@@ -81,6 +81,5 @@
       finegrained = true;
     };
   };
-  */
   system.stateVersion = "21.11";
 }
