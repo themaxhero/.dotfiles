@@ -15,6 +15,7 @@ in
       bottom
       exa
       bat
+      graphviz
     ];
     systemd.user.services.sshfs_laptop = {
       Unit.Description = "SSHFS to Uchigatana";
@@ -57,9 +58,19 @@ in
     programs.doom-emacs = {
       enable = true;
       doomPrivateDir = ./doom.d;
+      package = pkgs.emacsGcc;
+      extraPackages = [
+        pkgs.nodePackages.typescript
+        pkgs.nodePackages.typescript-language-server
+        pkgs.nodePackages.eslint
+        pkgs.metals
+        pkgs.haskellPackages.lsp
+      ];
       emacsPackagesOverlay = self: super: {
         magit-delta = super.magit-delta.overrideAttrs
-          (esuper: { buildInputs = esuper.buildInputs ++ [ pkgs.git ]; });
+          (esuper: { buildInputs = esuper.buildInputs ++ [
+            pkgs.git
+          ]; });
       };
     };
 

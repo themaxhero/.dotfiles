@@ -59,4 +59,12 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
- 
+(add-to-list 'auto-mode-alist '("\\.orgj\\'" . org-journal-mode))
+(add-to-list 'initial-frame-alist '(maximized))
+(after! org
+  (use-package! org-journal-tags
+   :after (org-journal)
+   :config (org-journal-tags-autosync-mode))
+  (setq org-journal-file-format "%Y%m%d.orgj")
+  (setq org-agenda-files (list "~/org" "~/org/journal"))
+  (setq org-agenda-file-regexp "\\`[^.].*\\.org\\|.todo\\'"))

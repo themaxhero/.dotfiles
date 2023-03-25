@@ -98,7 +98,7 @@
        pdf               ; pdf enhancements
        prodigy           ; FIXME managing external services & code builders
        rgb               ; creating color strings
-       taskrunner        ; taskrunner for all your projects
+       ;;taskrunner        ; taskrunner for all your projects
        terraform         ; infrastructure as code
        tmux              ; an API for interacting with tmux
        upload            ; map local to remote projects via ssh/ftp
@@ -148,6 +148,7 @@
        (org              ; organize your plain life in plain text
 	+brain
 	+pomodoro
+	+roam2
 	+journal)        ; NOTE: Give a change to +noter at sometime
        ;;php             ; perl's insecure younger brother
        ;;plantuml        ; diagrams for confusing people more

@@ -51,3 +51,5 @@
 
 (package! org-auto-tangle
 	  :recipe (:host github :repo "yilkalargaw/org-auto-tangle"))
+
+(package! org-journal-tags)
