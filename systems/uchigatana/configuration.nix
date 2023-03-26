@@ -43,13 +43,14 @@
     systemPackages = with pkgs; [
       waynergy
       airgeddon
-      nvidia-offload
+      #nvidia-offload
     ];
    variables = {
       "VK_ICD_FILENAMES" = "/run/opengl-driver/share/vulkan/icd.d/radeon_icd.x86_64.json:/run/opengl-driver-32/share/vulkan/icd.d/radeon_icd.i686.json";
     };
   };
 
+  /*
   nixpkgs.overlays =
     let
       thisConfigsOverlay = final: prev: {
@@ -62,37 +63,36 @@
       };
     in
     [ thisConfigsOverlay ];
+  */
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  services.xserver.libinput = {
-    enable = true;
-    touchpad = {
-      sendEventsMode = "enabled";
-      scrollMethod = "twofinger";
-      naturalScrolling = true;
-      tapping = true;
-    };
-  };
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia = {
-    prime = {
-      reverseSync.enable = true;
-      amdgpuBusId = "PCI:5:0:0"; # Bus ID of the AMD GPU.
-      nvidiaBusId = "PCI:1:0:0"; # Bus ID of the NVIDIA GPU.
-    };
-    modesetting.enable = true;
-  };
 
   specialisation = {
     nvidia-proprietary.configuration = {
       system.nixos.tags = [ "nvidia-proprietary" ];
-      hardware.nvidia.open = lib.mkForce false;
+      services.xserver.videoDrivers = [ "nvidia" ];
+      hardware.nvidia = {
+        open = false;
+        prime = {
+          reverseSync.enable = true;
+          amdgpuBusId = "PCI:5:0:0"; # Bus ID of the AMD GPU.
+          nvidiaBusId = "PCI:1:0:0"; # Bus ID of the NVIDIA GPU.
+        };
+        modesetting.enable = true;
+      };
     };
     nvidia-open.configuration = {
       system.nixos.tags = [ "nvidia-open" ];
-      hardware.nvidia.open = lib.mkForce true;
+      services.xserver.videoDrivers = [ "nvidia" ];
+      hardware.nvidia = {
+        open = true;
+        prime = {
+          reverseSync.enable = true;
+          amdgpuBusId = "PCI:5:0:0"; # Bus ID of the AMD GPU.
+          nvidiaBusId = "PCI:1:0:0"; # Bus ID of the NVIDIA GPU.
+        };
+        modesetting.enable = true;
+      };
     };
   };
   system.stateVersion = "21.11";
