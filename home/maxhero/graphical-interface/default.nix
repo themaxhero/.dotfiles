@@ -490,10 +490,11 @@ in {
         # Could be the same as sway if I find tools/daemons that are compatible with both Xorg and Wayland
         startup = [
           { command = "--no-startup-id ${pkgs.dunst}/bin/dunst"; }
+          { command = "--no-startup-id ${pkgs.ibus}/bin/ibus-daemon --daemonize"; }
           { command = "--no-startup-id ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.png"; }
-          { command = " --no-startup-id ${nm-applet} --indicator"; }
+          { command = "--no-startup-id ${nm-applet} --indicator"; }
+          { command = "--no-startup-id ~/.config/i3/i3startup.sh --indicator"; }
           { command = "--no-startup-id ${clipman}"; }
-
         ];
       };
     };
@@ -612,14 +613,14 @@ in {
       profiles = {
         "docked" = {
           config = {
-            eDP1 = {
+            eDP = {
               enable = true;
               primary = false;
               position = "0x1080";
               mode = "1920x1080";
               rate = "165.00";
             };
-            HDMI1 = {
+            HDMI-1-0 = {
               enable = true;
               primary = true;
               position = "1920x0";
@@ -630,14 +631,14 @@ in {
         };
         "undocked" = {
           config = {
-            eDP1 = {
+            eDP = {
               enable = true;
               primary = false;
               position = "0x0";
               mode = "1920x1080";
               rate = "165.00";
             };
-            HDMI1 = {
+            HDMI-1-0 = {
               enable = false;
               primary = false;
             };
@@ -721,6 +722,7 @@ in {
         };
       };
     };
+    xdg.configFile."i3/i3startup.sh".text = import ./i3startup.sh.nix;
     xdg.configFile."waybar/config".text = ''
       {
           "layer": "top",
