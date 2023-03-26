@@ -17,12 +17,12 @@ in
       bat
       graphviz
     ];
-    systemd.user.services.sshfs_laptop = {
-      Unit.Description = "SSHFS to Uchigatana";
-      Service = {
-        ExecStart = "sshfs -o allow_other,default_permissions maxhero@192.168.0.22:/home/maxhero/projects ~/projects";
-      };
-    }; 
+    # systemd.user.services.sshfs_laptop = {
+    #   Unit.Description = "SSHFS to Uchigatana";
+    #   Service = {
+    #     ExecStart = "sshfs -o allow_other,default_permissions maxhero@192.168.0.22:/home/maxhero/projects ~/projects";
+    #   };
+    # };
     fonts.fontconfig.enableProfileFonts = true;
     programs.direnv = {
       enable = true;

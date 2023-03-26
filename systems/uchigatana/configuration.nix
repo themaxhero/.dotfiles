@@ -63,22 +63,36 @@
     in
     [ thisConfigsOverlay ];
 
-  specialisation.nvidia-proprietary.configuration = {
-    system.nixos.tags = [ "nvidia-proprietary" ];
-    hardware.nvidia.open = lib.mkForce false;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  services.xserver.libinput = {
+    enable = true;
+    touchpad = {
+      sendEventsMode = "enabled";
+      scrollMethod = "twofinger";
+      naturalScrolling = true;
+      tapping = true;
+    };
   };
-  services.xserver.videoDrivers = [ "nvidia" "modesetting" ];
+
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
-    open = true;
     prime = {
-      offload.enable = true;
+      reverseSync.enable = true;
       amdgpuBusId = "PCI:5:0:0"; # Bus ID of the AMD GPU.
       nvidiaBusId = "PCI:1:0:0"; # Bus ID of the NVIDIA GPU.
     };
-    powerManagement = {
-      enable = true;
-      finegrained = true;
+    modesetting.enable = true;
+  };
+
+  specialisation = {
+    nvidia-proprietary.configuration = {
+      system.nixos.tags = [ "nvidia-proprietary" ];
+      hardware.nvidia.open = lib.mkForce false;
+    };
+    nvidia-open.configuration = {
+      system.nixos.tags = [ "nvidia-open" ];
+      hardware.nvidia.open = lib.mkForce true;
     };
   };
   system.stateVersion = "21.11";
