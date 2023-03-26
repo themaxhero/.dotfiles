@@ -66,6 +66,10 @@
   */
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  services.xserver.libinput.naturalScrolling = true;
+  services.xserver.libinput.middleEmulation = true;
+  services.xserver.libinput.tapping = true;
+  services.xserver.libinput.enable = true;
 
   specialisation = {
     nvidia-proprietary.configuration = {
