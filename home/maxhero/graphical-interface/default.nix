@@ -424,6 +424,11 @@ in {
       };
     };
 
+    programs.alacritty = {
+      enable = true;
+      settings.shell.program = lib.mkForce "${pkgs.fish}/bin/fish";
+    };
+
     xsession.windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;
@@ -493,7 +498,6 @@ in {
           { command = "--no-startup-id ${pkgs.ibus}/bin/ibus-daemon --daemonize"; }
           { command = "--no-startup-id ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.png"; }
           { command = "--no-startup-id ${nm-applet} --indicator"; }
-          { command = "--no-startup-id ~/.config/i3/i3startup.sh --indicator"; }
           { command = "--no-startup-id ${clipman}"; }
         ];
       };
@@ -608,44 +612,6 @@ in {
     services.network-manager-applet.enable = true;
     services.playerctld.enable = true;
     services.swayidle.enable = true;
-    programs.autorandr = {
-      enable = true;
-      profiles = {
-        "docked" = {
-          config = {
-            eDP = {
-              enable = true;
-              primary = false;
-              position = "0x1080";
-              mode = "1920x1080";
-              rate = "165.00";
-            };
-            HDMI-1-0 = {
-              enable = true;
-              primary = true;
-              position = "1920x0";
-              mode = "3840x2160";
-              rate = "60.00";
-            };
-          };
-        };
-        "undocked" = {
-          config = {
-            eDP = {
-              enable = true;
-              primary = false;
-              position = "0x0";
-              mode = "1920x1080";
-              rate = "165.00";
-            };
-            HDMI-1-0 = {
-              enable = false;
-              primary = false;
-            };
-          };
-        };
-      };
-    };
     services.picom.enable = true;
     programs.rofi = {
       enable = true;
@@ -722,7 +688,6 @@ in {
         };
       };
     };
-    xdg.configFile."i3/i3startup.sh".text = import ./i3startup.sh.nix;
     xdg.configFile."waybar/config".text = ''
       {
           "layer": "top",
@@ -971,7 +936,17 @@ in {
       }
     '';
     xdg.configFile."waybar/modules".source = ./waybar/modules;
+    programs.bash.profileExtra = ''
+      export GTK_THEME='${gtkTheme}'
+      export GTK_ICON_THEME='${iconTheme}'
+      export GTK2_RC_FILES='${gtk2-rc-files}'
+      export QT_STYLE_OVERRIDE='gtk2'
 
+      # KDE/Plasma platform for Qt apps.
+      export QT_QPA_PLATFORMTHEME='kde'
+      export QT_PLATFORM_PLUGIN='kde'
+      export QT_PLATFORMTHEME='kde'
+    '';
     programs.waybar.style = ''
       * {
           font-size: ${toString fontSize}px;
@@ -1085,6 +1060,11 @@ in {
     xdg.configFile."waybar/waybar-wttr.py" = {
       source = ./waybar/waybar-wttr.py;
       executable = true;
+    };
+
+    # Using: https://github.com/adi1090x/rofi
+    xdg.configFile."rofi" = {
+      source = ./rofi/files;
     };
 
     xdg.configFile."wofi/style.css".text = ''

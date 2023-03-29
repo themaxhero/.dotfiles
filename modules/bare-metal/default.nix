@@ -79,7 +79,7 @@
   services.flatpak.enable = true;
   services.minidlna = {
     enable = true;
-    mediaDirs = [ "/home/upnp-shared/Media" ];
+    settings.media_dirs = [ "/home/upnp-shared/Media" ];
   };
   services.acpid.enable = true;
   services.aria2.enable = true;

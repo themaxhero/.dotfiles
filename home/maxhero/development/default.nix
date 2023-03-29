@@ -23,7 +23,7 @@ in
     #     ExecStart = "sshfs -o allow_other,default_permissions maxhero@192.168.0.22:/home/maxhero/projects ~/projects";
     #   };
     # };
-    fonts.fontconfig.enableProfileFonts = true;
+    fonts.fontconfig.enable = true;
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;
