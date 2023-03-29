@@ -434,7 +434,6 @@ in {
       package = pkgs.i3-gaps;
       config = {
         inherit modifier terminal;
-        menu = "${pkgs.rofi}/bin/rofi -I -show drun";
         assigns = { };
         bars = [
          {
@@ -496,7 +495,7 @@ in {
         startup = [
           { command = "--no-startup-id ${pkgs.dunst}/bin/dunst"; }
           { command = "--no-startup-id ${pkgs.ibus}/bin/ibus-daemon --daemonize"; }
-          { command = "--no-startup-id ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.png"; }
+          { command = "--no-startup-id ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.jpg"; }
           { command = "--no-startup-id ${nm-applet} --indicator"; }
           { command = "--no-startup-id ${clipman}"; }
         ];
@@ -613,23 +612,6 @@ in {
     services.playerctld.enable = true;
     services.swayidle.enable = true;
     services.picom.enable = true;
-    programs.rofi = {
-      enable = true;
-      package = pkgs.rofi.override {
-        plugins = with pkgs; [
-          rofi-emoji
-          rofi-calc
-          rofi-systemd
-          rofi-menugen
-          rofi-bluetooth
-          rofi-power-menu
-          rofi-pulse-select
-          rofi-file-browser
-          rofi-mpd
-          rofi-pass
-        ];
-      };
-    };
 
     gtk = {
       cursorTheme.name = "Adwaita";
@@ -1106,8 +1088,8 @@ in {
 
     rofiConfig = {
       enable = true;
-      style = "1";
-      type = "6";
+      style = 1;
+      type = 6;
       color = "onedark";
     };
 

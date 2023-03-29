@@ -36,6 +36,7 @@ in
       libsForQt5.dolphin
       libsForQt5.dolphin-plugins
       tela-circle-icon-theme
+      ddcutil
       #xarchiver
     ];
 

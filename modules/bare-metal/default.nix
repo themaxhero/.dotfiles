@@ -13,6 +13,7 @@
     driSupport32Bit = true;
     extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
   };
+  hardware.i2c.enable = true;
 
   programs.nm-applet.enable = true;
   programs.waybar.enable = true;

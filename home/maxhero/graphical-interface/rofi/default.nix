@@ -2,7 +2,7 @@
   This file is just a home-manager module to make easier to use this github repo:
   Using: https://github.com/adi1090x/rofi
 */
-{ config, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   cfg = config.rofiConfig;
 in
@@ -10,23 +10,23 @@ in
   options.rofiConfig = {
     enable = lib.mkEnableOption "Enables rofi config";
     style = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.int;
     };
     type = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.int;
     };
     color = lib.mkOption {
-      type = lib.types.string;
+      type = lib.types.str;
     };
   };
   config = lib.mkIf cfg.enable {
     xdg.configFile."rofi/applets/share/theme.bash".text = ''
-      type="$HOME/.config/rofi/applets/type-${cfg.type}"
-      style='style-${cfg.style}.rasi'
+      type="$XDG_CONFIG_HOME/rofi/applets/type-${toString cfg.type}"
+      style='style-${toString cfg.style}.rasi'
     '';
 
     xdg.configFile."rofi/applets/share/colors.rasi".text = ''
-      @import "~/.config/rofi/colors/${cfg.color}.rasi"
+      @import "$XDG_CONFIG_HOME/rofi/colors/${cfg.color}.rasi"
     '';
 
     xdg.configFile."rofi/applets/share/fonts.rasi".text = ''
@@ -34,9 +34,29 @@ in
           font: "JetBrains Mono Nerd Font 10";
       }
     '';
+    xsession.windowManager.i3.config.menu = "rofi -show drun -theme ~/.config/rofi/launchers/type-${toString cfg.type}/style-${toString cfg.style}.rasi";
+
+    programs.rofi = {
+      enable = true;
+      package = pkgs.rofi.override {
+        plugins = with pkgs; [
+          rofi-emoji
+          rofi-calc
+          rofi-systemd
+          rofi-menugen
+          rofi-bluetooth
+          rofi-power-menu
+          rofi-pulse-select
+          rofi-file-browser
+          rofi-mpd
+          rofi-pass
+        ];
+      };
+      configPath = "$XDG_CONFIG_HOME/rofi/rofi-config.rasi";
+    };
 
     xdg.configFile = {
-      "rofi/config.rasi".source = ./files/config.rasi;
+      "rofi/rofi-config.rasi".source = lib.mkForce ./files/config.rasi;
       "rofi/applets/bin/appasroot.sh".source = ./files/applets/bin/appasroot.sh;
       "rofi/applets/bin/appasroot.sh".executable = true;
       "rofi/applets/bin/apps.sh".source = ./files/applets/bin/apps.sh;
@@ -90,14 +110,14 @@ in
       "rofi/images/b.png".source = ./files/images/b.png;
       "rofi/images/c.png".source = ./files/images/c.png;
       "rofi/images/d.png".source = ./files/images/d.png;
-      "rofi/images/e.png".source = ./files/images/e.png;
+      "rofi/images/e.jpg".source = ./files/images/e.jpg;
       "rofi/images/f.png".source = ./files/images/f.png;
       "rofi/images/g.png".source = ./files/images/g.png;
-      "rofi/images/h.png".source = ./files/images/h.png;
-      "rofi/images/i.png".source = ./files/images/i.png;
-      "rofi/images/j.png".source = ./files/images/j.png;
+      "rofi/images/h.jpg".source = ./files/images/h.jpg;
+      "rofi/images/i.jpg".source = ./files/images/i.jpg;
+      "rofi/images/j.jpg".source = ./files/images/j.jpg;
       "rofi/images/paper.png".source = ./files/images/paper.png;
-      "rofi/images/user.png".source = ./files/images/user.png;
+      "rofi/images/user.jpeg".source = ./files/images/user.jpeg;
       "rofi/images/flowers-1.png".source = ./files/images/flowers-1.png;
       "rofi/images/flowers-2.png".source = ./files/images/flowers-2.png;
       "rofi/images/flowers-3.png".source = ./files/images/flowers-3.png;
@@ -118,8 +138,8 @@ in
       "rofi/launchers/type-1/style-15.rasi".source = ./files/launchers/type-1/style-15.rasi;
       "rofi/launchers/type-1/launcher.sh".source = ./files/launchers/type-1/launcher.sh;
       "rofi/launchers/type-1/launcher.sh".executable = true;
-      "rofi/launchers/type-1/share/colors.rasi".source = ./files/launchers/type-1/shared/colors.rasi;
-      "rofi/launchers/type-1/share/fonts.rasi".source = ./files/launchers/type-1/shared/fonts.rasi;
+      "rofi/launchers/type-1/shared/colors.rasi".source = ./files/launchers/type-1/shared/colors.rasi;
+      "rofi/launchers/type-1/shared/fonts.rasi".source = ./files/launchers/type-1/shared/fonts.rasi;
       "rofi/launchers/type-2/style-1.rasi".source = ./files/launchers/type-2/style-1.rasi;
       "rofi/launchers/type-2/style-2.rasi".source = ./files/launchers/type-2/style-2.rasi;
       "rofi/launchers/type-2/style-3.rasi".source = ./files/launchers/type-2/style-3.rasi;
@@ -137,8 +157,8 @@ in
       "rofi/launchers/type-2/style-15.rasi".source = ./files/launchers/type-2/style-15.rasi;
       "rofi/launchers/type-2/launcher.sh".source = ./files/launchers/type-2/launcher.sh;
       "rofi/launchers/type-2/launcher.sh".executable = true;
-      "rofi/launchers/type-2/share/colors.rasi".source = ./files/launchers/type-2/shared/colors.rasi;
-      "rofi/launchers/type-2/share/fonts.rasi".source = ./files/launchers/type-2/shared/fonts.rasi;
+      "rofi/launchers/type-2/shared/colors.rasi".source = ./files/launchers/type-2/shared/colors.rasi;
+      "rofi/launchers/type-2/shared/fonts.rasi".source = ./files/launchers/type-2/shared/fonts.rasi;
       "rofi/launchers/type-3/style-1.rasi".source = ./files/launchers/type-3/style-1.rasi;
       "rofi/launchers/type-3/style-2.rasi".source = ./files/launchers/type-3/style-2.rasi;
       "rofi/launchers/type-3/style-3.rasi".source = ./files/launchers/type-3/style-3.rasi;
@@ -151,8 +171,8 @@ in
       "rofi/launchers/type-3/style-10.rasi".source = ./files/launchers/type-3/style-10.rasi;
       "rofi/launchers/type-3/launcher.sh".source = ./files/launchers/type-3/launcher.sh;
       "rofi/launchers/type-3/launcher.sh".executable = true;
-      "rofi/launchers/type-3/share/colors.rasi".source = ./files/launchers/type-3/shared/colors.rasi;
-      "rofi/launchers/type-3/share/fonts.rasi".source = ./files/launchers/type-3/shared/fonts.rasi;
+      "rofi/launchers/type-3/shared/colors.rasi".source = ./files/launchers/type-3/shared/colors.rasi;
+      "rofi/launchers/type-3/shared/fonts.rasi".source = ./files/launchers/type-3/shared/fonts.rasi;
       "rofi/launchers/type-4/style-1.rasi".source = ./files/launchers/type-4/style-1.rasi;
       "rofi/launchers/type-4/style-2.rasi".source = ./files/launchers/type-4/style-2.rasi;
       "rofi/launchers/type-4/style-3.rasi".source = ./files/launchers/type-4/style-3.rasi;
@@ -165,8 +185,8 @@ in
       "rofi/launchers/type-4/style-10.rasi".source = ./files/launchers/type-4/style-10.rasi;
       "rofi/launchers/type-4/launcher.sh".source = ./files/launchers/type-4/launcher.sh;
       "rofi/launchers/type-4/launcher.sh".executable = true;
-      "rofi/launchers/type-4/share/colors.rasi".source = ./files/launchers/type-4/shared/colors.rasi;
-      "rofi/launchers/type-4/share/fonts.rasi".source = ./files/launchers/type-4/shared/fonts.rasi;
+      "rofi/launchers/type-4/shared/colors.rasi".source = ./files/launchers/type-4/shared/colors.rasi;
+      "rofi/launchers/type-4/shared/fonts.rasi".source = ./files/launchers/type-4/shared/fonts.rasi;
       "rofi/launchers/type-5/style-1.rasi".source = ./files/launchers/type-5/style-1.rasi;
       "rofi/launchers/type-5/style-2.rasi".source = ./files/launchers/type-5/style-2.rasi;
       "rofi/launchers/type-5/style-3.rasi".source = ./files/launchers/type-5/style-3.rasi;
@@ -205,8 +225,8 @@ in
       "rofi/powermenu/type-1/style-5.rasi".source = ./files/powermenu/type-1/style-5.rasi;
       "rofi/powermenu/type-1/powermenu.sh".source = ./files/powermenu/type-1/powermenu.sh;
       "rofi/powermenu/type-1/powermenu.sh".executable = true;
-      "rofi/powermenu/type-1/share/colors.rasi".source = ./files/powermenu/type-1/share/colors.rasi;
-      "rofi/powermenu/type-1/share/fonts.rasi".source = ./files/powermenu/type-1/share/fonts.rasi;
+      "rofi/powermenu/type-1/shared/colors.rasi".source = ./files/powermenu/type-1/shared/colors.rasi;
+      "rofi/powermenu/type-1/shared/fonts.rasi".source = ./files/powermenu/type-1/shared/fonts.rasi;
       "rofi/powermenu/type-2/style-1.rasi".source = ./files/powermenu/type-2/style-1.rasi;
       "rofi/powermenu/type-2/style-2.rasi".source = ./files/powermenu/type-2/style-2.rasi;
       "rofi/powermenu/type-2/style-3.rasi".source = ./files/powermenu/type-2/style-3.rasi;
@@ -219,8 +239,8 @@ in
       "rofi/powermenu/type-2/style-10.rasi".source = ./files/powermenu/type-2/style-10.rasi;
       "rofi/powermenu/type-2/powermenu.sh".source = ./files/powermenu/type-2/powermenu.sh;
       "rofi/powermenu/type-2/powermenu.sh".executable = true;
-      "rofi/powermenu/type-2/share/colors.rasi".source = ./files/powermenu/type-2/share/colors.rasi;
-      "rofi/powermenu/type-2/share/fonts.rasi".source = ./files/powermenu/type-2/share/fonts.rasi;
+      "rofi/powermenu/type-2/shared/colors.rasi".source = ./files/powermenu/type-2/shared/colors.rasi;
+      "rofi/powermenu/type-2/shared/fonts.rasi".source = ./files/powermenu/type-2/shared/fonts.rasi;
       "rofi/powermenu/type-3/style-1.rasi".source = ./files/powermenu/type-3/style-1.rasi;
       "rofi/powermenu/type-3/style-2.rasi".source = ./files/powermenu/type-3/style-2.rasi;
       "rofi/powermenu/type-3/style-3.rasi".source = ./files/powermenu/type-3/style-3.rasi;
@@ -228,8 +248,8 @@ in
       "rofi/powermenu/type-3/style-5.rasi".source = ./files/powermenu/type-3/style-5.rasi;
       "rofi/powermenu/type-3/powermenu.sh".source = ./files/powermenu/type-3/powermenu.sh;
       "rofi/powermenu/type-3/powermenu.sh".executable = true;
-      "rofi/powermenu/type-3/share/colors.rasi".source = ./files/powermenu/type-3/share/colors.rasi;
-      "rofi/powermenu/type-3/share/fonts.rasi".source = ./files/powermenu/type-3/share/fonts.rasi;
+      "rofi/powermenu/type-3/shared/colors.rasi".source = ./files/powermenu/type-3/shared/colors.rasi;
+      "rofi/powermenu/type-3/shared/fonts.rasi".source = ./files/powermenu/type-3/shared/fonts.rasi;
       "rofi/powermenu/type-4/style-1.rasi".source = ./files/powermenu/type-4/style-1.rasi;
       "rofi/powermenu/type-4/style-2.rasi".source = ./files/powermenu/type-4/style-2.rasi;
       "rofi/powermenu/type-4/style-3.rasi".source = ./files/powermenu/type-4/style-3.rasi;
@@ -237,8 +257,8 @@ in
       "rofi/powermenu/type-4/style-5.rasi".source = ./files/powermenu/type-4/style-5.rasi;
       "rofi/powermenu/type-4/powermenu.sh".source = ./files/powermenu/type-4/powermenu.sh;
       "rofi/powermenu/type-4/powermenu.sh".executable = true;
-      "rofi/powermenu/type-4/share/colors.rasi".source = ./files/powermenu/type-4/share/colors.rasi;
-      "rofi/powermenu/type-4/share/fonts.rasi".source = ./files/powermenu/type-4/share/fonts.rasi;
+      "rofi/powermenu/type-4/shared/colors.rasi".source = ./files/powermenu/type-4/shared/colors.rasi;
+      "rofi/powermenu/type-4/shared/fonts.rasi".source = ./files/powermenu/type-4/shared/fonts.rasi;
       "rofi/powermenu/type-5/style-1.rasi".source = ./files/powermenu/type-5/style-1.rasi;
       "rofi/powermenu/type-5/style-2.rasi".source = ./files/powermenu/type-5/style-2.rasi;
       "rofi/powermenu/type-5/style-3.rasi".source = ./files/powermenu/type-5/style-3.rasi;
