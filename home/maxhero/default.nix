@@ -6,5 +6,6 @@
     ./development
     ./gaming
     ./graphical-interface
+    ./graphical-interface/rofi
   ];
 }
