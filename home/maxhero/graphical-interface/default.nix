@@ -1062,11 +1062,6 @@ in {
       executable = true;
     };
 
-    # Using: https://github.com/adi1090x/rofi
-    xdg.configFile."rofi" = {
-      source = ./rofi/files;
-    };
-
     xdg.configFile."wofi/style.css".text = ''
       window {
       margin: 0px;
@@ -1108,6 +1103,13 @@ in {
       background-color: #32332b;
       }
     '';
+
+    rofiConfig = {
+      enable = true;
+      style = "1";
+      type = "6";
+      color = "onedark";
+    };
 
     xdg.configFile.pcmanfm = {
       target = "pcmanfm-qt/default/settings.conf";
