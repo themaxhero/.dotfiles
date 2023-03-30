@@ -103,6 +103,9 @@ let
     "${modifierCombo}+Shift+8" = "move container to workspace 18";
     "${modifierCombo}+Shift+9" = "move container to workspace 19";
     "${modifierCombo}+Shift+0" = "move container to workspace 20";
+    "${modifier}+F1" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x11\"";
+    "${modifier}+F2" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x12\"";
+    "${modifier}+F3" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x0f\"";
 
     "${modifier}+z" = lock;
   });
@@ -442,7 +445,6 @@ in {
            position = "top";
            workspaceButtons = true;
            workspaceNumbers = true;
-           statusCommand = "${pkgs.i3status}/bin/i3status";
            fonts = {
              names = [ "scientifica" ];
              size = 12.0;
@@ -530,7 +532,7 @@ in {
         };
 
         output = {
-          "*" = { background = "~/.wallpaper.png fill"; };
+          "*" = { background = "~/.wallpaper.jpg fill"; };
           DP-1 = {
             pos = "0 0";
             mode = "3840x2160@60.000000hz";
@@ -1085,7 +1087,7 @@ in {
       background-color: #32332b;
       }
     '';
-
+    ewwConfig.enable = true;
     rofiConfig = {
       enable = true;
       style = 1;
@@ -1119,7 +1121,7 @@ in {
 
     home.file = {
       ".anthy".source = ./.anthy;
-      ".wallpaper.png".source = ./.wallpaper.png;
+      ".wallpaper.jpg".source = ./.wallpaper.jpg;
     };
 
     xdg = {
