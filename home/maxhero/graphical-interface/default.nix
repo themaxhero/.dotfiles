@@ -1,6 +1,7 @@
 { self, config, pkgs, nur, lib, specialArgs, ... }:
 with specialArgs;
 let
+  nixosConfig = specialArgs.nixosConfig;
   firefox = "${pkgs.firefox}/bin/firefox";
   modifier = "Mod4";
   modifier2 = "Mod1";
@@ -877,7 +878,7 @@ in {
           }
       }
     '';
-    xdg.configFile."waybar/modules".source = ./waybar/modules;
+    xdg.configFile."waybar/modules".source = self + /home/maxhero/graphical-interface/waybar/modules;
     programs.bash.profileExtra = ''
       export GTK_THEME='${gtkTheme}'
       export GTK_ICON_THEME='${iconTheme}'

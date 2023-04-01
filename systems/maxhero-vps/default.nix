@@ -8,8 +8,8 @@ nixpkgs.lib.nixosSystem {
     (self + /modules/graphical-interface)
     (self + /modules/gaming)
     (self + /modules/development)
-    ./core-configuration.nix
-    ./configuration.nix
+    (self + /systems/maxhero-vps/core-configuration.nix)
+    (self + /systems/maxhero-vps/configuration.nix)
     (self + /servers/adguard.nix)
     (self + /servers/postgres.nix)
     (self + /servers/firefly.nix)

@@ -11,8 +11,8 @@ nixpkgs.lib.nixosSystem {
     (self + /modules/networking)
     (self + /modules/sound)
     (self + /modules/wireguard-client.nix)
-    ./configuration.nix
-    ./hardware-configuration.nix
+    (self + /systems/uchigatana/configuration.nix)
+    (self + /systems/uchigatana/hardware-configuration.nix)
     home-manager.nixosModules.home-manager
     ({ config, ... }: {
       home-manager = {

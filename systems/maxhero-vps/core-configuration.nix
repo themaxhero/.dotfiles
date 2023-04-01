@@ -1,4 +1,3 @@
-
 # The top lambda and it super set of parameters.
 { config, lib, pkgs, nixpkgs, ... }:
 
@@ -114,14 +113,6 @@
     enable = true;
     clock24 = true;
   };
-
-  # Neovim to rule them all.
-  programs.neovim = {
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
-  };
-  environment.variables.EDITOR = "nvim";
 
   # Override some packages' settings, sources, etc...
   nixpkgs.overlays =
