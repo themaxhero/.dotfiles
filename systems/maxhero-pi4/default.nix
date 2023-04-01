@@ -6,8 +6,8 @@ nixpkgs.lib.nixosSystem {
     (self + /modules/common)
     (self + /modules/networking)
     (self + /modules/wireguard-client.nix)
-    ./configuration.nix
-    ./hardware-configuration.nix
+    (self + /systems/maxhero-pi4/configuration.nix)
+    (self + /systems/maxhero-pi4/hardware-configuration.nix)
     home-manager.nixosModules.home-manager
     ({ config, ... }: {
       home-manager = {
