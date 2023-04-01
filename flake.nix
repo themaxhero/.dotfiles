@@ -18,10 +18,10 @@
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, devshell, ... }@attrs:
   {
     #devShells = import ./shells attrs;
-    nixosConfigurations = nixpkgs.lib.trivial.pipe ./systems [
+    nixosConfigurations = nixpkgs.lib.trivial.pipe ("${self}" + /systems) [
       (dir: builtins.readDir dir)
       (pairs: nixpkgs.lib.attrsets.filterAttrs (key: value: value == "directory") pairs)
-      (dirs: builtins.mapAttrs (system: _: import (./. + "/systems/${system}") attrs) dirs)
+      (dirs: builtins.mapAttrs (system: _: import ("${self}/systems/${system}") attrs) dirs)
     ];
     homeConfigurations = {
       maxhero = home-manager.lib.homeManagerConfiguration {

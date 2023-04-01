@@ -1,16 +1,16 @@
-{ nixpkgs, home-manager, nix-doom-emacs, ... }@attrs:
+{ self, nixpkgs, home-manager, nix-doom-emacs, ... }@attrs:
 nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = attrs;
   modules = [
-    ../../modules/common
-    ../../modules/bare-metal
-    ../../modules/graphical-interface
-    ../../modules/gaming
-    ../../modules/development
-    ../../modules/networking
-    ../../modules/sound
-    ../../modules/wireguard-client.nix
+    (self + /modules/common)
+    (self + /modules/bare-metal)
+    (self + /modules/graphical-interface)
+    (self + /modules/gaming)
+    (self + /modules/development)
+    (self + /modules/networking)
+    (self + /modules/sound)
+    (self + /modules/wireguard-client.nix)
     ./configuration.nix
     ./hardware-configuration.nix
     home-manager.nixosModules.home-manager
@@ -18,7 +18,7 @@ nixpkgs.lib.nixosSystem {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        users.maxhero = ../../home/maxhero;
+        users.maxhero = self + /home/maxhero;
         extraSpecialArgs = attrs // {
           inherit nix-doom-emacs;
           nixosConfig = config;
