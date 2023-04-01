@@ -1,8 +1,9 @@
-{ self, nixpkgs, home-manager, nix-doom-emacs, ... }@attrs:
+{ self, nixpkgs, home-manager, nix-doom-emacs, hardware, ... }@attrs:
 nixpkgs.lib.nixosSystem {
   system = "aarch64-linux";
   specialArgs = attrs;
   modules = [
+    hardware.raspberry-pi-4
     (self + /modules/common)
     (self + /modules/networking)
     (self + /modules/wireguard-client.nix)
