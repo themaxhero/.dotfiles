@@ -17,11 +17,11 @@
 
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, devshell, ... }@attrs:
   {
-    #devShells = import ./shells attrs;
-    nixosConfigurations = nixpkgs.lib.trivial.pipe ("${self}" + /systems) [
+    #devShells = import (self + /shells) attrs;
+    nixosConfigurations = nixpkgs.lib.trivial.pipe (self + /systems) [
       (dir: builtins.readDir dir)
       (pairs: nixpkgs.lib.attrsets.filterAttrs (key: value: value == "directory") pairs)
-      (dirs: builtins.mapAttrs (system: _: import ("${self}/systems/${system}") attrs) dirs)
+      (dirs: builtins.mapAttrs (system: _: import (self + "/systems/${system}") attrs) dirs)
     ];
     homeConfigurations = {
       maxhero = home-manager.lib.homeManagerConfiguration {
@@ -31,10 +31,10 @@
         };
         modules = [
           nix-doom-emacs.hmModule
-          ("${self}" + /home/maxhero/base)
-          ("${self}" + /home/maxhero/development)
-          ("${self}" + /home/maxhero/gaming)
-          ("${self}" + /home/maxhero/graphical-interface)
+          (self + /home/maxhero/base)
+          (self + /home/maxhero/development)
+          (self + /home/maxhero/gaming)
+          (self + /home/maxhero/graphical-interface)
         ];
         extraSpecialArgs = {
           inherit (attrs) nixpkgs home-manager;

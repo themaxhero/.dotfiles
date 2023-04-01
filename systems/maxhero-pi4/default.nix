@@ -3,9 +3,9 @@ nixpkgs.lib.nixosSystem {
   system = "aarch64-linux";
   specialArgs = attrs;
   modules = [
-    ("${self}" + /modules/common)
-    ("${self}" + /modules/networking)
-    ("${self}" + /modules/wireguard-client.nix)
+    (self + /modules/common)
+    (self + /modules/networking)
+    (self + /modules/wireguard-client.nix)
     ./configuration.nix
     ./hardware-configuration.nix
     home-manager.nixosModules.home-manager
@@ -13,7 +13,7 @@ nixpkgs.lib.nixosSystem {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        users.maxhero = ("${self}" + /home/maxhero);
+        users.maxhero = (self + /home/maxhero);
         extraSpecialArgs = attrs // {
           inherit nix-doom-emacs;
           nixosConfig = config;
