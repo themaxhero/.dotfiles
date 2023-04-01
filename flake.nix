@@ -17,7 +17,7 @@
 
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, devshell, ... }@attrs:
   {
-    devShells = import ./shells attrs;
+    #devShells = import ./shells attrs;
     nixosConfigurations = nixpkgs.lib.trivial.pipe ./systems [
       (dir: builtins.readDir dir)
       (pairs: nixpkgs.lib.attrsets.filterAttrs (key: value: value == "directory") pairs)
@@ -25,27 +25,27 @@
     ];
     homeConfigurations = {
       maxhero = home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
-          modules = [
-            nix-doom-emacs.hmModule
-            ./home/maxhero/base
-            ./home/maxhero/development
-            ./home/maxhero/gaming
-            ./home/maxhero/graphical-interface
-          ];
-          extraSpecialArgs = {
-            inherit (attrs) nixpkgs home-manager;
-            nixosConfig = {
-              networking = { hostName = "maxhero-wsl"; };
-              development.enable = true;
-              graphical-interface.enable = false;
-              gaming.enable = false;
-            };
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+        };
+        modules = [
+          nix-doom-emacs.hmModule
+          ("${self}" + /home/maxhero/base)
+          ("${self}" + /home/maxhero/development)
+          ("${self}" + /home/maxhero/gaming)
+          ("${self}" + /home/maxhero/graphical-interface)
+        ];
+        extraSpecialArgs = {
+          inherit (attrs) nixpkgs home-manager;
+          nixosConfig = {
+            networking = { hostName = "maxhero-wsl"; };
+            development.enable = true;
+            graphical-interface.enable = false;
+            gaming.enable = false;
           };
         };
+      };
     };
   };
 }
