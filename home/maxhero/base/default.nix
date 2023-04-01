@@ -1,4 +1,4 @@
-{ options, config, pkgs, lib, specialArgs, ... }:
+{ self, options, config, pkgs, lib, specialArgs, ... }:
 with pkgs.lib;
 with specialArgs;
 {
@@ -11,7 +11,7 @@ with specialArgs;
     numeric = "pt_BR.UTF-8";
   };
   home.file = {
-    ".zshrc".text = (import ./zshrc.nix) {
+    ".zshrc".text = (import (self + /home/maxhero/base/zshrc.nix)) {
       inherit pkgs;
       theme = "lambda";
     };

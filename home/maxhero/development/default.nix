@@ -1,4 +1,4 @@
-{ pkgs, config, lib, specialArgs, ... }:
+{ self, pkgs, config, lib, specialArgs, ... }:
 with specialArgs;
 let
   bin = "${pkgs.direnv}/bin/direnv";
@@ -57,7 +57,7 @@ in
 
     programs.doom-emacs = {
       enable = true;
-      doomPrivateDir = ./doom.d;
+      doomPrivateDir = self + /home/maxhero/development/doom.d;
       package = pkgs.emacsGcc;
       extraPackages = [
         pkgs.nodePackages.typescript

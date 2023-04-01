@@ -1,6 +1,6 @@
-{ config, pkgs, lib, home-manager, nur, nix-doom-emacs, ... }:
+{ self, config, pkgs, lib, home-manager, nur, nix-doom-emacs, ... }:
 let
-  nowl = (import ../../tools/nowl.nix) pkgs;
+  nowl = (import (self + /tools/nowl.nix)) pkgs;
   cfg = config.graphical-interface;
 in
 {

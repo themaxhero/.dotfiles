@@ -2,7 +2,7 @@
   This file is just a home-manager module to make easier to use this github repo:
   Using: https://github.com/owenrumney/eww-bar
 */
-{ config, lib, pkgs, ... }:
+{ self, config, lib, pkgs, ... }:
 let
   cfg = config.ewwConfig;
 in
@@ -13,7 +13,7 @@ in
   config = lib.mkIf cfg.enable {
     programs.eww = {
       enable = true;
-      configDir = ../eww;
+      configDir = self + /home/maxhero/graphical-interface/eww;
     };
   };
 }

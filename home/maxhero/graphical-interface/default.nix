@@ -1,4 +1,4 @@
-{ config, pkgs, nur, lib, specialArgs, ... }:
+{ self, config, pkgs, nur, lib, specialArgs, ... }:
 with specialArgs;
 let
   firefox = "${pkgs.firefox}/bin/firefox";
@@ -990,17 +990,17 @@ in {
     };
 
     xdg.configFile."waybar/mediaplayer.py" = {
-      source = ./waybar/mediaplayer.py;
+      source = self + /home/maxhero/graphical-interface/waybar/mediaplayer.py;
       executable = true;
     };
 
     xdg.configFile."waybar/waybar-khal.py" = {
-      source = ./waybar/waybar-khal.py;
+      source = self + /home/maxhero/graphical-interface/waybar/waybar-khal.py;
       executable = true;
     };
 
     xdg.configFile."waybar/waybar-wttr.py" = {
-      source = ./waybar/waybar-wttr.py;
+      source = self + /home/maxhero/graphical-interface/waybar/waybar-wttr.py;
       executable = true;
     };
 
@@ -1078,8 +1078,8 @@ in {
     };
 
     home.file = {
-      ".anthy".source = ./.anthy;
-      ".wallpaper.jpg".source = ./.wallpaper.jpg;
+      ".anthy".source = self + /home/maxhero/graphical-interface/.anthy;
+      ".wallpaper.jpg".source = self + /home/maxhero/graphical-interface/.wallpaper.jpg;
     };
 
     xdg = {
