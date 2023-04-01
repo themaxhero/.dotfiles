@@ -64,6 +64,7 @@ in
     };
     programs.dconf.enable = true;
     services.xserver.layout = "us";
+    services.xserver.xkbVariant = "intl";
     services.xserver.enable = true;
   };
 }

@@ -438,50 +438,7 @@ in {
       config = {
         inherit modifier terminal;
         assigns = { };
-        bars = [
-         {
-           mode = "dock";
-           hiddenState = "hide";
-           position = "top";
-           workspaceButtons = true;
-           workspaceNumbers = true;
-           fonts = {
-             names = [ "scientifica" ];
-             size = 12.0;
-           };
-           trayOutput = "primary";
-           colors = {
-              background = "#000000";
-              statusline = "#ffffff";
-              separator = "#666666";
-              focusedWorkspace = {
-                border = "#4c7899";
-                background = "#285577";
-                text = "#ffffff";
-              };
-              activeWorkspace = {
-                border = "#333333";
-                background = "#5f676a";
-                text = "#ffffff";
-              };
-              inactiveWorkspace = {
-                border = "#333333";
-                background = "#222222";
-                text = "#888888";
-              };
-              urgentWorkspace = {
-                border = "#2f343a";
-                background = "#900000";
-                text = "#ffffff";
-              };
-              bindingMode = {
-                border = "#2f343a";
-                background = "#900000";
-                text = "#ffffff";
-              };
-            };
-          } 
-        ];
+        bars = [];
         colors = { };
         focus.followMouse = true;
         fonts = {
@@ -496,6 +453,7 @@ in {
         # Could be the same as sway if I find tools/daemons that are compatible with both Xorg and Wayland
         startup = [
           { command = "--no-startup-id ${pkgs.dunst}/bin/dunst"; }
+          { command = "--no-startup-id \"${pkgs.eww}/bin/eww daemon && ${pkgs.eww}/bin/eww open bar\""; always = true; }
           { command = "--no-startup-id ${pkgs.ibus}/bin/ibus-daemon --daemonize"; }
           { command = "--no-startup-id ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.jpg"; }
           { command = "--no-startup-id ${nm-applet} --indicator"; }
