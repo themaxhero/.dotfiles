@@ -97,6 +97,4 @@
   swapDevices = [ { device = "/dev/disk/by-uuid/66fee4ef-15f3-434b-b567-54f7e0ca0ef3"; } ];
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  # high-resolution display
-  hardware.video.hidpi.enable = lib.mkDefault true;
 }

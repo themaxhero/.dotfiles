@@ -5,6 +5,9 @@ nixpkgs.lib.nixosSystem {
   modules = [
     hardware.nixosModules.raspberry-pi-4
     (self + /modules/common)
+    (self + /modules/graphical-interface)
+    (self + /modules/gaming)
+    (self + /modules/development)
     (self + /modules/networking)
     (self + /modules/wireguard-client.nix)
     (self + /systems/maxhero-pi4/configuration.nix)

@@ -40,7 +40,7 @@
   # "enp2s0" instead of "eth0".
   networking.usePredictableInterfaceNames = true;
 
-  # Default time zone.
+  # Default time zone_.
   time.timeZone = "America/Sao_Paulo";
 
   # Internationalisation.
@@ -55,7 +55,7 @@
 
   # User accounts.
   users.users.maxhero = {
-    uid = 1001;
+    uid = 1000;
     isNormalUser = true;
     extraGroups = [ "wheel" "users" "audio" "video" "input" "networkmanager" "rtkit" "podman" "minidlna" "kvm" "adbusers" ];
     openssh.authorizedKeys.keys = [
@@ -134,9 +134,11 @@
   services.openssh = {
     # TODO: Use openssh_hpn
     enable = true;
-    forwardX11 = true;
-    gatewayPorts = "yes";
-    permitRootLogin = "no";
+    settings = {
+      X11Forwarding = true;
+      GatewayPorts = "yes";
+      PermitRootLogin = "no";
+    };
     extraConfig = ''
     AllowTCPForwarding yes 
     '';
