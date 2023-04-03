@@ -4,6 +4,7 @@ nixpkgs.lib.nixosSystem {
   specialArgs = attrs;
   modules = [
     hardware.nixosModules.raspberry-pi-4
+    "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
     (self + /modules/common)
     (self + /modules/graphical-interface)
     (self + /modules/gaming)
