@@ -18,8 +18,8 @@
   };
   virtualisation.oci-containers.containers = {
     http-helloworld = {
-      image = "strm/nginx-balancer:latest";
-      ports = ["8000:80"];
+      image = "strm/helloworld-http:latest";
+      ports = ["8000:8000"];
     };
   };
 }
