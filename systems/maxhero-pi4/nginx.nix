@@ -5,25 +5,21 @@
     recommendedProxySettings = true;
     recommendedTlsSettings = true;
     virtualHosts = {
-      "vps.maxhero.com.br" = {
-        forceSSL = true;
-        enableACME = true;
-      };
-      "dns.maxhero.com.br" = {
-        forceSSL = true;
-        useACMEHost = "vps.maxhero.com.br";
+      "maxhero-pi4" = {
+        forceSSL = false;
         locations = {
-          "/dns-query" = {
-            proxyPass = "https://127.0.0.1:3334/dns-query";
-          };
-          "/" = {
-            proxyPass = "https://127.0.0.1:8000"
-          };
-        }
+          "/".proxyPass = "https://127.0.0.1:8000";
+        };
       };
     };
     appendHttpConfig = ''
       aio threads;
     '';
+  };
+  virtualisation.oci-containers.containers = {
+    http-helloworld = {
+      image = "strm/nginx-balancer:latest";
+      ports = ["8000:80"];
+    };
   };
 }

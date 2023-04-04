@@ -20,22 +20,28 @@
       options = "--delete-older-than 7d";
     };
   };
-  hardware.raspberry-pi."4".fkms-3d.enable = true;
-  networking.hostName = "maxhero-pi4";
-  sdImage.compressImage = false;
-  boot.kernelPackages = pkgs.linuxPackages_rpi4;
+  networking = {
+   hostName = "maxhero-pi4";
+  };
   boot.enableContainers = false;
+  boot.initrd.network.ssh.enable = true;
+  boot.loader.grub.enable = false;
+  boot.loader.generic-extlinux-compatible.enable = true;
+  sdImage.firmwareSize = 512;
+  sdImage.compressImage = false;
   virtualisation.podman = {
     enable = true;
     dockerCompat = true;
   };
-  users.users.maxhero.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpqsk5zX3Q/YLhx/zADZvHYdXPC27YiR6Eaby3EGlVb"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGDbhh28/j9VKeJ7el5y5T+bMcfLtKxp7b9vEcTW+vyK"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMI03ted/wvFqDZ8w251SyY/gTDexN/6auIVphoiwqbs"
-  ];
+  users.users.maxhero = {
+    initialHashedPassword = "$y$j9T$a2Q7Dpby0aZttKPbAmCDw/$8M/A1hFjVLyaRWtDn0.qfNMb9puNRHNg92YQK57mRyD";
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpqsk5zX3Q/YLhx/zADZvHYdXPC27YiR6Eaby3EGlVb"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGDbhh28/j9VKeJ7el5y5T+bMcfLtKxp7b9vEcTW+vyK"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMI03ted/wvFqDZ8w251SyY/gTDexN/6auIVphoiwqbs"
+    ];
+  };
   services.openssh = {
-    # TODO: Use openssh_hpn
     enable = true;
     settings = {
       X11Forwarding = true;
@@ -43,7 +49,7 @@
       PermitRootLogin = "no";
     };
     extraConfig = ''
-    AllowTCPForwarding yes
+      AllowTCPForwarding yes
     '';
   };
   nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
