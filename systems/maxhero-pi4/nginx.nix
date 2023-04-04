@@ -8,8 +8,8 @@
       "maxhero-pi4" = {
         forceSSL = false;
         locations = {
-          "/jellyfin".proxyPass = "http://127.0.0.1:8096";
-          "/helloworld".proxyPass = "http://127.0.0.1:8000";
+          "/jellyfin".proxyPass = "http://192.168.15.15:8096";
+          "/helloworld".proxyPass = "http://192.168.15.15:8000";
         };
       };
     };
