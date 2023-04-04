@@ -1,6 +1,5 @@
 { ... }:
 {
-  /*
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
@@ -9,7 +8,8 @@
       "maxhero-pi4" = {
         forceSSL = false;
         locations = {
-          "/".proxyPass = "https://127.0.0.1:8000";
+          "/jellyfin".proxyPass = "http://127.0.0.1:8096";
+          "/helloworld".proxyPass = "http://127.0.0.1:8000";
         };
       };
     };
@@ -23,7 +23,6 @@
       ports = ["8000:8000"];
     };
   };
-  */
   services.jellyfin = {
     enable = true;
     user = "maxhero";
