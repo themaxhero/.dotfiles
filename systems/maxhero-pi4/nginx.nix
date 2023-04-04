@@ -1,5 +1,6 @@
 { ... }:
 {
+  /*
   services.nginx = {
     enable = true;
     recommendedProxySettings = true;
@@ -21,5 +22,10 @@
       image = "strm/helloworld-http:latest";
       ports = ["8000:8000"];
     };
+  };
+  */
+  services.jellyfin = {
+    enable = true;
+    user = "maxhero";
   };
 }
