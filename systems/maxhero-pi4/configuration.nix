@@ -28,7 +28,7 @@
   boot.supportedFilesystems = [ "ntfs" ];
   fileSystems."/mnt/sda1" = {
     device = "/dev/sda1";
-    fsType = "ntfs3";
+    fsType = "ntfs";
     options = [ "defaults" "user" "rw" "utf8" "noauto" "umask=000" ];
   };
   boot.loader.grub.enable = false;
