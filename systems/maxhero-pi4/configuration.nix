@@ -25,6 +25,12 @@
   };
   boot.enableContainers = false;
   boot.initrd.network.ssh.enable = true;
+  boot.supportedFilesystems = [ "ntfs" ];
+  fileSystems."/mnt/sda1" = {
+    device = "/dev/sda1";
+    fsType = "ntfs3";
+    options = [ "defaults" "user" "rw" "utf8" "noauto" "umask=000" ];
+  };
   boot.loader.grub.enable = false;
   boot.loader.generic-extlinux-compatible.enable = true;
   sdImage.firmwareSize = 512;
