@@ -208,10 +208,6 @@ let
         command = "floating enable sticky enable border normal";
       }
       {
-        criteria = { title = "sudo"; };
-        command = "floating enable sticky enable border normal";
-      }
-      {
         criteria = { class = "Skype"; };
         command = "floating enable border normal";
       }
@@ -311,10 +307,6 @@ let
       }
       {
         criteria = { class = "qt5ct"; };
-        command = "floating enable sticky enable border normal";
-      }
-      {
-        criteria = { title = "sudo"; };
         command = "floating enable sticky enable border normal";
       }
       {
