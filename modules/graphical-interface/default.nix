@@ -30,7 +30,6 @@ in
       radeontop
       filezilla
       gparted
-      obsidian
       gnome.gnome-tweaks
       orchis-theme
       libsForQt5.dolphin

@@ -39,7 +39,7 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type 'relative)
 
-(setq doom-font (font-spec :family "scientifica" :size 16 :weight 'light)
+(setq doom-font (font-spec :family "scientifica" :size 20 :weight 'light)
       doom-variable-pitch-font (font-spec :family "Roboto" :size 16)
       doom-big-font (font-spec :family "Roboto Mono" :size 36 :weight 'light))
 
