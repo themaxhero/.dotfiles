@@ -45,53 +45,13 @@
   #boot.zfs.enableUnstable = true;
 
   fileSystems."/" = {
-    device = "zroot/ROOT/default";
-    fsType = "zfs";
-  };
-
-  fileSystems."/etc/ssh" = {
-    device = "zroot/data/ssh";
-    fsType = "zfs";
-  };
-
-  fileSystems."/home" = {
-    device = "zroot/data/home";
-    fsType = "zfs";
-  };
-
-  fileSystems."/usr/local" = {
-    device = "zroot/data/usr-local";
-    fsType = "zfs";
-  };
-
-  fileSystems."/etc/NetworkManager/system-connections" = {
-    device = "zroot/data/connections";
-    fsType = "zfs";
-  };
-
-  fileSystems."/home/maxhero/Games" = {
-    device = "zroot/games/home";
-    fsType = "zfs";
- };
-
-  fileSystems."/home/maxhero/.cache/btdownloads" = {
-    device = "zroot/data/btdownloads";
-    fsType = "zfs";
-  };
-
-  fileSystems."/home/maxhero/.local/share/Steam/steamapps/common" = {
-    device = "zroot/games/steam";
-    fsType = "zfs";
+    device = "/dev/disk/by-uuid/9f7c97e5-d9bf-4681-844a-669c1093da90";
+    fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/5E85-DE1E";
+    device = "/dev/disk/by-uuid/6AE2-F448";
     fsType = "vfat";
-  };
-
-  fileSystems."/data/puppet" = {
-    device = "/dev/disk/by-uuid/f810ae2c-7956-4300-93a4-1894b50501f7";
-    fsType = "ext4";
   };
 
   swapDevices = [ { device = "/dev/disk/by-uuid/66fee4ef-15f3-434b-b567-54f7e0ca0ef3"; } ];
