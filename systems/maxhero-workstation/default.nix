@@ -3,8 +3,9 @@ nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = attrs;
   modules = [
-    (nixpkgs + /nixos/modules/installer/cd-dvd/installation-cd-minimal.nix)
-    (nixpkgs + /nixos/modules/installer/cd-dvd/channel.nix)
+    # TODO: Add Media Generation later
+    #(nixpkgs + /nixos/modules/installer/cd-dvd/installation-cd-minimal.nix)
+    #(nixpkgs + /nixos/modules/installer/cd-dvd/channel.nix)
     (self + /modules/common)
     (self + /modules/development)
     (self + /modules/graphical-interface)
