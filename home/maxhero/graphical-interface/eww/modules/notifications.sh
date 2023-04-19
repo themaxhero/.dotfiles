@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 print_notification() {
   content=$(echo "$1" | tr '\n' ' ')

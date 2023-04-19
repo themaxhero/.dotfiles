@@ -30,16 +30,16 @@
          :space-evenly false
       (notifications)
       (github)
-      (updates)
+      ;(updates)
       (trash)
-      (noisetorch)
+      ;(noisetorch)
       (microphone)
       (speaker)
       (ping)
       (network)
       (disk)
       (ram)
-      (nvidia)
+      ;(nvidia)
       (cpu)
       (date)
       (time))))
@@ -48,20 +48,20 @@
 ; Variables foldstart
 (defpoll time_poll :interval "1s" "date +%H:%M")
 (defpoll date_poll :interval "1m" "date +%d/%m/%Y")
-(defpoll trash_poll :interval "10s" "./modules/trash.sh")
-(defpoll noisetorch_poll :initial "" :interval "10s" "./modules/noisetorch.sh")
-(defpoll updates_poll :initial "" :interval "1m" "./modules/updates.sh &") 
-(defpoll github_poll :initial "" :interval "1m" "./modules/github.sh")
-(defpoll ping_poll :interval "10s" "./modules/ping.sh")
+(defpoll trash_poll :interval "10s" "~/.config/eww/modules/trash.sh")
+(defpoll noisetorch_poll :initial "" :interval "10s" "~/.config/eww/modules/noisetorch.sh")
+(defpoll updates_poll :initial "" :interval "1m" "~/.config/eww/modules/updates.sh &") 
+(defpoll github_poll :initial "" :interval "1m" "~/.config/eww/modules/github.sh")
+(defpoll ping_poll :interval "10s" "~/.config/eww/modules/ping.sh")
 
-(deflisten workspaces_listen "./modules/workspaces.sh")
-(deflisten player_listen :initial '{"show": "no", "content": ""}' "./modules/player.sh")
-(deflisten nvidia_listen "./modules/nvidia.sh")
-(deflisten notifications_listen :initial '{"show": "no", "content": ""}' "./modules/notifications.sh")
+(deflisten workspaces_listen "~/.config/eww/modules/workspaces.sh")
+(deflisten player_listen :initial '{"show": "no", "content": ""}' "~/.config/eww/modules/player.sh")
+(deflisten nvidia_listen "~/.config/eww/modules/nvidia.sh")
+(deflisten notifications_listen :initial '{"show": "no", "content": ""}' "~/.config/eww/modules/notifications.sh")
 
 ; Make this cleaner at some point
-(defpoll microphone_poll :interval "999h" "./modules/microphone.sh")
-(defpoll speaker_poll :interval "999h" "./modules/speaker.sh")
+(defpoll microphone_poll :interval "999h" "~/.config/eww/modules/microphone.sh")
+(defpoll speaker_poll :interval "999h" "~/.config/eww/modules/speaker.sh")
 ; foldend
 
 ; Modules foldstart
@@ -152,15 +152,15 @@
 (defwidget speaker []
   (icon-module :class "speaker" 
                :icon {speaker_poll.icon}
-    (eventbox :onscroll `eww update speaker_poll="$(./modules/speaker.sh {})"`
-      (button :onclick `eww update speaker_poll="$(./modules/speaker.sh toogle)"`
+    (eventbox :onscroll `eww update speaker_poll="$(~/.config/eww/modules/speaker.sh {})"`
+      (button :onclick `eww update speaker_poll="$(~/.config/eww/modules/speaker.sh toogle)"`
         (label :text {speaker_poll.content})))))
 
 (defwidget microphone []
   (icon-module :class "microphone" 
                :icon {microphone_poll.icon}
-    (eventbox :onscroll `eww update microphone_poll="$(./modules/microphone.sh {})"`
-      (button :onclick `eww update microphone_poll="$(./modules/microphone.sh toogle)"`
+    (eventbox :onscroll `eww update microphone_poll="$(~/.config/eww/modules/microphone.sh {})"`
+      (button :onclick `eww update microphone_poll="$(~/.config/eww/modules/microphone.sh toogle)"`
         (label :text {microphone_poll.content})))))
 ; foldend
 

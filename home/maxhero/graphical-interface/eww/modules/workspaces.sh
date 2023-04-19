@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 get_workspaces() {
   i3-msg -t get_workspaces
 }

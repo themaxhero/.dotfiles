@@ -11,6 +11,9 @@ in
     enable = lib.mkEnableOption "Enable eww config";
   };
   config = lib.mkIf cfg.enable {
+    home.packages = with pkgs; [
+      gh
+    ];
     programs.eww = {
       enable = true;
       configDir = self + /home/maxhero/graphical-interface/eww;

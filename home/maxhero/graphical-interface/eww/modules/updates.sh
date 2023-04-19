@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 updates_arch=$(checkupdates 2> /dev/null | wc -l );
 [ -z "$updates_arch" ] && updates_arch=0

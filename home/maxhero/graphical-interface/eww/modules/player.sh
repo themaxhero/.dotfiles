@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 
 echo "{\"show\": \"no\", \"content\": \"\"}"
