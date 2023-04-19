@@ -68,3 +68,8 @@
   (setq org-journal-file-format "%Y%m%d.orgj")
   (setq org-agenda-files (list "~/org" "~/org/journal"))
   (setq org-agenda-file-regexp "\\`[^.].*\\.org\\|.todo\\'"))
+
+(after! company
+  (setq +lsp-company-backends '(company-tabnine :separate company-capf company-yasnippet))
+  (setq company-show-numbers t)
+  (setq company-idle-delay 0))

@@ -8,6 +8,9 @@ in
     enable = lib.mkEnableOption "Enable Development Module";
   };
   config = lib.mkIf cfg.enable {
+    boot.plymouth = {
+      enable = true;
+    };
     environment.systemPackages = with pkgs; [
       alacritty
       kitty
