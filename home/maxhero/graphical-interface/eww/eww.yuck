@@ -1,206 +1,167 @@
-; Add the includes
+; Windows foldstart
+(defwindow bar-left
+  :monitor 0
+  :hexpand false
+  :vexpand false
+  :geometry (geometry :anchor "top left" :x 0 :y 0 :width "100%")
+  :reserve (struts :distance "10px" :side "top")
+  (bar :monitor "DP-1"))
+(defwindow bar-right
+  :monitor 0
+  :hexpand false
+  :vexpand false
+  :geometry (geometry :anchor "top left" :x 0 :y 0 :width "100%")
+  :reserve (struts :distance "10px" :side "top")
+  (bar :monitor "DP-3"))
+; foldend
 
-(include "variables.yuck")
-(include "controls.yuck")
-(include "listeners.yuck")
-(include "metrics.yuck")
-(include "pollers.yuck")
-(include "revealer.yuck")
-
-
-(defwidget bar []
-  (centerbox :orientation "h"
-    (box :orientation "h" :space-evenly false (workspaces) )
-    (box :orientation "h" :space-evenly false (label :text " ${time} - ") (weather) )
-    (sidestuff)
-  )
-)
-
-(defwidget bottombar []
-  (centerbox :orientation "h"
-    (box :halign "start" :orientation "h" :space-evenly false (workspaces))
-    (box :halign "end" :orientation "h" :space-evenly false)
-    (box :orientation "h" :halign "end" :space-evenly false
-      (metric :icon ""
-        :onclick "htop --sort-key PERCENT_MEM"
-      :value {EWW_RAM.used_mem_perc})
-      (metric :icon ""
-        :onclick "htop --sort-key PERCENT_CPU"
-      :value {EWW_CPU.avg})
-      (metric :icon ""
-        :onclick "mc"
-        :value "${round(EWW_DISK["/"].used_perc, 0)}")
+; Bar foldstart
+(defwidget bar [monitor]
+  (box :orientation "h"
+       :space-evenly false
+       :class "bar"
+    (box :halign "start"
+         :space-evenly false
+      (workspaces :monitor monitor)
+      (player))
+    (box :halign "end"
+         :spacing 12
+         :hexpand true
+         :space-evenly false
+      (notifications)
+      (github)
+      (updates)
+      (trash)
+      (noisetorch)
+      (microphone)
+      (speaker)
+      (ping)
       (network)
-    )
-  )
-)
+      (disk)
+      (ram)
+      (nvidia)
+      (cpu)
+      (date)
+      (time))))
+; foldend
 
-(defwidget workspaces []
-  (literal :class "workspaces" :content "${workspace}")
-)
+; Variables foldstart
+(defpoll time_poll :interval "1s" "date +%H:%M")
+(defpoll date_poll :interval "1m" "date +%d/%m/%Y")
+(defpoll trash_poll :interval "10s" "./modules/trash.sh")
+(defpoll noisetorch_poll :initial "" :interval "10s" "./modules/noisetorch.sh")
+(defpoll updates_poll :initial "" :interval "1m" "./modules/updates.sh &") 
+(defpoll github_poll :initial "" :interval "1m" "./modules/github.sh")
+(defpoll ping_poll :interval "10s" "./modules/ping.sh")
 
+(deflisten workspaces_listen "./modules/workspaces.sh")
+(deflisten player_listen :initial '{"show": "no", "content": ""}' "./modules/player.sh")
+(deflisten nvidia_listen "./modules/nvidia.sh")
+(deflisten notifications_listen :initial '{"show": "no", "content": ""}' "./modules/notifications.sh")
+
+; Make this cleaner at some point
+(defpoll microphone_poll :interval "999h" "./modules/microphone.sh")
+(defpoll speaker_poll :interval "999h" "./modules/speaker.sh")
+; foldend
+
+; Modules foldstart
+; Generic icon module foldstart
 (defwidget icon-module [icon ?class ?visible]
   (box :class "${class} icon-module"
-    :orientation "h"
-    :halign "start"
-    :space-evenly false
-    :visible {visible ?: true} ; because the argument is optional
+       :orientation "h"
+       :halign "end"
+       :space-evenly false
+       :visible {visible ?: true} ; because the argument is optional
     (label :class "icon-module__icon" :text "${icon}")
-    (children)
-  )
-)
+    (children)))
+; foldend
 
-(defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end" :spacing 10
-    (box :orientation "h" :spacing 2 :space-evenly false :halign "end"
-      (volume)
-      (spotify)
-      (docker)
-      (github)
-      (notifications)
-    )
-  )
-)
+; Polybar-Style modules foldstart
+;(defwidget workspaces []
+;  (literal :content workspaces_listen))
 
-(defwidget weather []
-  (icon-module :icon "${weather.icon}"
-    (label :text "${weather.description}")
-  )
-)
-
-(defwidget music []
-  (box :class "music"
-    :orientation "h"
+(defwidget workspaces [monitor]
+  (box
     :space-evenly false
-    :halign "center"
-    {music != "" ? "🎵${music}" : ""}
-  )
-)
+    :spacing: 5
+    (for workspace in workspaces_listen
+      (eventbox
+        :cursor "pointer"
+        :visible {workspace.output == monitor ? true : false}
+        (button
+          :class {workspace.focused ? "active-workspace" : ""}
+          :onclick "i3-msg workspace ${workspace.name}"
+          "${workspace.name}")))))
 
+(defwidget player []
+  (icon-module :class "player" :icon "" :visible {player_listen.show == "yes"}
+    (literal :content {player_listen.content})))
 
-(defwidget volume [?class]
-  (box :space-evenly false
-    :class "hover-module ${class}"
-    (revealer-on-hover :class "hl-on-hover"
-      :var revealVolume
-      :varname "revealVolume"
-      :transition "slideleft"
-      :class "volume"
-      
-      (hovered-sign :var revealVolume
-        (label :text "")
-        (label :text "")
-      )
-      (metric :icon ""
-        :class "volume"
-        :value volume
-      :onchange "amixer -D pulse sset Master {}%")
-    "    ")
-  )
-)
+(defwidget ram []
+  (icon-module :class "ram" :icon "" :visible {EWW_RAM.used_mem_perc != ""}
+    (label :text "${round(EWW_RAM.used_mem_perc, 0)}%")))
 
+(defwidget notifications []
+  (icon-module :class "notifications" :icon "" :visible {notifications_listen.show == "yes"}
+    (literal :content {notifications_listen.content}))) 
 
-(defwidget notifications [?class]
-  (box :space-evenly false
-    :class "hover-module ${class}"
-    (revealer-on-hover :class "hl-on-hover"
-      :var revealNotify
-      :varname "revealNotify"
-      :transition "slideleft"
-      :class "notifications"
+(defwidget date []
+  (icon-module :class "date" :icon "" 
+    (label :text date_poll)))
 
-      (hovered-sign :var revealNotify
-        (label :class "notifications" :text "")
-        (label :class "notifications" :text "")
-      )
-      (button :onclick "playerctl play-pause" (label :class "notifications" :text " ${notifications} "))
-    "    ")
-  )
-)
+(defwidget time []
+  (icon-module :class "time" :icon "" 
+    (label :text time_poll))) 
 
-(defwidget spotify [?class]
-  (box :space-evenly false
-    :class "hover-module ${class}"
-    (revealer-on-hover :class "hl-on-hover"
-      :var revealSpotify
-      :varname "revealSpotify"
-      :transition "slideleft"
-      :class "spotify"
-      
-      (hovered-sign :var revealSpotify
-        (label :class "spotify" :text "")
-        (label :class "spotify" :text "")
-      )
-      (button :onclick "playerctl play-pause" (label :class "spotify" :text " ${music} "))
-    "   - ${ musicStatus == "Playing" ? "" : "" }  ")
-  )
-)
+(defwidget nvidia []
+  (icon-module :class "nvidia" :icon "" 
+    (label :text nvidia_listen))) 
 
-(defwidget docker []
-  (clickbox :var revealDocker :varname "revealDocker" :transition "slideleft"
-    (label :class "docker" :text "  ${dockerContainers} "  )
-    (box
-      :class "docker"
-      :space-evenly false
-      :spacing 10
-      
-      (termbutton :command "eww update revealDocker=false && lazydocker" :class "ok" :width "1400" :text " Lazydocker" :floating true)
-      ;(button :onclick "eww update revealDocker=false && docker system prune -f" :class "good" (label :text " Reclaim space")
-        
-        (button :onclick "eww update revealDocker=false && (docker ps -qa | xargs docker stop || true) " :class "warning" (label :text " Stop all containers")        )
-      )
-    )
-  )
-  
-  (defwidget github []
-    (clickbox :var revealGithub :varname "revealGithub" :transition "slideleft"
-      (label :class "github" :text "    "  )
-      (box
-        :class "github"
-        :space-evenly false
-        :spacing 10
-        (literal :class "github-text" :content "${githubInfo}")
-      )
-    )
-  )
-  
-  (defwidget network []
-    (box :orientation "h" :space-evenly false (label :text "${interfaceId}: ${round(EWW_NET[interfaceId].NET_UP / 1000000, 2)}")
-      (label :class {round(EWW_NET[interfaceId].NET_UP / 1000000, 2) > 0.1 ?
-        round(EWW_NET[interfaceId].NET_UP / 1000000, 2) > 5 ?
-        "veryuplink" : "uplink" : "noactive"} :text "  "
-      )
-      (label :text "${round(EWW_NET[interfaceId].NET_DOWN / 1000000, 2)}")
-      (label :class {round(EWW_NET[interfaceId].NET_DOWN / 1000000, 2) > 0.1 ?
-        round(EWW_NET[interfaceId].NET_DOWN / 1000000, 2) > 10 ?
-        "verydownlink" : "downlink" : "noactive"} :text "  "
-      )
-    )
-  )
-  ;
-  
-  (defwindow bar
-    :monitor 0
-    :windowtype "dock"
-    :geometry (geometry :x "0%"
-      :y "0%"
-      :width "90%"
-      :height "10px"
-    :anchor "top center")
-    :reserve (struts :side "top" :distance "4%")
-    (bar)
-  )
-  
-  (defwindow bottombar
-    :monitor 0
-    :windowtype "dock"
-    :geometry (geometry :x "0%"
-      :y "0%"
-      :width "90%"
-      :height "10px"
-    :anchor "bottom center")
-    :reserve (struts :side "bottom" :distance "4%")
-    (bottombar)
-  )
-  
-  
+(defwidget cpu []
+  (icon-module :class "cpu" :icon "" 
+    (label :text "${round(EWW_CPU.avg, 0)}%"))) 
+
+(defwidget disk []
+  (icon-module :class "disk" :icon "" 
+    (label :text "${round(EWW_DISK["/"].used_perc, 0)}%"))) 
+
+(defwidget trash []
+  (icon-module :class "trash" :icon "" 
+    (label :text trash_poll))) 
+
+(defwidget noisetorch []
+  (icon-module :class "noisetorch" :icon "" 
+    (label :text noisetorch_poll))) 
+
+(defwidget updates []
+  (icon-module :class "updates" :icon "" :visible {updates_poll != ""}
+    (label :text updates_poll))) 
+
+(defwidget github []
+  (icon-module :class "github" :icon "" :visible {github_poll != ""}
+    (label :text github_poll))) 
+
+(defwidget ping []
+  (icon-module :class "ping" :icon ""
+    (label :text ping_poll))) 
+
+(defwidget network []
+  (icon-module :class "network" :icon ""
+    (label :text "${round(EWW_NET.enp5s0.NET_UP / 1000000, 2)}/${round(EWW_NET.enp5s0.NET_DOWN / 1000000, 2)}"))) 
+
+(defwidget speaker []
+  (icon-module :class "speaker" 
+               :icon {speaker_poll.icon}
+    (eventbox :onscroll `eww update speaker_poll="$(./modules/speaker.sh {})"`
+      (button :onclick `eww update speaker_poll="$(./modules/speaker.sh toogle)"`
+        (label :text {speaker_poll.content})))))
+
+(defwidget microphone []
+  (icon-module :class "microphone" 
+               :icon {microphone_poll.icon}
+    (eventbox :onscroll `eww update microphone_poll="$(./modules/microphone.sh {})"`
+      (button :onclick `eww update microphone_poll="$(./modules/microphone.sh toogle)"`
+        (label :text {microphone_poll.content})))))
+; foldend
+
+; vim:foldmarker=foldstart,foldend

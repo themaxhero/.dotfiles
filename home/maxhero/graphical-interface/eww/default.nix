@@ -1,6 +1,6 @@
 /*
   This file is just a home-manager module to make easier to use this github repo:
-  Using: https://github.com/owenrumney/eww-bar
+  Using: polybar-replacement from https://github.com/druskus20/eugh/tree/master/polybar-replacement
 */
 { self, config, lib, pkgs, ... }:
 let
