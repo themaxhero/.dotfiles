@@ -1,6 +1,11 @@
 /*
   This file is just a home-manager module to make easier to use this github repo:
-  Using: polybar-replacement from https://github.com/druskus20/eugh/tree/master/polybar-replacement
+  Using:
+   - polybar-replacement from https://github.com/druskus20/eugh/tree/master/polybar-replacement
+   - i3 module from https://github.com/natperron/dotfiles/tree/main/.config/eww
+
+  TODO:
+    Get Calendar like in https://github.com/natperron/dotfiles/tree/main/.config/eww
 */
 { self, config, lib, pkgs, ... }:
 let

@@ -89,7 +89,7 @@
         :cursor "pointer"
         :visible {workspace.output == monitor ? true : false}
         (button
-          :class {workspace.focused ? "active-workspace" : ""}
+          :class {workspace.focused ? "focused" : ""}
           :onclick "i3-msg workspace ${workspace.name}"
           "${workspace.name}")))))
 
