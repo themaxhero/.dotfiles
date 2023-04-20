@@ -59,6 +59,7 @@ let
     # Reload/Restart
     "${modifier}+Shift+c" = "reload";
     "${modifier}+Shift+r" = "restart";
+    "${modifier}+Shift+s" = "exec \"${pkgs.flameshot}/bin/flameshot gui\"";
 
     "${modifierCombo}+v" = "split v";
     "${modifierCombo}+h" = "split h";

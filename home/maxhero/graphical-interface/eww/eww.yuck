@@ -82,6 +82,7 @@
 
 (defwidget workspaces [monitor]
   (box
+    :class "workspaces"
     :space-evenly false
     :spacing: 5
     (for workspace in workspaces_listen
