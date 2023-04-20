@@ -446,7 +446,7 @@ in {
         # Could be the same as sway if I find tools/daemons that are compatible with both Xorg and Wayland
         startup = [
           { command = "--no-startup-id ${pkgs.dunst}/bin/dunst"; }
-          { command = "--no-startup-id \"${pkgs.eww}/bin/eww daemon && ${pkgs.eww}/bin/eww open bar\""; always = true; }
+          { command = "--no-startup-id \"killall eww && ${pkgs.eww}/bin/eww daemon && ${pkgs.eww}/bin/eww open bar-left && ${pkgs.eww}/bin/eww open bar-right\""; always = true; }
           { command = "--no-startup-id ${pkgs.ibus}/bin/ibus-daemon --daemonize"; }
           { command = "--no-startup-id ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.jpg"; }
           { command = "--no-startup-id ${nm-applet} --indicator"; }
