@@ -9,7 +9,7 @@
     ips = [ "10.100.0.2/24" "fdb7:2e96:8e57::2/64" ];
     privateKeyFile = "/home/maxhero/wireguard-keys/private";
   };
-  environment.packages = [ (self + /pkgs/reboot-to-windows.nix) ];
+  environment.systemPackages = [ (pkgs.callPackage (self + /pkgs/reboot-to-windows.nix) {}) ];
   services.xserver.serverFlagsSection = ''
     Option "BlankTime" "0"
     Option "StandbyTime" "0"
