@@ -588,6 +588,13 @@ in {
             "${pkgs.tela-circle-icon-theme}/share/icons/Tela-circle-dark/scalable@2x/apps/xfsm-reboot.svg";
           terminal = false;
         };
+        "windows" = {
+          name = "Windows";
+          exec = "sudo ${(pkgs.callPackage (self + /pkgs/reboot-to-windows.nix) {})}/bin/reboot-to-windows";
+          icon =
+            "${pkgs.tela-circle-icon-theme}/share/icons/Tela-circle-dark/scalable@2x/apps/xfsm-reboot.svg";
+          terminal = false;
+        };
         "discord" = {
           name = "Discord (XWayland)";
           exec = "nowl ${discord}";

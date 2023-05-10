@@ -73,3 +73,59 @@
   (setq +lsp-company-backends '(company-tabnine :separate company-capf company-yasnippet))
   (setq company-show-numbers t)
   (setq company-idle-delay 0))
+
+;; Workaround to enable running credo after lsp
+(defvar-local my/flycheck-local-cache nil
+(defun my/flycheck-checker-get (fn checker property)
+  (or (alist-get property (alist-get checker my/flycheck-local-cache))
+      (funcall fn checker property)))
+(advice-add 'flycheck-checker-get :around 'my/flycheck-checker-get)
+(add-hook 'lsp-managed-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'elixir-mode)
+              (setq my/flycheck-local-cache '((lsp . ((next-checkers . (elixir-credo)))))))
+            ))
+
+;; Configure elixir-lsp
+;; replace t with nil to disable.
+(setq lsp-elixir-fetch-deps t)
+(setq lsp-elixir-suggest-specs t)
+(setq lsp-elixir-signature-after-complete t)
+(setq lsp-elixir-enable-test-lenses t)
+
+;; Compile and test on save
+(setq alchemist-hooks-test-on-save t)
+(setq alchemist-hooks-compile-on-save t)
+
+;; Disable popup quitting for Elixir’s REPL
+;; Default behaviour of doom’s treating of Alchemist’s REPL window is to quit the
+;; REPL when ESC or q is pressed (in normal mode). It’s quite annoying so below
+;; code disables this and set’s the size of REPL’s window to 30% of editor frame’s
+;; height.
+(set-popup-rule! "^\\*Alchemist-IEx" :quit nil :size 0.3)
+
+;; Do not select exunit-compilation window
+(setq shackle-rules '(("*exunit-compilation*" :noselect t))
+      shackle-default-rule '(:select t))
+
+;; Set global LSP options
+(after! lsp-mode (
+        setq lsp-lens-enable t
+        lsp-ui-peek-enable t
+        lsp-ui-doc-enable nil
+        lsp-ui-doc-position 'bottom
+        lsp-ui-doc-max-height 70
+        lsp-ui-doc-max-width 150
+        lsp-ui-sideline-show-diagnostics t
+        lsp-ui-sideline-show-hover nil
+        lsp-ui-sideline-show-code-actions t
+        lsp-ui-sideline-diagnostic-max-lines 20
+        lsp-ui-sideline-ignore-duplicate t
+        lsp-ui-sideline-enable t))
+
+;; Enable folding
+(setq lsp-enable-folding t)
+
+;; Add origami and LSP integration
+(use-package! lsp-origami)
+(add-hook! 'lsp-after-open-hook #'lsp-origami-try-enable)
