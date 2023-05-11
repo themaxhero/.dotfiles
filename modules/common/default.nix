@@ -98,6 +98,7 @@
   security.rtkit.enable = true;
   security.sudo.wheelNeedsPassword = false;
   services.sshd.enable = true;
+  powerManagement.enable = false;
 
   # Localization and Keyboard layout
   time.timeZone = "America/Sao_Paulo";
