@@ -40,6 +40,18 @@
      "kubernetes"
     ];
   };
+  services.xserver.windowManager.i3.extraSessionCommands = ''
+  fcitx5 &
+  '';
+  /*
+  boot.loader.efiBootStub = {
+    enable = efiDisk;
+    true = "/dev/nvme0n1";
+    efiPartition = "1";
+    efiSysMountPoint = "/boot";
+    runEfibootmgr = true;
+  };
+  */
   gaming.enable = true;
   graphical-interface.enable = true;
   system.stateVersion = "22.11";

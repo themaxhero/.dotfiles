@@ -49,10 +49,13 @@
       export QT_PLATFORM_PLUGIN='kde'
       export QT_PLATFORMTHEME='kde'
 
-      export GTK_IM_MODULE='ibus'
-      export QT_IM_MODULE='ibus'
-      export XMODIFIERS='@im=ibus'
-      export GTK_IM_MODULE='/run/current-system/sw/lib/gtk-2.0/2.10.0/immodules/im-ibus.so'
+      export GTK_IM_MODULE=fcitx
+      export QT_IM_MODULE=fcitx
+      export XMODIFIERS=@im=fcitx
+      export INPUT_METHOD=fcitx
+      export GLFW_IM_MODULE=fcitx
+      export SDL_IM_MODULE=fcitx
+      export IMSETTINGS_MODULE=fcitx
     '';
   };
 

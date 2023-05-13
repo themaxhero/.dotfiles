@@ -42,13 +42,6 @@ in
       #xarchiver
     ];
 
-    i18n = {
-      inputMethod = {
-        enabled = "ibus";
-        ibus.engines = with pkgs.ibus-engines; [ mozc ];
-      };
-    };
-
     fonts = {
       fonts = with pkgs; [
         cantarell-fonts
