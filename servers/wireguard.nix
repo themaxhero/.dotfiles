@@ -23,7 +23,7 @@ in
           peers = [
             # Desktop (Linux)
             {
-              publicKey = "ciwz56c/HlbnNxlHkTdxjbD00HI2mZCM0DuZoM64GlU=";
+              publicKey = "3guu9BcaID9IvvpznNNe1ZxoFsm2rH8m+O7XqbC7WVU=";
               allowedIPs = [
                 "${wgPrefixV4}.2/32"
                 "${wgPrefixV6}:2/128"
