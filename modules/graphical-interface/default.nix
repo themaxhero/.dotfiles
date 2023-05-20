@@ -39,6 +39,7 @@ in
       libsForQt5.dolphin-plugins
       tela-circle-icon-theme
       ddcutil
+      whatsapp-for-linux
       #xarchiver
     ];
 
