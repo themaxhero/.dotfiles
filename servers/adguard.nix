@@ -87,6 +87,8 @@
         #ipset = [ ];
         #filtering_enabled = true;
         filters_update_interval = 1;
+        safe_search.enabld = false;
+        safebrowsing_enabled = false;
         #parental_enabled = false;
         #safesearch_enabled = false;
         #safebrowsing_enabled = false;
