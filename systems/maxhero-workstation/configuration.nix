@@ -22,7 +22,7 @@
      "crystal"
      "f#"
      "ocaml"
-     "elm"
+     # "elm"
      "elixir"
      "web"
      "zig"

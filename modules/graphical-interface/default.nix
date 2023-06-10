@@ -40,8 +40,22 @@ in
       tela-circle-icon-theme
       ddcutil
       whatsapp-for-linux
+      pidgin-with-plugins
+      rambox
       #xarchiver
     ];
+
+    nixpkgs.config.packageOverrides = pkgs: rec {
+      pidgin-with-plugins = pkgs.pidgin.override {
+        plugins = with pkgs; [
+          pidgin-skypeweb
+          pidgin-opensteamworks
+          purple-slack
+          purple-discord
+          purple-googlechat
+        ];
+      };
+    }; 
 
     fonts = {
       fonts = with pkgs; [
