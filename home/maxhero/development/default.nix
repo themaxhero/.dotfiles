@@ -27,6 +27,10 @@ in
     programs.direnv = {
       enable = true;
       nix-direnv.enable = true;
+      enableBashIntegration = true;
+      enableFishIntegration = true;
+      enableNushellIntegration = true;
+      enableZshIntegration = true;
     };
 
     home.activation = {
@@ -54,7 +58,6 @@ in
         contents = { user.email = "marcelo.amancio@mindlab.com.br"; };
       }];
     };
-
     programs.doom-emacs = {
       enable = true;
       doomPrivateDir = self + /home/maxhero/development/doom.d;
