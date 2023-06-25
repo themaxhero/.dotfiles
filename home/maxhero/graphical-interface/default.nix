@@ -30,6 +30,13 @@ let
     "battery",
     "custom/left-arrow-light",
   '';
+  launch-eww = pkgs.writeShellScriptBin "launch-eww" ''
+    #!${pkgs.bash}/bin/bash
+    ${pkgs.killall}/bin/killall eww &&
+    ${pkgs.eww}/bin/eww daemon &&
+    ${pkgs.eww}/bin/eww open bar-left &&
+    ${pkgs.eww}/bin/eww open bar-right
+  '';
   battery = if isUchigatana then batteryComponent else "";
   fontSize = if isUchigatana then 16 else 24;
   waybar = "${pkgs.waybar}/bin/waybar";
@@ -451,7 +458,7 @@ in {
         # Could be the same as sway if I find tools/daemons that are compatible with both Xorg and Wayland
         startup = [
           { command = "--no-startup-id ${pkgs.dunst}/bin/dunst"; }
-          { command = "--no-startup-id \"killall ${pkgs.eww}/bin/eww && ${pkgs.eww}/bin/eww daemon && ${pkgs.eww}/bin/eww open bar-left && ${pkgs.eww}/bin/eww open bar-right\""; always = true; }
+          { command = "--no-startup-id ${launch-eww}/bin/launch-eww"; always = true; }
           { command = "--no-startup-id ${config.i18n.inputMethod.package}/bin/fcitx5"; }
           { command = "--no-startup-id ${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.jpg"; }
           { command = "--no-startup-id ${nm-applet} --indicator"; }
@@ -546,6 +553,10 @@ in {
       swaynotificationcenter
       orchis-theme
       tela-circle-icon-theme
+      youtube-dl
+      youtube-music
+      sublime
+      obsidian
     ];
 
     programs.chromium = {
