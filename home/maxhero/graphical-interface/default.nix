@@ -15,6 +15,7 @@ let
   lock = "~/.config/sway/lock.sh --indicator --indicator-radius 100 --ring-color e40000 --clock";
   modifierCombo = "${modifier}+${modifier2}";
   volumectl = "${pkgs.avizo}/bin/volumectl";
+  eww-pkg = self.inputs.nixpkgs-master.legacyPackages.x86_64-linux.eww;
   grim = "${pkgs.grim}/bin/grim";
   slurp = "${pkgs.slurp}/bin/slurp";
   wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
@@ -33,9 +34,9 @@ let
   launch-eww = pkgs.writeShellScriptBin "launch-eww" ''
     #!${pkgs.bash}/bin/bash
     ${pkgs.killall}/bin/killall eww &&
-    ${pkgs.eww}/bin/eww daemon &&
-    ${pkgs.eww}/bin/eww open bar-left &&
-    ${pkgs.eww}/bin/eww open bar-right
+    ${eww-pkg}/bin/eww daemon &&
+    ${eww-pkg}/bin/eww open bar-left &&
+    ${eww-pkg}/bin/eww open bar-right
   '';
   battery = if isUchigatana then batteryComponent else "";
   fontSize = if isUchigatana then 16 else 24;
