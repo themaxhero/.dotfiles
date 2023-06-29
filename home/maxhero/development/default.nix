@@ -48,6 +48,9 @@ in
       bat
       graphviz
       vscode-pkg
+      ngrok
+      postman
+      insomnia
     ];
     # systemd.user.services.sshfs_laptop = {
     #   Unit.Description = "SSHFS to Uchigatana";
