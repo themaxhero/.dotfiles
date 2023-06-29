@@ -16,7 +16,6 @@
   hardware.i2c.enable = true;
 
   programs.nm-applet.enable = true;
-  programs.waybar.enable = true;
   programs.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
