@@ -127,7 +127,6 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    environment.systemPackages = languages;
     services.postgresql.enable = true;
     services.postgresql.package = pkgs.postgresql_14;
     services.postgresql.authentication = lib.mkForce ''
@@ -138,7 +137,12 @@ in
       host  all all ::1/128      trust
     '';
     services.postgresql.settings.listen_addresses = lib.mkForce "*";
+    boot.kernelModules = [ "kvm-amd" ];
     systemd.enableUnifiedCgroupHierarchy = true;
+    virtualisation.libvirtd.enable = true;
+    users.extraUsers.maxhero.extraGroups = [ "libvirtd" "kvm" ];
+    programs.dconf.enable = true;
+    environment.systemPackages = with pkgs; [ virt-manager ] ++ languages;
     virtualisation.oci-containers = {
       backend = "podman";
       containers = {

@@ -42,6 +42,7 @@ in
       whatsapp-for-linux
       pidgin-with-plugins
       rambox
+      gnome.pomodoro
       #xarchiver
     ];
 

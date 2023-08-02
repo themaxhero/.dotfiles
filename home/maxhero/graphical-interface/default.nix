@@ -32,11 +32,8 @@ let
     "custom/left-arrow-light",
   '';
   launch-eww = pkgs.writeShellScriptBin "launch-eww" ''
-    #!${pkgs.bash}/bin/bash
-    ${pkgs.killall}/bin/killall eww &&
-    ${eww-pkg}/bin/eww daemon &&
-    ${eww-pkg}/bin/eww open bar-left &&
-    ${eww-pkg}/bin/eww open bar-right
+    ${pkgs.killall}/bin/killall ${eww-pkg}/bin/eww
+    ${eww-pkg}/bin/eww daemon && ${eww-pkg}/bin/eww open bar-left && ${eww-pkg}/bin/eww open bar-right
   '';
   battery = if isUchigatana then batteryComponent else "";
   fontSize = if isUchigatana then 16 else 24;
@@ -550,6 +547,7 @@ in {
     };
 
     home.packages = with pkgs; [
+      veracrypt
       swaynotificationcenter
       orchis-theme
       tela-circle-icon-theme
