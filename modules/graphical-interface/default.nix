@@ -26,7 +26,7 @@ in
       slack
       spotify
       tdesktop
-      zoom-us
+      #zoom-us
       wdisplays
       notion-app-enhanced
       gimp
