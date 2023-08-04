@@ -1,4 +1,4 @@
-{ self, nixpkgs, nix-doom-emacs, home-manager, nixos-hardware, ... }@attrs:
+{ self, nixpkgs, nix-doom-emacs, home-manager, hardware, ... }@attrs:
 nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = attrs;
@@ -6,7 +6,7 @@ nixpkgs.lib.nixosSystem {
     # TODO: Add Media Generation later
     #(nixpkgs + /nixos/modules/installer/cd-dvd/installation-cd-minimal.nix)
     #(nixpkgs + /nixos/modules/installer/cd-dvd/channel.nix)
-    nixos-hardware.nixosModules.lenovo-thinkpad-e14-amd
+    hardware.nixosModules.lenovo-thinkpad-e14-amd
     (self + /modules/common)
     (self + /modules/development)
     (self + /modules/graphical-interface)
