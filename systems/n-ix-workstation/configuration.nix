@@ -39,6 +39,7 @@
   fcitx5 &
   '';
   nixpkgs.config.allowUnfree = true;
+  gaming.enable = false;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

@@ -10,6 +10,7 @@ nixpkgs.lib.nixosSystem {
     (self + /modules/common)
     (self + /modules/development)
     (self + /modules/graphical-interface)
+    (self + /modules/gaming)
     (self + /modules/networking)
     (self + /modules/sound)
     (self + /modules/bare-metal)
