@@ -40,8 +40,8 @@
   '';
   gaming.enable = false;
   graphical-interface.enable = true;
-  virtualisation.virtualbox.guest.enable = true;
-  virtualisation.virtualbox.guest.x11 = true;
+  virtualisation.hyperVGuest.enable = true;
+  virtualisation.hyperVGuest.videoMode = "1920x1080";
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/e9a7670f-96bb-41c9-9bd5-11f9f9b2b00e";
     fsType = "ext4";
