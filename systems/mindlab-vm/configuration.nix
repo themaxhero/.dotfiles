@@ -43,12 +43,12 @@
   virtualisation.virtualbox.guest.enable = true;
   virtualisation.virtualbox.guest.x11 = true;
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/858f7daa-36ea-4d5c-9bce-01d85b77053f";
+    device = "/dev/disk/by-uuid/e9a7670f-96bb-41c9-9bd5-11f9f9b2b00e";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/6784-CFF4";
+    device = "/dev/disk/by-uuid/F2D1-87AD";
     fsType = "vfat";
   };
   system.stateVersion = "22.11";
