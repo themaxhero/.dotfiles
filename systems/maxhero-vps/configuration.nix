@@ -61,7 +61,7 @@
   };
 
   users.users.msantos = {
-    name = "Marcelo Amancio de Lima Santos";
+    name = "msantos";
     isNormalUser = true;
     home = "/home/msantos";
     createHome = true;
