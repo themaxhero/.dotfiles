@@ -2,9 +2,12 @@
 let
   message-of-the-day = pkgs.writeShellScript "message-of-the-day" ''
     ${pkgs.fortune}/bin/fortune |\
-    ${pkgs.cowsay}/bin/cowsay -f $(${pkgs.coreutils}/bin/ls ${pkgs.cowsay}/share/cows |\
-    ${pkgs.ripgrep}/bin/rg .cow |\
-    ${pkgs.ripgrep}/bin/rg -v 'telebears|sodomized|mutilated|head-in|elephant-in-snake|cower|bong') |\
+    ${pkgs.cowsay}/bin/cowsay -f $(\
+        ${pkgs.coreutils}/bin/ls ${pkgs.cowsay}/share/cowsay/cows |\
+        ${pkgs.ripgrep}/bin/rg .cow |\
+        ${pkgs.ripgrep}/bin/rg -v 'telebears|sodomized|mutilated|head-in|elephant-in-snake|cower|bong' |\
+        ${pkgs.coreutils}/bin/shuf -n 1
+    ) |\
     ${pkgs.clolcat}/bin/clolcat
   '';
 in
