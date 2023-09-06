@@ -1,15 +1,6 @@
 { self, options, config, pkgs, lib, specialArgs, ... }:
 with pkgs.lib;
 with specialArgs;
-let
-  message-of-the-day = pkgs.writeShellScript "message-of-the-day" ''
-    ${pkgs.fortune}/bin/fortune |\
-    ${pkgs.cowsay}/bin/cowsay -f $(${pkgs.coreutils}/bin/ls ${pkgs.cowsay}/share/cows |\
-    ${pkgs.ripgrep}/bin/rg .cow |\
-    ${pkgs.ripgrep}/bin/rg -v 'telebears|sodomized|mutilated|head-in|elephant-in-snake|cower|bong') |\
-    ${pkgs.clolcat}/bin/clolcat
-  '';
-in
 {
   home.username = "maxhero";
   home.homeDirectory = "/home/maxhero";
@@ -18,42 +9,6 @@ in
     time = "pt_BR.UTF-8";
     monetary = "pt_BR.UTF-8";
     numeric = "pt_BR.UTF-8";
-  };
-  home.file = {
-    ".zshrc".text = (import (self + /home/maxhero/base/zshrc.nix)) {
-      inherit pkgs;
-      theme = "lambda";
-    };
-  };
-
-  programs.zsh = {
-    enable = true;
-    enableAutosuggestions = true;
-    oh-my-zsh = {
-      enable = true;
-      theme = "lambda";
-      plugins = [
-        "sudo"
-        "git"
-        "git-extras"
-        "git-flow"
-        "gh"
-        "rsync"
-        "rust"
-        "systemd"
-        "torrent"
-        "vscode"
-        "zsh-interactive-cd"
-        "zsh-navigation-tools"
-        "mix"
-        "vagrant"
-        "ssh-agent"
-      ];
-    };
-
-    extraConfig = ''
-      ${message-of-the-day}
-    '';
   };
 
   programs.aria2.enable = true;
@@ -65,7 +20,6 @@ in
     enable = true;
     pinentryFlavor = "qt";
   };
-  #programs.home-manager.enable = true;
   programs.jq.enable = true;
   programs.lsd = {
     enable = true;
@@ -78,7 +32,6 @@ in
   programs.mu.enable = true;
   programs.tealdeer.enable = true;
   programs.tmux.enable = true;
-  programs.zsh.oh-my-zsh.enable = true;
   xdg.userDirs = {
     enable = true;
     createDirectories = true;

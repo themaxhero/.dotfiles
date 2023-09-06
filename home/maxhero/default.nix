@@ -8,5 +8,6 @@
     (self + /home/maxhero/graphical-interface/rofi)
     (self + /home/maxhero/graphical-interface/eww)
     (self + /home/maxhero/graphical-interface)
+    (self + /home/maxhero/shells/zsh.nix)
   ];
 }
