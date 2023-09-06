@@ -32,7 +32,7 @@
   boot.tmpOnTmpfsSize = "100%";
 
   # Kernel versions (I prefer Liquorix).
-  boot.kernelPackages = pkgs.linuxPackages_lqx;
+  #boot.kernelPackages = pkgs.linuxPackages_lqx;
 
   # Disable the firewall.
   networking.firewall.enable = false;
