@@ -62,10 +62,10 @@
 
   users.users.msantos = {
     name = "Marcelo Amancio de Lima Santos";
+    isNormalUser = true;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBFwbL30r9d3yJyfKN9Ygv4qKI2uzSj3+D+fAIY3Yy3I"
     ];
-    isNormalUser = true;
   };
 
   # This value determines the NixOS release from which the default
