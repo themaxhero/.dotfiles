@@ -53,7 +53,6 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   services.xserver = {
     exportConfiguration = true;
-    videoDrivers = [ "nvidia" ];
     libinput = {
       enable = true;
       touchpad = {
@@ -81,15 +80,6 @@
       xrandr --output eDP --mode 1920x1080 --output HDMI-1-0 --primary --mode 3840x2160 --right-of eDP
     '';
   };
-  hardware.nvidia = {
-    open = false;
-    prime = {
-      reverseSync.enable = true;
-      amdgpuBusId = "PCI:5:0:0"; # Bus ID of the AMD GPU.
-      nvidiaBusId = "PCI:1:0:0"; # Bus ID of the NVIDIA GPU.
-    };
-    modesetting.enable = true;
-  };
 
   systemd.targets.sleep.enable = false;
   systemd.targets.suspend.enable = false;
@@ -97,6 +87,18 @@
   systemd.targets.hybrid-sleep.enable = false;
 
   specialisation = {
+    nvidia-proprietary.configuration = {
+      services.xserver.videoDrivers = ["nvidia"];
+      hardware.nvidia = {
+        open = false;
+        prime = {
+          reverseSync.enable = true;
+          amdgpuBusId = "PCI:5:0:0"; # Bus ID of the AMD GPU.
+          nvidiaBusId = "PCI:1:0:0"; # Bus ID of the NVIDIA GPU.
+        };
+        modesetting.enable = true;
+      };
+    };
     nvidia-open.configuration = {
       system.nixos.tags = [ "nvidia-open" ];
       services.xserver.videoDrivers = [ "nvidia" ];
