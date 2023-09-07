@@ -76,6 +76,7 @@
     file
     fzf
     git
+    vim
     google-authenticator
     jq
     killall
@@ -154,6 +155,71 @@
   virtualisation.podman = {
     enable = true;
     dockerCompat = true; # Podman provides docker.
+  };
+
+  containers.alt-wireguard = {
+    autoStart = true;
+    privateNetwork = true;
+    hostAddress = "10.0.0.148";
+    localAddress = "10.0.0.149";
+    hostAddress6 = "fdb7:2e96:8e57::1";
+    localAddress6 = "fdb7::2";
+    forwardPorts = [
+      {
+        hostPort = 58888;
+        protocol = "udp";
+      }
+    ];
+    config = { config, pkgs, ... }: {
+      networking = {
+        nat = {
+          enable = true;
+          enableIPv6 = true;
+          externalInterface = "enp0s3";
+          internalInterfaces = ["wg-other"];
+        };
+
+        firewall = {
+          enable = true;
+          allowedTCPPorts = [
+            58888
+          ];
+        };
+        
+        wireguard = {
+          interfaces = {
+            wg-other = {
+              ips = [ "10.101.0.1/24" "ffff:2e96:8e57::1/64" ];
+              listenPort = 58888;
+              privateKeyFile = "/home/maxhero/wireguard-other-keys/private";
+              peers = [
+                #{
+                #  publicKey = "";
+                #  allowedIPs = [
+                #    "10.101.0.2/32"
+                #    "ffff:2e96:8e57::2/128"
+                #  ];
+                #}
+              ];
+              postSetup = ''
+                ip link set wg-other multicast on
+                ${pkgs.iptables}/bin/iptables -A FORWARD -i wg-other -j ACCEPT
+                ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.101.0.0/24 -o enp0s3 -j MASQUERADE
+                ${pkgs.iptables}/bin/ip6tables -A FORWARD -i wg-other -j ACCEPT
+                ${pkgs.iptables}/bin/ip6tables -t nat -A POSTROUTING -s ffff:2e96:8e57::0/64 -o enp0s3 -j MASQUERADE
+              '';
+              postShutdown = ''
+                ${pkgs.iptables}/bin/iptables -D FORWARD -i wg-other -j ACCEPT
+                ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.101.0.0/24 -o enp0s3 -j MASQUERADE
+                ${pkgs.iptables}/bin/ip6tables -D FORWARD -i wg-other -j ACCEPT
+                ${pkgs.iptables}/bin/ip6tables -t nat -D POSTROUTING -s ffff:2e96:8e57::0/24 -o enp0s3 -j MASQUERADE
+              '';
+            };
+          };
+        };
+      };
+      system.stateVersion = "22.05";
+    };
   };
 
   # We are anxiously waiting for PR 122547

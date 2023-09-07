@@ -29,9 +29,6 @@ let
       fd
       xdelta
     ]
-    ++ (conditional-lang "android" [
-      android-studio
-    ])
     ++ (conditional-lang "dotnet" [
       dotnet-sdk
     ])
@@ -93,6 +90,7 @@ let
       rust-code-analysis
     ])
     ++ (conditional-lang "android" [
+      android-studio
       android-tools
       adbfs-rootless
     ])
@@ -130,7 +128,7 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
-    services.udev.rules = [ pkgs.android-udev-rules ];
+    services.udev.packages = [ pkgs.android-udev-rules ];
     services.postgresql.enable = true;
     services.postgresql.package = pkgs.postgresql_14;
     services.postgresql.authentication = lib.mkForce ''
