@@ -1,17 +1,34 @@
 { pkgs, ... }:
 let
+  /*
   eth0 = "enp0s3";
 
   wgPrefixV4 = "10.100.0";
   wgPrefixV6 = "fdb7:2e96:8e57:";
+  */
 in
 {
+  wirenix = {
+    enable = true;
+    peerName = "vps";
+    configurer = "static";
+    keyProviders = ["acl"]; 
+    aclConfig = import ./wirenix-acl.nix;
+  };
+
+  /*
   networking = {
     nat = {
       enable = true;
       enableIPv6 = true;
       externalInterface = eth0;
       internalInterfaces = [ "wg0" ];
+      forwardPorts = [
+        {
+          sourcePort = 58888;
+          destination = "10.0.0.149";
+        }
+      ];
     };
 
     wireguard = {
@@ -94,6 +111,7 @@ in
       };
     };
   };
+  */
 
   # ip forwarding (missing NAT sysctl)
   boot.kernel.sysctl = {
