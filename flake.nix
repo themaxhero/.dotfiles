@@ -15,6 +15,7 @@
     flake-utils.url = "github:numtide/flake-utils";
     devshell.url = "github:numtide/devshell";
     nixos-wsl.url = "github:nix-community/NixOS-WSL";
+    wirenix.url = "sourcehut:~msalerno/wirenix";
   };
 
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, devshell, ... }@attrs:

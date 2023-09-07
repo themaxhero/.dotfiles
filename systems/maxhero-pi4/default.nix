@@ -13,6 +13,7 @@ nixpkgs.lib.nixosSystem {
     (self + /systems/maxhero-pi4/hardware-configuration.nix)
     (self + /systems/maxhero-pi4/nginx.nix)
     home-manager.nixosModules.home-manager
+    wirenix.nixosModules.default
     ({ config, ... }: {
       home-manager = {
         useGlobalPkgs = true;

@@ -1,4 +1,4 @@
-{ self, home-manager, nixpkgs, nix-doom-emacs, ... }@attrs:
+{ self, home-manager, nixpkgs, nix-doom-emacs, wirenix, ... }@attrs:
 nixpkgs.lib.nixosSystem {
   system = "aarch64-linux";
   specialArgs = attrs;
@@ -19,6 +19,7 @@ nixpkgs.lib.nixosSystem {
     (self + /shared/oci-options.nix)
     (self + /shared/oci-common.nix)
     home-manager.nixosModules.home-manager
+    wirenix.nixosModules.default
     ({ config, ... }: {
       home-manager = {
         useGlobalPkgs = true;
