@@ -29,6 +29,9 @@ let
       fd
       xdelta
     ]
+    ++ (conditional-lang "android" [
+      android-studio
+    ])
     ++ (conditional-lang "dotnet" [
       dotnet-sdk
     ])
@@ -127,6 +130,7 @@ in
     };
   };
   config = lib.mkIf cfg.enable {
+    services.udev.rules = [ pkgs.android-udev-rules ];
     services.postgresql.enable = true;
     services.postgresql.package = pkgs.postgresql_14;
     services.postgresql.authentication = lib.mkForce ''
@@ -145,6 +149,7 @@ in
     environment.systemPackages = with pkgs; [ virt-manager ] ++ languages;
     virtualisation.oci-containers = {
       backend = "podman";
+      /*
       containers = {
         code-server = {
           image = "codercom/code-server";
@@ -159,6 +164,7 @@ in
           cmd = ["code-server --allow-http --auth password"];
         };
       };
+      */
     };
     virtualisation.podman = {
       enable = true;

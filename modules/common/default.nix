@@ -4,6 +4,7 @@
     isNormalUser = true;
     uid = 1000;
     extraGroups = [
+      "adbusers"
       "wheel"
       "video"
       "audio"

@@ -19,11 +19,19 @@ in
       enable = true;
       theme = "lambda";
       plugins = [
+        "1password"
+        "aws"
+        "ag"
+        "adb"
+        "direnv"
+        "gcloud"
         "sudo"
         "git"
         "git-extras"
         "git-flow"
         "gh"
+        "oc"
+        "history"
         "rsync"
         "rust"
         "systemd"

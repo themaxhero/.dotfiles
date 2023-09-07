@@ -52,12 +52,7 @@ in
       postman
       insomnia
     ];
-    # systemd.user.services.sshfs_laptop = {
-    #   Unit.Description = "SSHFS to Uchigatana";
-    #   Service = {
-    #     ExecStart = "sshfs -o allow_other,default_permissions maxhero@192.168.0.22:/home/maxhero/projects ~/projects";
-    #   };
-    # };
+
     fonts.fontconfig.enable = true;
     programs.direnv = {
       enable = true;
@@ -89,7 +84,7 @@ in
       };
       includes = [{
         condition = "gitdir:/home/maxhero/projects/mindlab/";
-        contents = { user.email = "marcelo.amancio@mindlab.com.br"; };
+        contents.user.email = "marcelo.amancio@mindlab.com.br";
       }];
     };
     programs.doom-emacs = {
@@ -111,10 +106,12 @@ in
       };
     };
 
-    programs.ssh.matchBlocks."github.com-mindlab" = {
-      hostname = "github.com";
-      user = "maxhero-mindlab";
-      identityFile = "~/.ssh/mindlab_ed25519";
+    programs.ssh.matchBlocks = {
+      "github.com-mindlab" = {
+        hostname = "github.com";
+        user = "maxhero-mindlab";
+        identityFile = "~/.ssh/mindlab_ed25519";
+      };
     };
   };
 }

@@ -67,6 +67,7 @@ with specialArgs;
   programs.ssh = {
     enable = true;
     matchBlocks = {
+      "vps.maxhero.com.br".identityFile = "~/.ssh/id_ed25519";
       "github.com" = {
         hostname = "github.com";
         user = "themaxhero";
