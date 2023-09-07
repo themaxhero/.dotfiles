@@ -1,4 +1,4 @@
-{ self, nixpkgs, nix-doom-emacs, home-manager, hardware, ... }@attrs:
+{ self, nixpkgs, nix-doom-emacs, home-manager, hardware, wirenix, ... }@attrs:
 nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = attrs;
@@ -17,6 +17,7 @@ nixpkgs.lib.nixosSystem {
     ./configuration.nix
     ./hardware-configuration.nix
     home-manager.nixosModules.home-manager
+    wirenix.nixosModules.default
     ({ config, ... }: {
       home-manager = {
         useGlobalPkgs = true;

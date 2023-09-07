@@ -517,6 +517,20 @@
         "type": "github"
       }
     },
+    "nixpkgs_5": {
+      "locked": {
+        "lastModified": 1692463654,
+        "narHash": "sha256-F8hZmsQINI+S6UROM4jyxAMbQLtzE44pI8Nk6NtMdao=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "ca3c9ac9f4cdd4bea19f592b32bb59b74ab7d783",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
     "nose": {
       "flake": false,
       "locked": {
@@ -655,7 +669,8 @@
         "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs_4",
         "nixpkgs-master": "nixpkgs-master",
-        "nur": "nur"
+        "nur": "nur",
+        "wirenix": "wirenix"
       }
     },
     "rotate-text": {
@@ -764,6 +779,24 @@
         "owner": "jcs-elpa",
         "repo": "ts-fold",
         "type": "github"
+      }
+    },
+    "wirenix": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "lastModified": 1693698957,
+        "narHash": "sha256-embyPOnaf0zXaZ3gMItAkC+jI54fttvJ/HV0nuD6dBg=",
+        "owner": "~msalerno",
+        "repo": "wirenix",
+        "rev": "90c66dbae3252b9cf36c08dd3bab04cee811718d",
+        "type": "sourcehut"
+      },
+      "original": {
+        "owner": "~msalerno",
+        "repo": "wirenix",
+        "type": "sourcehut"
       }
     },
     "ws-butler": {
