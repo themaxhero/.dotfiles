@@ -1,4 +1,4 @@
-{ self, nixpkgs, nix-doom-emacs, home-manager, wirenix, ... }@attrs:
+{ self, nixpkgs, nix-doom-emacs, home-manager, ... }@attrs:
 nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = attrs;
@@ -15,10 +15,10 @@ nixpkgs.lib.nixosSystem {
     (self + /modules/vfio)
     (self + /modules/wireguard-client.nix)
     (self + /modules/bare-metal)
+    (self + /servers/minecraft-server-1.nix)
     ./configuration.nix
     ./hardware-configuration.nix
     home-manager.nixosModules.home-manager
-    wirenix.nixosModules.default
     ({ config, ... }: {
       home-manager = {
         useGlobalPkgs = true;

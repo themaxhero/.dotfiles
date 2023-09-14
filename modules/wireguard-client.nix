@@ -7,6 +7,7 @@
         # In the configuration add `ips` and `privateKeyFile`.
         peers = [
           {
+            name = "VPS";
             publicKey = "VDNKMNA0vHnyXNpm7ElTBaYYwJ87frD5mr+5jyqJkjY=";
             allowedIPs = [
               "0.0.0.0/0"

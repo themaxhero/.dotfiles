@@ -3,6 +3,7 @@ nixpkgs.lib.nixosSystem {
   system = "aarch64-linux";
   specialArgs = attrs;
   modules = [
+    wirenix.nixosModules.default
     (nixpkgs + "/nixos/modules/profiles/qemu-guest.nix")
     (self + /modules/common)
     (self + /modules/graphical-interface)
@@ -19,7 +20,6 @@ nixpkgs.lib.nixosSystem {
     (self + /shared/oci-options.nix)
     (self + /shared/oci-common.nix)
     home-manager.nixosModules.home-manager
-    wirenix.nixosModules.default
     ({ config, ... }: {
       home-manager = {
         useGlobalPkgs = true;

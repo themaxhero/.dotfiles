@@ -1,4 +1,4 @@
-{ self, nixpkgs, home-manager, nix-doom-emacs, hardware, wirenix, ... }@attrs:
+{ self, nixpkgs, home-manager, nix-doom-emacs, hardware, ... }@attrs:
 nixpkgs.lib.nixosSystem {
   system = "aarch64-linux";
   specialArgs = attrs;
@@ -13,7 +13,6 @@ nixpkgs.lib.nixosSystem {
     (self + /systems/maxhero-pi4/hardware-configuration.nix)
     (self + /systems/maxhero-pi4/nginx.nix)
     home-manager.nixosModules.home-manager
-    wirenix.nixosModules.default
     ({ config, ... }: {
       home-manager = {
         useGlobalPkgs = true;

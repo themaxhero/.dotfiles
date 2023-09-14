@@ -1,34 +1,16 @@
 { pkgs, ... }:
 let
-  /*
   eth0 = "enp0s3";
-
   wgPrefixV4 = "10.100.0";
   wgPrefixV6 = "fdb7:2e96:8e57:";
-  */
 in
 {
-  wirenix = {
-    enable = true;
-    peerName = "vps";
-    configurer = "static";
-    keyProviders = ["acl"]; 
-    aclConfig = import ./wirenix-acl.nix;
-  };
-
-  /*
   networking = {
     nat = {
       enable = true;
       enableIPv6 = true;
       externalInterface = eth0;
       internalInterfaces = [ "wg0" ];
-      forwardPorts = [
-        {
-          sourcePort = 58888;
-          destination = "10.0.0.149";
-        }
-      ];
     };
 
     wireguard = {
@@ -38,9 +20,9 @@ in
           listenPort = 51820;
           privateKeyFile = "/home/maxhero/wireguard-keys/private";
           peers = [
-            # Desktop (Linux)
             {
               publicKey = "3guu9BcaID9IvvpznNNe1ZxoFsm2rH8m+O7XqbC7WVU=";
+              name = "gungnir-linux";
               allowedIPs = [
                 "${wgPrefixV4}.2/32"
                 "${wgPrefixV6}:2/128"
@@ -49,9 +31,9 @@ in
                 "ff02::fb/128"
               ];
             }
-            # Desktop (Windows)
             {
               publicKey = "l4LYC2w9yD+r51qDiGaUG6Y8XNpsdUEp1h1yRzgJJ00=";
+              name = "gungnir-windows";
               allowedIPs = [
                 "${wgPrefixV4}.3/32"
                 "${wgPrefixV6}:3/128"
@@ -60,9 +42,9 @@ in
                 "ff02::fb/128"
               ];
             }
-            # Laptop (Linux)
             {
               publicKey = "N0gfeLuS0AuIEl58Xl80wwGY9Tvn+QyhCnymj64mX04=";
+              name = "uchigatana-linux";
               allowedIPs = [
                 "${wgPrefixV4}.4/32"
                 "${wgPrefixV6}:4/128"
@@ -71,9 +53,9 @@ in
                 "ff02::fb/128"
               ];
             }
-            # Laptop (Windows)
             {
               publicKey = "NXSw6UHX600HCau1zyfzA3aDB7TYNnRUdnp37JGcWE4=";
+              name = "uchigatana-windows";
               allowedIPs = [
                 "${wgPrefixV4}.5/32"
                 "${wgPrefixV6}:5/128"
@@ -82,9 +64,9 @@ in
                 "ff02::fb/128"
               ];
             }
-            # Poco X3
             {
               publicKey = "GE+KyrEaZNRuT9SaQFlKU8gnBMEmFu9XX2O8mdca11U=";
+              name = "poco-x3-pro";
               allowedIPs = [
                 "${wgPrefixV4}.6/32"
                 "${wgPrefixV6}:6/128"
@@ -111,7 +93,6 @@ in
       };
     };
   };
-  */
 
   # ip forwarding (missing NAT sysctl)
   boot.kernel.sysctl = {

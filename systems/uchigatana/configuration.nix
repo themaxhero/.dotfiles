@@ -1,4 +1,4 @@
-{ config, pkgs, lib, home-manager, nix-gaming, ... }:
+{ self, config, pkgs, lib, home-manager, nix-gaming, ... }:
 {
   networking = {
     hostId = "cc1f83cb";
@@ -113,5 +113,6 @@
       };
     };
   };
+
   system.stateVersion = "22.11";
 }

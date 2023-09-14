@@ -1,3 +1,6 @@
+# This file is not being used anymore
+# It will be here in case I want to migrate to wirenix again.
+{...}:
 let
   personalPrefixV4 = "10.100.0";
   personalPrefixV6 = "fdb7:2e96:8e57:";
@@ -34,7 +37,7 @@ in
           name = "vps";
           ipAddresses = [ "${wPrefixV4}.1/24" "${wPrefixV6}:1/64" ];
         };
-      }
+      };
     }
     {
       publicKey = "3guu9BcaID9IvvpznNNe1ZxoFsm2rH8m+O7XqbC7WVU=";
@@ -163,4 +166,4 @@ in
       }];
     }
   ];
-};
+}
