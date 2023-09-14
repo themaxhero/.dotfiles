@@ -19,6 +19,7 @@ nixpkgs.lib.nixosSystem {
     (self + /servers/wireguard.nix)
     (self + /shared/oci-options.nix)
     (self + /shared/oci-common.nix)
+    (self + /servers/minecraft-server-1.nix)
     home-manager.nixosModules.home-manager
     ({ config, ... }: {
       home-manager = {
