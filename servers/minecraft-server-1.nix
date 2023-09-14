@@ -2,6 +2,7 @@
 {
   containers."minecraft-server-1" = {
     autoStart = true;
+    privateNetwork = true;
     hostAddress = "10.255.0.1";
     localAddress = "10.255.0.2";
     forwardPorts = [
@@ -11,13 +12,12 @@
         protocol = "tcp";
       }
     ];
-    nixpkgs = pkgs;
     config = { pkgs, ... }: {
       services.minecraft-server = {
         enable = true;
         declarative = true;
         eula = true;
-        package = pkgs.purpur;
+        #package = pkgs.purpur;
         openFirewall = false;
         jvmOpts = "-Xms4092M -Xmx4092M -XX:+UseG1GC -XX:+CMSIncrementalPacing -XX:+CMSClassUnloadingEnabled -XX:ParallelGCThreads=2 -XX:MinHeapFreeRatio=5 -XX:MaxHeapFreeRatio=10";
         serverProperties = {
