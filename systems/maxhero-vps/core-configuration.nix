@@ -30,6 +30,7 @@
   # I like /tmp on RAM.
   boot.tmpOnTmpfs = true;
   boot.tmpOnTmpfsSize = "100%";
+  boot.enableContainers = true;
 
   # Kernel versions (I prefer Liquorix).
   #boot.kernelPackages = pkgs.linuxPackages_lqx;
@@ -147,9 +148,6 @@
 
   # Enable google-authenticator
   security.pam.services.sshd.googleAuthenticator.enable = true;
-
-  # Disable nixos-containers (conflicts with virtualisation.containers)
-  boot.enableContainers = false;
 
   # Virtualisation / Containerization.
   virtualisation.podman = {
