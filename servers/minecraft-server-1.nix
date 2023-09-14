@@ -148,7 +148,7 @@
           broadcast-rcon-to-ops = true;
           view-distance = 10;
           max-build-height = 256;
-          server-ip = "10.255.0.2";
+          server-ip = "10.255.1.2";
           allow-nether = true;
           server-port = 25565;
           enable-rcon = true;
