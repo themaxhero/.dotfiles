@@ -102,12 +102,12 @@
     enableTun = true;
     forwardPorts = [
       {
-        containerPort = 25566;
+        containerPort = 25565;
         hostPort = 25566;
         protocol = "tcp";
       }
       {
-        containerPort = 25566;
+        containerPort = 25565;
         hostPort = 25566;
         protocol = "udp";
       }
@@ -118,7 +118,7 @@
       nixpkgs.config.allowUnfree = true;
       networking.firewall = {
         enable = true;
-        allowedTCPPorts = [ 25566 ];
+        allowedTCPPorts = [ 25565 ];
       };
       services.minecraft-server = {
         enable = true;
@@ -150,7 +150,7 @@
           max-build-height = 256;
           server-ip = "10.255.0.2";
           allow-nether = true;
-          server-port = 25566;
+          server-port = 25565;
           enable-rcon = true;
           sync-chunk-writes = true;
           op-permission-level = 4;
