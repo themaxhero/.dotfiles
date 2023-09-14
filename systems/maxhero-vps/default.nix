@@ -3,7 +3,6 @@ nixpkgs.lib.nixosSystem {
   system = "aarch64-linux";
   specialArgs = attrs;
   modules = [
-    wirenix.nixosModules.default
     (nixpkgs + "/nixos/modules/profiles/qemu-guest.nix")
     (self + /modules/common)
     (self + /modules/graphical-interface)
