@@ -1,4 +1,4 @@
-{ self, home-manager, nixpkgs, nix-doom-emacs, wirenix, ... }@attrs:
+{ self, home-manager, nixpkgs, nix-doom-emacs, ... }@attrs:
 nixpkgs.lib.nixosSystem {
   system = "aarch64-linux";
   specialArgs = attrs;
