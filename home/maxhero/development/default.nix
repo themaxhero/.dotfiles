@@ -44,12 +44,11 @@ in
       powerline-fonts
       sshfs
       bottom
-      exa
+      eza
       bat
       graphviz
       vscode-pkg
       ngrok
-      postman
       insomnia
     ];
 
