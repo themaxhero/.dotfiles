@@ -4,6 +4,7 @@ let
   conditional-lang = x: y: if builtins.elem x cfg.languages then y else [];
   languages = with pkgs; (
     [
+      #nixops
       mu
       python39Packages.nose
       python3Full
@@ -49,7 +50,7 @@ let
       elmPackages.elm-language-server
     ])
     ++ (conditional-lang "elixir" [
-      elixir_1_14
+      elixir_1_15
       inotify-tools
     ])
     ++ (conditional-lang "web" [

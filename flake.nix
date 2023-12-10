@@ -25,6 +25,7 @@
       (pairs: nixpkgs.lib.attrsets.filterAttrs (key: value: value == "directory") pairs)
       (dirs: builtins.mapAttrs (system: _: import (self + "/systems/${system}") attrs) dirs)
     ];
+    nixopsConfigurations = [];
     homeConfigurations = {
       maxhero = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
