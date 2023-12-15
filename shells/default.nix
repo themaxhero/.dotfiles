@@ -1,9 +1,9 @@
-{ self, nixpkgs, flake-utils, devshell, ...}@attrs:
+{ self, nixpkgs, flake-utils, devshell, ... }@attrs:
 (flake-utils.lib.eachDefaultSystem (system:
   let
     pkgs = import nixpkgs {
-        inherit system;
-        overlays = [ devshell.overlay ];
+      inherit system;
+      overlays = [ devshell.overlay ];
     };
   in
   {

@@ -24,6 +24,6 @@ nixpkgs.lib.nixosSystem {
           nixosConfig = config;
         };
       };
-    }) 
+    })
   ];
 }

@@ -18,39 +18,39 @@
   development = {
     enable = true;
     languages = [
-     "dotnet"
-     "crystal"
-     "f#"
-     "ocaml"
-     # "elm"
-     "elixir"
-     "web"
-     "zig"
-     "node"
-     "ruby"
-     "scala"
-     "haskell"
-     "clojure"
-     "rust"
-     "android"
-     "aws"
-     "clasp"
-     "oracle-cloud"
-     "devops"
-     "kubernetes"
+      "dotnet"
+      "crystal"
+      "f#"
+      "ocaml"
+      # "elm"
+      "elixir"
+      "web"
+      "zig"
+      "node"
+      "ruby"
+      "scala"
+      "haskell"
+      "clojure"
+      "rust"
+      "android"
+      "aws"
+      "clasp"
+      "oracle-cloud"
+      "devops"
+      "kubernetes"
     ];
   };
   services.xserver.windowManager.i3.extraSessionCommands = ''
-  fcitx5 &
+    fcitx5 &
   '';
   /*
-  boot.loader.efiBootStub = {
+    boot.loader.efiBootStub = {
     enable = efiDisk;
     true = "/dev/nvme0n1";
     efiPartition = "1";
     efiSysMountPoint = "/boot";
     runEfibootmgr = true;
-  };
+    };
   */
   gaming.enable = true;
   graphical-interface.enable = true;

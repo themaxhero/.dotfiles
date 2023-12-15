@@ -1,6 +1,6 @@
 # This file is not being used anymore
 # It will be here in case I want to migrate to wirenix again.
-{...}:
+{ ... }:
 let
   personalPrefixV4 = "10.100.0";
   personalPrefixV6 = "fdb7:2e96:8e57:";
@@ -41,24 +41,24 @@ in
     }
     {
       publicKey = "3guu9BcaID9IvvpznNNe1ZxoFsm2rH8m+O7XqbC7WVU=";
-      endpoints = [ { ip = "gungnir-linux"; } ];
+      endpoints = [{ ip = "gungnir-linux"; }];
       subnets = {
         personal = {
           listenPort = 51820;
           name = "gungnir-linux";
           ipAddresses = [
-              "${personalPrefixV4}.2/32"
-              "${personalPrefixV6}:2/128"
-              # Multicast
-              "224.0.0.251/32"
-              "ff02::fb/128"
+            "${personalPrefixV4}.2/32"
+            "${personalPrefixV6}:2/128"
+            # Multicast
+            "224.0.0.251/32"
+            "ff02::fb/128"
           ];
         };
       };
     }
     {
       publicKey = "l4LYC2w9yD+r51qDiGaUG6Y8XNpsdUEp1h1yRzgJJ00=";
-      endpoints = [ { ip = "gungnir-windows"; } ];
+      endpoints = [{ ip = "gungnir-windows"; }];
       subnets = {
         personal = {
           listenPort = 51820;
@@ -75,7 +75,7 @@ in
     }
     {
       publicKey = "N0gfeLuS0AuIEl58Xl80wwGY9Tvn+QyhCnymj64mX04=";
-      endpoints = [{ ip = "uchigatana-linux"; } ];
+      endpoints = [{ ip = "uchigatana-linux"; }];
       subnets = {
         personal = {
           listenPort = 51820;
@@ -92,7 +92,7 @@ in
     }
     {
       publicKey = "NXSw6UHX600HCau1zyfzA3aDB7TYNnRUdnp37JGcWE4=";
-      endpoints = [ { ip = "uchigatana-windows"; } ];
+      endpoints = [{ ip = "uchigatana-windows"; }];
       subnets = {
         personal = {
           listenPort = 51820;
@@ -109,7 +109,7 @@ in
     }
     {
       publicKey = "GE+KyrEaZNRuT9SaQFlKU8gnBMEmFu9XX2O8mdca11U=";
-      endpoints = [ { ip = "poco-x3-pro"; } ];
+      endpoints = [{ ip = "poco-x3-pro"; }];
       subnets = {
         personal = {
           listenPort = 51820;
@@ -126,7 +126,7 @@ in
     }
     {
       publicKey = "";
-      endpoints = [ { ip = ""; } ];
+      endpoints = [{ ip = ""; }];
       subnets = {
         w = {
           listenPort = 51820;
@@ -139,7 +139,7 @@ in
       };
     }
   ];
-  groups = [];
+  groups = [ ];
   connections = [
     {
       a = [{

@@ -5,7 +5,7 @@
    - i3 module from https://github.com/natperron/dotfiles/tree/main/.config/eww
 
   TODO:
-    Get Calendar like in https://github.com/natperron/dotfiles/tree/main/.config/eww
+  Get Calendar like in https://github.com/natperron/dotfiles/tree/main/.config/eww
 */
 { self, config, lib, pkgs, ... }:
 let
@@ -21,7 +21,7 @@ in
     ];
     programs.eww = {
       enable = true;
-      package = self.inputs.nixpkgs-master.legacyPackages.x86_64-linux.eww;
+      package = self.inputs.nixpkgs-master.legacyPackages.x86_64-linux.eww-wayland;
       configDir = self + /home/maxhero/graphical-interface/eww;
     };
   };

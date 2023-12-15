@@ -1,13 +1,13 @@
 { pkgs, ... }:
 with pkgs;
-devshell.mkShell { 
+devshell.mkShell {
   name = "Maintainance Shell";
 
   motd = ''
-  Você é que nem o carlinhos, cheio de DST!
-  Maldito!
-  Eu quero você longe da minha casa e dos meus filhos!
-  Meus bebês mutantes que comem carne de antílope.
+    Você é que nem o carlinhos, cheio de DST!
+    Maldito!
+    Eu quero você longe da minha casa e dos meus filhos!
+    Meus bebês mutantes que comem carne de antílope.
   '';
 
   env = [
@@ -44,5 +44,5 @@ devshell.mkShell {
     }
   ];
 
-  packages = [];
+  packages = [ ];
 }

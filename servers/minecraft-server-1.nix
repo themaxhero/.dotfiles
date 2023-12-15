@@ -2,7 +2,7 @@
 {
   networking.nat = {
     enable = true;
-    internalInterfaces = ["ve-+"];
+    internalInterfaces = [ "ve-+" ];
     externalInterface = "enp0s3";
     # Lazy IPv6 connectivity for the container
     enableIPv6 = true;

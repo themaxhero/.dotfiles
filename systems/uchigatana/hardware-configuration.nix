@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "sd_mod" "cryptd" ];
@@ -13,9 +14,9 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
   boot.initrd.luks.devices.root = {
-      device = "/dev/disk/by-uuid/2afb6cb6-fc98-4103-ab83-3fe6282db083";
-      preLVM = true;
-      allowDiscards = true;
+    device = "/dev/disk/by-uuid/2afb6cb6-fc98-4103-ab83-3fe6282db083";
+    preLVM = true;
+    allowDiscards = true;
   };
 
   fileSystems."/" = {

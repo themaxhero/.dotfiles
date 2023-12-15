@@ -21,7 +21,7 @@
     };
   };
   networking = {
-   hostName = "maxhero-pi4";
+    hostName = "maxhero-pi4";
   };
   boot.enableContainers = false;
   boot.initrd.network.ssh.enable = true;

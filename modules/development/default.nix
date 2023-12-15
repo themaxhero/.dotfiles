@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   cfg = config.development;
-  conditional-lang = x: y: if builtins.elem x cfg.languages then y else [];
+  conditional-lang = x: y: if builtins.elem x cfg.languages then y else [ ];
   languages = with pkgs; (
     [
       #nixops

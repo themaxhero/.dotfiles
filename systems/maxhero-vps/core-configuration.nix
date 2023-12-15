@@ -142,7 +142,7 @@
       PermitRootLogin = "no";
     };
     extraConfig = ''
-    AllowTCPForwarding yes 
+      AllowTCPForwarding yes 
     '';
   };
 

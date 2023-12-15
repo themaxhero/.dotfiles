@@ -20,7 +20,7 @@
   virtualisation.oci-containers.containers = {
     http-helloworld = {
       image = "strm/helloworld-http:latest";
-      ports = ["8000:8000"];
+      ports = [ "8000:8000" ];
     };
   };
   services.jellyfin = {

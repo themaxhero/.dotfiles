@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [
@@ -19,24 +20,24 @@
   ];
 
   boot.kernelParams = [
-	"amd_iommu=on"
-	# "vfio-pci.ids=1002:67df,1002:aaf0"
-	"libata.force=4.00:disable"
+    "amd_iommu=on"
+    # "vfio-pci.ids=1002:67df,1002:aaf0"
+    "libata.force=4.00:disable"
   ];
 
   boot.initrd.kernelModules = [
-	# "vfio_virqfd"
-	# "vfio_pci"
-	# "vfio_iommu_type1"
-	# "vfio"
+    # "vfio_virqfd"
+    # "vfio_pci"
+    # "vfio_iommu_type1"
+    # "vfio"
   ];
 
   boot.kernelModules = [
-	"kvm-amd"
-	# "vfio_virqfd"
-	# "vfio_pci"
-	# "vfio_iommu_type1"
-	# "vfio"
+    "kvm-amd"
+    # "vfio_virqfd"
+    # "vfio_pci"
+    # "vfio_iommu_type1"
+    # "vfio"
   ];
 
   boot.extraModulePackages = [ ];

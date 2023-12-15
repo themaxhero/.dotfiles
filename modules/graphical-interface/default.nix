@@ -8,6 +8,9 @@ in
     enable = lib.mkEnableOption "Enable Development Module";
   };
   config = lib.mkIf cfg.enable {
+    programs.hyprland = {
+      enable = true;
+    };
     boot.plymouth = {
       enable = true;
     };
@@ -56,7 +59,7 @@ in
           purple-googlechat
         ];
       };
-    }; 
+    };
 
     fonts = {
       fonts = with pkgs; [

@@ -1,12 +1,17 @@
-{ self, mkMerge, nix-doom-emacs, ... }:
+{ self, mkMerge, nix-doom-emacs, hyprland, ... }:
 {
   imports = [
     nix-doom-emacs.hmModule
+    hyprland.homeManagerModules.default
     (self + /home/maxhero/base)
     (self + /home/maxhero/development)
     (self + /home/maxhero/gaming)
     (self + /home/maxhero/graphical-interface/rofi)
     (self + /home/maxhero/graphical-interface/eww)
+    (self + /home/maxhero/graphical-interface/dconf)
+    (self + /home/maxhero/graphical-interface/hyprland)
+    (self + /home/maxhero/graphical-interface/i3)
+    (self + /home/maxhero/graphical-interface/sway)
     (self + /home/maxhero/graphical-interface)
     (self + /home/maxhero/shells/zsh.nix)
   ];

@@ -1,9 +1,10 @@
-#!/usr/bin/env sh
-get_workspaces() {
-  i3-msg -t get_workspaces
-}
+#!/usr/bin/env bash
 
-get_workspaces;
-while true; do
-  i3-msg -t subscribe '["workspace"]' > /dev/null && get_workspaces;
-done
+# this script was taken from
+# https://gitlab.com/Oglo12/hyprland-rice/-/blob/main/eww/scripts/bar/get_workspaces?ref_type=heads
+
+workspaces=$(hyprctl workspaces | grep "workspace ID" | cut -f3 -d " " | tr '\n' ':')
+workspaces=${workspaces:0:$((${#workspaces} - 1))}
+workspaces=$(echo "$workspaces" | sed 's/:/, /g')
+
+echo "[$workspaces]"

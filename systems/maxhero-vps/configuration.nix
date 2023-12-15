@@ -36,12 +36,11 @@
     services = [
       {
         type = "socks";
-          auth = [ "strong" ];
-          acl = [ {
-            rule = "allow";
-            users = [ "maxhero" ];
-          }
-        ];
+        auth = [ "strong" ];
+        acl = [{
+          rule = "allow";
+          users = [ "maxhero" ];
+        }];
       }
     ];
     usersFile = "/etc/3proxy.passwd";
@@ -49,7 +48,7 @@
 
   development = {
     enable = false;
-    languages = [];
+    languages = [ ];
   };
   graphical-interface.enable = false;
   gaming.enable = false;

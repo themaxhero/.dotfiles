@@ -1,12 +1,12 @@
 { pkgs, ... }:
 {
   /*
-  nixpkgs.config.permittedInsecurePackages = [
+    nixpkgs.config.permittedInsecurePackages = [
     "python-2.7.18.7"
     "python2.7-certifi-2021.10.8"
     "python2.7-pyjwt-1.7.1"
     "openssl-1.1.1w"
-  ];
+    ];
   */
   users.users.maxhero = {
     isNormalUser = true;
