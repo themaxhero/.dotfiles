@@ -1,25 +1,26 @@
-{ self, lib, ... }:
+{ self, pkgs, lib, specialArgs, ... }:
 let
   i3SwayCommon = import (self + /home/maxhero/graphical-interface/i3sway-common);
   spawnables = import (self + /home/maxhero/graphical-interface/spawnables);
+  env = import (self + /home/maxhero/graphical-interface/env);
 in
 {
-  config = lib.mkIf nixosConfig.graphical-interface.enable {
+  config = lib.mkIf specialArgs.nixosConfig.graphical-interface.enable {
     wayland.windowManager.sway = {
       enable = true;
       wrapperFeatures.gtk = true; # so that gtk works properly
       wrapperFeatures.base = true; # so that gtk works properly
       xwayland = true;
       config = {
-        inherit menu;
+        menu = spawnables.wayland.menu;
         terminal = spawnables.wayland.terminal;
-        modifier = i3AndSwayKeybindings.modifier;
-        floating.modifier = i3AndSwayKeybindings.modifier;
+        modifier = i3SwayCommon.modifier;
+        floating.modifier = i3SwayCommon.modifier;
         bars = [ ];
         focus.followMouse = "yes";
-        keybindings = (i3AndSwayKeybindings "wayland");
-        window = i3AndSwayKeybindings.window;
-        floating.criteria = i3AndSwayKeybindings.swayFloatingCriteria;
+        keybindings = (i3SwayCommon.i3AndSwayKeybindings "wayland");
+        window = i3SwayCommon.window;
+        floating.criteria = i3SwayCommon.swayFloatingCriteria;
         fonts = {
           names = [ "scientifica" ];
           size = 8.0;
@@ -50,10 +51,10 @@ in
         right = "l";
         up = "k";
         down = "j";
-        modes = lib.mkOptionDefault { "command_mode" = i3AndSwayKeybindings.commandMode; };
+        modes = lib.mkOptionDefault { "command_mode" = i3SwayCommon.commandMode; };
         startup = [
           { command = "${pkgs.swaynotificationcenter}/bin/swaync"; }
-          { command = "${nm-applet} --indicator"; }
+          { command = "${spawnables.wayland.network-applet}"; }
           { command = "${pkgs.clipman}/bin/clipman"; }
         ];
       };

@@ -1,4 +1,4 @@
-{ specialArgs, ... }:
+{ lib, specialArgs, ... }:
 {
   config = lib.mkIf specialArgs.nixosConfig.graphical-interface.enable {
     dconf.settings = {

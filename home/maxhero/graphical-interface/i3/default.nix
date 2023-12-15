@@ -1,16 +1,16 @@
-{ self, pkgs, ... }:
+{ self, lib, pkgs, specialArgs, ... }:
 let
   i3SwayCommon = import (self + /home/maxhero/graphical-interface/i3sway-common);
   spawnables = import (self + /home/maxhero/graphical-interface/spawnables);
 in
 {
-  config = lib.mkIf nixosConfig.graphical-interface.enable {
+  config = lib.mkIf specialArgs.nixosConfig.graphical-interface.enable {
     xsession.windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;
       config = {
         terminal = spawnables.xorg.terminal;
-        modifier = i3AndSwayKeybindings.modifier;
+        modifier = i3SwayCommon.modifier;
         assigns = { };
         bars = [ ];
         colors = { };
@@ -31,8 +31,8 @@ in
           { command = "--no-startup-id ${spawnables.xorg.bar}"; always = true; }
           { command = "--no-startup-id ${spawnables.xorg.ime}"; }
           { command = "--no-startup-id ${spawnables.xorg.wallpaper}"; }
-          { command = "--no-startup-id ${nm-applet} --indicator"; }
-          { command = "--no-startup-id ${clipman}"; }
+          { command = "--no-startup-id ${spawnables.xorg.network-applet}"; }
+          #{ command = "--no-startup-id ${clipman}"; }
         ];
       };
     };

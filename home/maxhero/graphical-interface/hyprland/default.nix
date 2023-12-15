@@ -16,7 +16,7 @@ in
         exec-once = [
           spawnables.wayland.bar
           spawnables.wayland.ime
-          "${nm-applet} --indicator"
+          spawnables.wayland.network-applet
         ];
         input = {
           kb_layout = "us";
