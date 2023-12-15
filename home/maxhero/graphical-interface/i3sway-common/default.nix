@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ self, lib, pkgs, ... }@attrs:
+let
+  spawnables = import (self + /home/maxhero/graphical-interface/spawnables) attrs;
+in
 rec {
   volumectl = "${pkgs.avizo}/bin/volumectl";
   modifier = "Mod4";
@@ -132,15 +135,23 @@ rec {
     "${modifier}+Shift+t" = "sticky toggle";
 
     # Volume controls
-    "XF86AudioRaiseVolume" = "exec ${volumectl} -u up";
-    "XF86AudioLowerVolume" = "exec ${volumectl} -u down";
-    "XF86AudioMute" = "exec ${volumectl} toggle-mute";
+    /*
+    "XF86AudioRaiseVolume" = ''
+      exec "${volumectl} -u up"
+    '';
+    "XF86AudioLowerVolume" = ''
+      exec "${volumectl} -u down"
+    '';
+    "XF86AudioMute" = ''
+      exec "${volumectl} toggle-mute"
+    '';
+    */
 
     # Lightweight screenshot to cliboard and temporary file
-    "Print" = "exec ${spawnables.${type}.screenshot}";
+    #"Print" = "exec \"${spawnables.${type}.screenshot}\"";
 
     # Notifications tray
-    "${modifier}+Shift+n" = "exec ${swaync-client} -t -sw";
+    #"${modifier}+Shift+n" = "exec ${swaync-client} -t -sw";
 
     # Enter my extra modes
     "${modifier}+c" = "mode command_mode";
@@ -152,7 +163,7 @@ rec {
     # Reload/Restart
     "${modifier}+Shift+c" = "reload";
     "${modifier}+Shift+r" = "restart";
-    "${modifier}+Shift+s" = "exec \"${spawnables.${type}.screenshot}\"";
+    #"${modifier}+Shift+s" = "exec \"${spawnables.${type}.screenshot}\"";
 
     "${modifierCombo}+v" = "split v";
     "${modifierCombo}+h" = "split h";

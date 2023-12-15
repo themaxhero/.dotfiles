@@ -1,10 +1,10 @@
-{ self, lib, pkgs, specialArgs, ... }:
+{ self, lib, pkgs, specialArgs, ... }@attrs:
 let
-  i3SwayCommon = import (self + /home/maxhero/graphical-interface/i3sway-common);
-  spawnables = import (self + /home/maxhero/graphical-interface/spawnables);
+  i3SwayCommon = import (self + /home/maxhero/graphical-interface/i3sway-common) attrs;
+  spawnables = import (self + /home/maxhero/graphical-interface/spawnables) attrs;
 in
 {
-  config = lib.mkIf specialArgs.nixosConfig.graphical-interface.enable {
+  config = lib.mkIf false {#specialArgs.nixosConfig.graphical-interface.enable {
     xsession.windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;

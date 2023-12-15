@@ -8,6 +8,7 @@ let
   printCmd = "${grim} -t png -g \"$(${slurp})\" - | tee /tmp/screenshot.png | ${wl-copy} -t 'image/png'";
   isUchigatana = nixosConfig.networking.hostName == "uchigatana";
   fontSize = if isUchigatana then 16 else 24;
+  defaultBrowser = "firefox.desktop";
 in
 {
   config = lib.mkIf nixosConfig.graphical-interface.enable {
@@ -42,9 +43,7 @@ in
       orchis-theme
       tela-circle-icon-theme
       youtube-dl
-      youtube-music
       sublime
-      obsidian
     ];
 
     programs.chromium = {
@@ -138,7 +137,7 @@ in
       color = "onedark";
     };
 
-    xdg.configFile.pcmanfm = {
+    /*xdg.configFile.pcmanfm = {
       target = "pcmanfm-qt/default/settings.conf";
       text = lib.generators.toINI { } {
         Behavior = {
@@ -159,7 +158,7 @@ in
           MountRemovable = false;
         };
       };
-    };
+    };*/
 
     home.file = {
       ".anthy".source = self + /home/maxhero/graphical-interface/.anthy;

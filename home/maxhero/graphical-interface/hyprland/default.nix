@@ -1,7 +1,7 @@
-{ self, pkgs, lib, config, specialArgs, ... }:
+{ self, pkgs, lib, config, specialArgs, hyprland-contrib, ... }@attrs:
 let
-  env = import (self + /home/maxhero/graphical-interface/env);
-  spawnables = import (self + /home/maxhero/graphical-interface/spawnables);
+  env = import (self + /home/maxhero/graphical-interface/env) attrs;
+  spawnables = import (self + /home/maxhero/graphical-interface/spawnables) attrs;
 in
 {
   config = lib.mkIf specialArgs.nixosConfig.graphical-interface.enable {
@@ -14,9 +14,11 @@ in
       xwayland.enable = true;
       settings = {
         exec-once = [
+          /*
           spawnables.wayland.bar
           spawnables.wayland.ime
           spawnables.wayland.network-applet
+          */
         ];
         input = {
           kb_layout = "us";

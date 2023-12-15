@@ -85,7 +85,7 @@ in
         contents.user.email = "marcelo.amancio@mindlab.com.br";
       }];
     };
-    programs.doom-emacs = {
+    /*programs.doom-emacs = {
       enable = true;
       doomPrivateDir = self + /home/maxhero/development/doom.d;
       package = pkgs.emacsGcc;
@@ -104,7 +104,7 @@ in
             ];
           });
       };
-    };
+    };*/
 
     programs.ssh.matchBlocks = {
       "github.com-mindlab" = {

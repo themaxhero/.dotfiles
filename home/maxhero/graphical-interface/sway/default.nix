@@ -1,11 +1,11 @@
-{ self, pkgs, lib, specialArgs, ... }:
+{ self, pkgs, lib, specialArgs, ... }@attrs:
 let
-  i3SwayCommon = import (self + /home/maxhero/graphical-interface/i3sway-common);
-  spawnables = import (self + /home/maxhero/graphical-interface/spawnables);
-  env = import (self + /home/maxhero/graphical-interface/env);
+  i3SwayCommon = import (self + /home/maxhero/graphical-interface/i3sway-common) attrs;
+  spawnables = import (self + /home/maxhero/graphical-interface/spawnables) attrs;
+  env = import (self + /home/maxhero/graphical-interface/env) attrs;
 in
 {
-  config = lib.mkIf specialArgs.nixosConfig.graphical-interface.enable {
+  config = lib.mkIf false {#specialArgs.nixosConfig.graphical-interface.enable {
     wayland.windowManager.sway = {
       enable = true;
       wrapperFeatures.gtk = true; # so that gtk works properly
@@ -64,7 +64,7 @@ in
       '';
       extraSessionCommands = ''
         # Env
-        ${builtins.foldl' (acc: v: "${acc}\nexport ${v.name}='${v.value}'") "" env.sway_env}
+        ${builtins.concatStringsSep "\n" (builtins.map (v: "export ${v.name}='${v.value}'") env.sway_env)}
       '';
     };
   };
