@@ -100,8 +100,8 @@ in
         };
         "discord" = {
           name = "Discord (XWayland)";
-          exec = "nowl ${pkgs.discord}/bin/discord";
-          icon = "${pkgs.discord}/share/icons/hicolor/256x256/apps/discord.png";
+          exec = "nowl ${pkgs.discord-canary}/bin/discord";
+          icon = "${pkgs.discord-canary}/share/icons/hicolor/256x256/apps/discord.png";
           terminal = false;
           categories = [ "Application" "Network" ];
         };

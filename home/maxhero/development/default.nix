@@ -60,10 +60,27 @@ in
       enableZshIntegration = true;
     };
 
+    programs.kitty = {
+      enable = true;
+      theme = "Monokai Classic";
+      settings = {
+        transparency = "yes";
+	background_opacity = "0.8";
+      };
+    };
+
     programs.neovim = {
       enable = true;
       viAlias = true;
       vimAlias = true;
+      vimdiffAlias = true;
+      defaultEditor = true;
+      /*generatedConfigs = {
+        viml = "";
+      	lua = ''
+        '';
+      };
+      */
     };
 
     home.activation = {
