@@ -14,11 +14,9 @@ in
       xwayland.enable = true;
       settings = {
         exec-once = [
-          /*
           spawnables.wayland.bar
           spawnables.wayland.ime
           spawnables.wayland.network-applet
-          */
         ];
         input = {
           kb_layout = "us";
@@ -47,8 +45,8 @@ in
           # Vim Motions
           "$mod SHIFT, h, movewindow, l"
           "$mod SHIFT, l, movewindow, r"
-          "$mod SHIFT, k, movewindow, u"
-          "$mod SHIFT, j, movewindow, d"
+	  "$mod SHIFT, k, movewindow, u"
+	  "$mod SHIFT, j, movewindow, d"
 
           # kill
           "$mod SHIFT, Q, killactive"
@@ -88,7 +86,7 @@ in
           # Enable floating manually for windows
           "$mod, SPACE, togglefloating"
         ];
-        monitors = [
+        monitor = [
           "DP-1, 3840x2160@60, 0x0, 1"
           "DP-3, 3840x2160@60, 3840x0, 1"
         ];
@@ -96,8 +94,8 @@ in
           gaps_in = 8;
           gaps_out = 16;
           border_size = 1;
-          col.active_border = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-          col.inactive_border = "rgba(595959aa)";
+          "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+          "col.inactive_border" = "rgba(595959aa)";
           layout = "dwindle";
           allow_tearing = false;
         };
@@ -114,7 +112,7 @@ in
           drop_shadow = "yes";
           shadow_range = 4;
           shadow_render_power = 3;
-          col.shadow = "rgba(1a1a1aee)";
+          "col.shadow" = "rgba(1a1a1aee)";
         };
 
         animations = {

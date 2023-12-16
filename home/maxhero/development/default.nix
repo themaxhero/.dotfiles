@@ -60,6 +60,12 @@ in
       enableZshIntegration = true;
     };
 
+    programs.neovim = {
+      enable = true;
+      viAlias = true;
+      vimAlias = true;
+    };
+
     home.activation = {
       direnvAllow = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ${direnvAllow "$HOME"}
