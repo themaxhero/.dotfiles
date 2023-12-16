@@ -78,10 +78,12 @@ in
       extraLuaConfig = ''
         vim.g.mapleader = " "
         vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
       '';
       plugins = with pkgs; [
         { plugin = vimPlugins.vim-monokai; config = "colorscheme monokai"; }
-        { plugin = vimPlugins.telescope-nvim; config = builtins.readFile (self + /home/maxhero/development/nvim/plugin/telescope.lua); }
+        { plugin = vimPlugins.telescope-nvim; config = ":luafile ${(self + /home/maxhero/development/nvim/plugin/telescope.lua)}"; }
+	{ plugin = vimPlugins.nvim-treesitter; config = ":luafile ${(self + /home/maxhero/development/nvim/plugin/treesitter.lua)}";}
       ];
       /*generatedConfigs = {
         viml = "";
