@@ -23,9 +23,9 @@ rec {
     { name = "XCURSOR_SIZE"; value = "24"; }
   ];
 
-  sway_env = wayland_env ++ qt_fixes ++ general_env;
+  sway_env = wayland_env ++ general_env;
 
-  bash_env = qt_fixes ++ general_env;
+  bash_env = general_env;
 
   qt_fixes = [
     # KDE/Plasma platform for Qt apps."

@@ -75,6 +75,14 @@ in
       vimAlias = true;
       vimdiffAlias = true;
       defaultEditor = true;
+      extraLuaConfig = ''
+        vim.g.mapleader = " "
+        vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+      '';
+      plugins = with pkgs; [
+        { plugin = vimPlugins.vim-monokai; config = "colorscheme monokai"; }
+        { plugin = vimPlugins.telescope-nvim; config = builtins.readFile (self + /home/maxhero/development/nvim/plugin/telescope.lua); }
+      ];
       /*generatedConfigs = {
         viml = "";
       	lua = ''
