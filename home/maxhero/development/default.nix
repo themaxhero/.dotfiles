@@ -75,6 +75,10 @@ in
       vimAlias = true;
       vimdiffAlias = true;
       defaultEditor = true;
+      extraPackages = with pkgs; [
+        rnix-lsp
+        rust-analyzer
+      ];
       extraLuaConfig = ''
         vim.g.mapleader = " "
 	
@@ -108,13 +112,15 @@ in
         vimPlugins.nvim-treesitter-context
         vimPlugins.nvim-treesitter-refactor
         vimPlugins.undotree 
+        vimPlugins.nvim-lspconfig
+        vimPlugins.nvim-cmp
+        vimPlugins.cmp-buffer
+        vimPlugins.cmp-path
+        vimPlugins.cmp_luasnip
+        vimPlugins.cmp-nvim-lsp
+        vimPlugins.cmp-nvim-lua
+        vimPlugins.luasnip
       ];
-      /*generatedConfigs = {
-        viml = "";
-      	lua = ''
-        '';
-      };
-      */
     };
 
     home.activation = {
