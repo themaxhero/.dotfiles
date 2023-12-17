@@ -65,7 +65,7 @@ in
       theme = "Monokai Classic";
       settings = {
         transparency = "yes";
-	background_opacity = "0.8";
+        background_opacity = "0.95";
       };
     };
 
