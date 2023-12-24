@@ -163,6 +163,7 @@ in
     home.file = {
       ".anthy".source = self + /home/maxhero/graphical-interface/.anthy;
       ".wallpaper.jpg".source = self + /home/maxhero/graphical-interface/.wallpaper.jpg;
+      ".wallpaper.png".source = self + /home/maxhero/graphical-interface/.wallpaper.png;
     };
 
     xdg = {

@@ -2,10 +2,10 @@
 let
   i3SwayCommon = import (self + /home/maxhero/graphical-interface/i3sway-common) attrs;
   spawnables = import (self + /home/maxhero/graphical-interface/spawnables) attrs;
-  env = import (self + /home/maxhero/graphical-interface/env) attrs;
+  env = import (self + /env) attrs;
 in
 {
-  config = lib.mkIf false {#specialArgs.nixosConfig.graphical-interface.enable {
+  config = lib.mkIf false { #specialArgs.nixosConfig.graphical-interface.enable {
     wayland.windowManager.sway = {
       enable = true;
       wrapperFeatures.gtk = true; # so that gtk works properly

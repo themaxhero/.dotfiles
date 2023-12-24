@@ -135,7 +135,6 @@ rec {
     "${modifier}+Shift+t" = "sticky toggle";
 
     # Volume controls
-    /*
     "XF86AudioRaiseVolume" = ''
       exec "${volumectl} -u up"
     '';
@@ -145,7 +144,6 @@ rec {
     "XF86AudioMute" = ''
       exec "${volumectl} toggle-mute"
     '';
-    */
 
     # Lightweight screenshot to cliboard and temporary file
     #"Print" = "exec \"${spawnables.${type}.screenshot}\"";
@@ -213,6 +211,6 @@ rec {
     "${modifier}+F2" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x12\"";
     "${modifier}+F3" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x0f\"";
 
-    "${modifier}+z" = "${spawnables.${type}.lock}";
+    #"${modifier}+z" = "${spawnables.${type}.lock}";
   }));
 }

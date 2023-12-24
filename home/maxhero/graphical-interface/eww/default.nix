@@ -21,7 +21,7 @@ in
     ];
     programs.eww = {
       enable = true;
-      package = self.inputs.nixpkgs-master.legacyPackages.x86_64-linux.eww-wayland;
+      package = pkgs.eww;
       configDir = self + /home/maxhero/graphical-interface/eww;
     };
   };

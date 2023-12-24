@@ -16,48 +16,6 @@
   hardware.i2c.enable = true;
 
   programs.nm-applet.enable = true;
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    extraPackages = with pkgs; [
-      swaylock
-      swayidle
-      swaynotificationcenter
-      wl-clipboard
-      libinput
-      libinput-gestures
-      wofi
-    ];
-    extraSessionCommands = ''
-      # Force wayland overall.
-      export CLUTTER_BACKEND='wayland'
-      export ECORE_EVAS_ENGINE='wayland_egl'
-      export ELM_ENGINE='wayland_egl'
-      export GDK_BACKEND='wayland'
-      export MOZ_ENABLE_WAYLAND=1
-      export QT_AUTO_SCREEN_SCALE_FACTOR=0
-      export QT_QPA_PLATFORM='wayland-egl'
-      export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-      export SAL_USE_VCLPLUGIN='gtk3'
-      export SDL_VIDEODRIVER='wayland'
-      export _JAVA_AWT_WM_NONREPARENTING=1
-      export NIXOS_OZONE_WL=1
-
-      # KDE/Plasma platform for Qt apps.
-      export QT_QPA_PLATFORMTHEME='kde'
-      export QT_PLATFORM_PLUGIN='kde'
-      export QT_PLATFORMTHEME='kde'
-
-      export GTK_IM_MODULE=fcitx
-      export QT_IM_MODULE=fcitx
-      export XMODIFIERS=@im=fcitx
-      export INPUT_METHOD=fcitx
-      export GLFW_IM_MODULE=fcitx
-      export SDL_IM_MODULE=fcitx
-      export IMSETTINGS_MODULE=fcitx
-    '';
-  };
-
   xdg.portal = {
     wlr.enable = true;
     extraPortals = with pkgs;
@@ -65,15 +23,6 @@
         #xdg-desktop-portal-gtk
         xdg-desktop-portal-wlr
       ];
-  };
-  services.xserver.windowManager.i3.enable = true;
-  services.xserver.windowManager.i3.package = pkgs.i3-gaps;
-  systemd.targets."i3-session" = {
-    enable = true;
-    description = "i3 session";
-    bindsTo = [
-      "graphical-session.target"
-    ];
   };
   services.udisks2.enable = true;
   services.xserver.displayManager.gdm.enable = true;

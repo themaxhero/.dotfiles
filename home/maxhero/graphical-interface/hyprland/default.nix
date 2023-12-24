@@ -1,10 +1,11 @@
 { self, pkgs, lib, config, specialArgs, hyprland-contrib, ... }@attrs:
 let
-  env = import (self + /home/maxhero/graphical-interface/env) attrs;
+  enabled = false; # specialArgs.nixosConfig.graphical-interface.enable
+  env = import (self + /env) attrs;
   spawnables = import (self + /home/maxhero/graphical-interface/spawnables) attrs;
 in
 {
-  config = lib.mkIf specialArgs.nixosConfig.graphical-interface.enable {
+  config = lib.mkIf enabled {
     home.packages = with pkgs; [
       hyprland-contrib.packages."${pkgs.system}".grimblast
       hyprpicker
@@ -45,8 +46,8 @@ in
           # Vim Motions
           "$mod SHIFT, h, movewindow, l"
           "$mod SHIFT, l, movewindow, r"
-	  "$mod SHIFT, k, movewindow, u"
-	  "$mod SHIFT, j, movewindow, d"
+          "$mod SHIFT, k, movewindow, u"
+          "$mod SHIFT, j, movewindow, d"
 
           # kill
           "$mod SHIFT, Q, killactive"

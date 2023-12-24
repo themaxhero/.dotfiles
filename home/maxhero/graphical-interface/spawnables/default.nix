@@ -1,8 +1,8 @@
 { config, pkgs, specialArgs, ... }:
 let
   launch-eww = pkgs.writeShellScriptBin "launch-eww" ''
-    ${pkgs.killall}/bin/killall ${pkgs.eww-wayland}/bin/eww
-    ${pkgs.eww-wayland}/bin/eww daemon && ${pkgs.eww-wayland}/bin/eww open bar-left && ${pkgs.eww-wayland}/bin/eww open bar-right
+    ${pkgs.killall}/bin/killall ${pkgs.eww}/bin/eww
+    ${pkgs.eww}/bin/eww daemon && ${pkgs.eww}/bin/eww open bar-left && ${pkgs.eww}/bin/eww open bar-right
   '';
 in
 {
@@ -25,8 +25,8 @@ in
     screenshot = "${pkgs.flameshot}/bin/flameshot gui";
     browser = "firefox.desktop";
     ime = "${pkgs.fcitx5}/bin/fcitx5";
-    wallpaper = "${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.jpg";
-    lock = "";
+    wallpaper = "${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.png";
+    lock = "${pkgs.i3lock-fancy-rapid}/bin/i3lock";
     network-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator";
   };
 }
