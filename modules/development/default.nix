@@ -29,6 +29,7 @@ let
       jq
       fd
       xdelta
+      nixops_unstable
     ]
     ++ (conditional-lang "dotnet" [
       dotnet-sdk

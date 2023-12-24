@@ -32,7 +32,13 @@
         (dirs: builtins.mapAttrs (system: _: import (self + "/systems/${system}") attrs) dirs)
       ];
       nixopsConfigurations.default = {
-        vps-lab = import (self + /machines/oci-vps.nix);
+        inherit nixpkgs;
+        network = {
+          storage.legacy.databasefile = "~/.nixops/deployments.nixops";
+          description = "Network";
+        };
+        #maxhero-vps = import (self + /machines/oci-vps.nix);
+        test-vm = import (self + /machines/test-vm.nix);
       };
       homeConfigurations = {
         maxhero = home-manager.lib.homeManagerConfiguration {

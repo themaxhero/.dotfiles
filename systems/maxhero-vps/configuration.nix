@@ -19,11 +19,11 @@
   };
 
   # Let's Encrypt
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "contact@maxhero.dev";
-    certs."vps.maxhero.com.br".extraDomainNames = [ "dns.maxhero.com.br" ];
-  };
+  #security.acme = {
+  #  acceptTerms = true;
+  #  defaults.email = "contact@maxhero.dev";
+  #  certs."vps.maxhero.com.br".extraDomainNames = [ "dns.maxhero.com.br" ];
+  #};
 
   # Changing the congestion algorithm to bbr in order to reduce packet loss at low throughput
   boot.kernel.sysctl = {

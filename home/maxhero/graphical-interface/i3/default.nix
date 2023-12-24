@@ -4,7 +4,7 @@ let
   spawnables = import (self + /home/maxhero/graphical-interface/spawnables) attrs;
 in
 {
-  config = lib.mkIf false {#specialArgs.nixosConfig.graphical-interface.enable {
+  config = specialArgs.nixosConfig.graphical-interface.enable {
     xsession.windowManager.i3 = {
       enable = true;
       package = pkgs.i3-gaps;

@@ -3,6 +3,7 @@
   networking = {
     hostId = "cc1f83cb";
     hostName = "maxhero-workstation";
+    firewall.checkReversePath = false;
   };
   services.minidlna.settings.friendly_name = "maxhero-workstation";
   networking.wireguard.interfaces.wg0 = {
