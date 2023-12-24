@@ -148,9 +148,6 @@ rec {
     # Lightweight screenshot to cliboard and temporary file
     #"Print" = "exec \"${spawnables.${type}.screenshot}\"";
 
-    # Notifications tray
-    #"${modifier}+Shift+n" = "exec ${swaync-client} -t -sw";
-
     # Enter my extra modes
     "${modifier}+c" = "mode command_mode";
 
@@ -161,7 +158,7 @@ rec {
     # Reload/Restart
     "${modifier}+Shift+c" = "reload";
     "${modifier}+Shift+r" = "restart";
-    #"${modifier}+Shift+s" = "exec \"${spawnables.${type}.screenshot}\"";
+    "${modifier}+Shift+s" = "exec \"${spawnables.${type}.screenshot}\"";
 
     "${modifierCombo}+v" = "split v";
     "${modifierCombo}+h" = "split h";

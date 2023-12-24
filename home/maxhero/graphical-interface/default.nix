@@ -37,7 +37,6 @@ in
 
     home.packages = with pkgs; [
       veracrypt
-      swaynotificationcenter
       orchis-theme
       tela-circle-icon-theme
       youtube-dl
@@ -64,7 +63,6 @@ in
     services.mpd-discord-rpc.enable = true;
     services.network-manager-applet.enable = true;
     services.playerctld.enable = true;
-    services.swayidle.enable = true;
     services.picom.enable = true;
 
     gtk = {
