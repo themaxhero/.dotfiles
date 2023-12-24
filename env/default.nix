@@ -23,6 +23,4 @@ rec {
     { name = "GTK2_RC_FILES"; value = "${gtk2-rc-files}"; }
     { name = "QT_STYLE_OVERRIDE"; value = "gtk2"; }
   ];
-
-  xorg_env = [ ];
 }

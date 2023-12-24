@@ -21,7 +21,7 @@
     mutableSettings = false;
     settings = {
       bind_port = 3000; # bind_port
-      bind_host = "0.0.0.0"; # bind_host
+      bind_host = "10.100.0.1"; # bind_host
       #beta_bind_port = 0;
       users = [{
         name = "admin";
@@ -34,7 +34,7 @@
       #debug_pprof = false;
       #web_session_ttl = 720;
       dns = {
-        bind_hosts = [ "0.0.0.0" ];
+        bind_hosts = [ "10.100.0.1" ];
         #port = 53;
         #statistics_interval = 1;
         #querylog_enabled = true;

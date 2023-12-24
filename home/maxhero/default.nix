@@ -1,4 +1,4 @@
-{ self, mkMerge, nix-doom-emacs, hyprland, ... }:
+{ self, mkMerge, nix-doom-emacs, ... }:
 {
   imports = [
     nix-doom-emacs.hmModule
