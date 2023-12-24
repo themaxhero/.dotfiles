@@ -5,26 +5,6 @@ let
   gtk2-rc-files = "${pkgs.orchis-theme}/share/themes/${gtkTheme}/gtk-2.0/gtkrc";
 in
 rec {
-  wayland_env = [
-    { name = "BEMENU_BACKEND"; value = "wayland"; }
-    { name = "CLUTTER_BACKEND"; value = "wayland"; }
-    { name = "ECORE_EVAS_ENGINE"; value = "wayland_egl"; }
-    { name = "ELM_ENGINE"; value = "wayland_egl"; }
-    { name = "GDK_BACKEND"; value = "wayland"; }
-    { name = "SDL_VIDEODRIVER"; value = "wayland"; }
-    { name = "QT_QPA_PLATFORM"; value = "wayland-egl"; }
-    { name = "MOZ_ENABLE_WAYLAND"; value = "1"; }
-    { name = "NIXOS_OZONE_WL"; value = "1"; }
-    { name = "QT_WAYLAND_DISABLE_WINDOWDECORATION"; value = "1"; }
-  ];
-
-  hyprland_env = wayland_env ++ qt_fixes ++ general_env ++ [
-    { name = "XDG_CURRENT_DESKTOP"; value = "Hyprland"; }
-    { name = "XCURSOR_SIZE"; value = "24"; }
-  ];
-
-  sway_env = wayland_env ++ general_env;
-
   bash_env = general_env;
 
   qt_fixes = [

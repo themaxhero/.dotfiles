@@ -1,48 +1,27 @@
 { self, config, pkgs, lib, home-manager, nur, nix-doom-emacs, ... }@attrs:
 let
-  nowl = (import (self + /tools/nowl.nix)) pkgs;
   cfg = config.graphical-interface;
   env = import (self + /env) attrs;
+  enableI3WM = builtins.elem "i3" cfg.environments;
 in
 {
   options.graphical-interface = {
     enable = lib.mkEnableOption "Enable Development Module";
     environments = lib.mkOption {
-      type = with lib.types; listOf (oneOf ["i3" "hyprland" "sway"]);
+      type = with lib.types; listOf str;
       description = "Enable envs Graphical Interface Modules";
       default = ["i3"];
     };
   };
   config = lib.mkIf cfg.enable {
-    programs.hyprland = {
-      enable = builtins.elem "hyprland" cfg.environments;
-    };
-    services.xserver.windowManager.i3 = {
-      enable = builtins.elem "i3" cfg.environments;
+    services.xserver.windowManager.i3 = lib.mkIf enableI3WM {
+      enable = true;
       package = pkgs.i3-gaps;
     };
-    systemd.targets."i3-session" = {
-      enable = builtins.elem "i3" cfg.environments;
+    systemd.targets."i3-session" = lib.mkIf enableI3WM {
+      enable = true;
       description = "i3 session";
-      bindsTo = [
-        "graphical-session.target"
-      ];
-    };
-    programs.sway = {
-      enable = builtins.elem "sway" cfg.environments;
-      wrapperFeatures.gtk = true;
-      extraPackages = with pkgs; [
-        swaylock
-        swayidle
-        swaynotificationcenter
-        wl-clipboard
-        libinput
-        libinput-gestures
-        wofi
-      ];
-      extraSessionCommands = ''
-        ${builtins.concatStringsSep "\n" (builtins.map (v: "export ${v.name}='${v.value}'") env.sway_env)}
-      '';
+      bindsTo = [ "graphical-session.target" ];
     };
     boot.plymouth = {
       enable = true;
@@ -56,7 +35,6 @@ in
       gnome.eog
       lxqt.pavucontrol-qt
       lxqt.pcmanfm-qt
-      nowl
       pamixer
       qbittorrent
       slack

@@ -17,11 +17,10 @@
 
   programs.nm-applet.enable = true;
   xdg.portal = {
-    wlr.enable = true;
+    enable = true;
     extraPortals = with pkgs;
       [
-        #xdg-desktop-portal-gtk
-        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
       ];
   };
   services.udisks2.enable = true;

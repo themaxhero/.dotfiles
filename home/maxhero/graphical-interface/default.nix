@@ -1,11 +1,9 @@
-{ self, config, pkgs, nur, lib, specialArgs, hyprland-contrib, ... }:
+{ self, config, pkgs, nur, lib, specialArgs, ... }:
 with specialArgs;
 let
   firefox = "${pkgs.firefox}/bin/firefox";
   lxqt-sudo = "${pkgs.lxqt.lxqt-sudo}/bin/lxqt-sudo";
-  wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
   nm-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet";
-  printCmd = "${grim} -t png -g \"$(${slurp})\" - | tee /tmp/screenshot.png | ${wl-copy} -t 'image/png'";
   isUchigatana = nixosConfig.networking.hostName == "uchigatana";
   fontSize = if isUchigatana then 16 else 24;
   defaultBrowser = "firefox.desktop";
@@ -99,8 +97,8 @@ in
           terminal = false;
         };
         "discord" = {
-          name = "Discord (XWayland)";
-          exec = "nowl ${pkgs.discord-canary}/bin/discord";
+          name = "Discord";
+          exec = "${pkgs.discord-canary}/bin/discord";
           icon = "${pkgs.discord-canary}/share/icons/hicolor/256x256/apps/discord.png";
           terminal = false;
           categories = [ "Application" "Network" ];
