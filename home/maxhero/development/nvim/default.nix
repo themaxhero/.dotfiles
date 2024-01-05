@@ -1,4 +1,9 @@
-{ pkgs, ... }@attrs: {
+{ ... }@attrs: 
+pkgs:
+let
+  fullattrs = attrs // { inherit pkgs; };
+in
+{
   viAlias = true;
   vimAlias = true;
   vimdiffAlias = true;
@@ -27,7 +32,7 @@
     }
     {
       plugin = lsp-zero-nvim;
-      config = import ./plugins/lsp-zero.lua.nix attrs;
+      config = import ./plugins/lsp-zero.lua.nix fullattrs;
     }
     nvim-treesitter-context
     nvim-treesitter-refactor

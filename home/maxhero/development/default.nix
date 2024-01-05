@@ -69,7 +69,7 @@ in
       };
     };
 
-    programs.neovim = { enable = true; } // (import ./nvim attrs);
+    programs.neovim = { enable = true; } // (self.outputs.neovimHomeManagerConfig pkgs);
     home.activation = {
       direnvAllow = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ${direnvAllow "$HOME"}
