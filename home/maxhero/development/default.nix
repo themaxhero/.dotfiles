@@ -1,4 +1,4 @@
-{ self, pkgs, config, lib, specialArgs, ... }:
+{ self, pkgs, config, lib, specialArgs, ... }@attrs:
 with specialArgs;
 let
   bin = "${pkgs.direnv}/bin/direnv";
