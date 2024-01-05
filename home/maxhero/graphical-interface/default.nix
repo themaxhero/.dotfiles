@@ -94,13 +94,6 @@ in
             "${pkgs.tela-circle-icon-theme}/share/icons/Tela-circle-dark/scalable@2x/apps/xfsm-reboot.svg";
           terminal = false;
         };
-        "discord" = {
-          name = "Discord";
-          exec = "${pkgs.discord-canary}/bin/discord";
-          icon = "${pkgs.discord-canary}/share/icons/hicolor/256x256/apps/discord.png";
-          terminal = false;
-          categories = [ "Application" "Network" ];
-        };
         "firefox" = {
           name = "Firefox";
           genericName = "Web Browser";

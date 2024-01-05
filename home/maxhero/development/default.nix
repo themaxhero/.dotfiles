@@ -69,60 +69,7 @@ in
       };
     };
 
-    programs.neovim = {
-      enable = true;
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-      defaultEditor = true;
-      extraPackages = with pkgs; [
-        rnix-lsp
-        rust-analyzer
-      ];
-      extraLuaConfig = ''
-        vim.g.mapleader = " "
-	
-        vim.opt.nu = true
-        vim.opt.relativenumber = true
-
-        vim.opt.tabstop = 2
-        vim.opt.softtabstop = 2
-        vim.opt.shiftwidth = 2
-        vim.opt.expandtab = true
-
-        vim.opt.wrap = false
-
-        vim.opt.swapfile = false
-
-        vim.opt.incsearch = true
-
-        vim.opt.scrolloff = 8
-
-        vim.opt.colorcolumn = "80,100,120"
-
-        vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-
-        vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-      '';
-      plugins = with pkgs; [
-        { plugin = vimPlugins.vim-monokai; config = "colorscheme monokai"; }
-        { plugin = vimPlugins.telescope-nvim; config = ":luafile ${(self + /home/maxhero/development/nvim/plugin/telescope.lua)}"; }
-        { plugin = vimPlugins.nvim-treesitter.withAllGrammars; config = ":luafile ${(self + /home/maxhero/development/nvim/plugin/treesitter.lua)}";}
-        { plugin = vimPlugins.lsp-zero-nvim; config = ":luafile ${(self + /home/maxhero/development/nvim/plugin/lsp-zero.lua)}";}
-        vimPlugins.nvim-treesitter-context
-        vimPlugins.nvim-treesitter-refactor
-        vimPlugins.undotree 
-        vimPlugins.nvim-lspconfig
-        vimPlugins.nvim-cmp
-        vimPlugins.cmp-buffer
-        vimPlugins.cmp-path
-        vimPlugins.cmp_luasnip
-        vimPlugins.cmp-nvim-lsp
-        vimPlugins.cmp-nvim-lua
-        vimPlugins.luasnip
-      ];
-    };
-
+    programs.neovim = { enable = true; } // (import ./nvim attrs);
     home.activation = {
       direnvAllow = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ${direnvAllow "$HOME"}
