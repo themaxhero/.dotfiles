@@ -61,6 +61,7 @@
         };
       };
       neovimHomeManagerConfig = import ./home/maxhero/development/nvim attrs;
+      doomEmacsHomeManagerConfig = import ./home/maxhero/development/emacs attrs;
       # devShell.x86_64-linux.fcontrol = devenv.lib.mkShell {
       #   inherit pkgs;
       #   inputs = attrs;

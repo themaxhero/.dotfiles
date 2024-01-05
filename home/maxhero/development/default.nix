@@ -70,6 +70,7 @@ in
     };
 
     programs.neovim = { enable = true; } // (self.outputs.neovimHomeManagerConfig pkgs);
+    programs.doom-emacs = { enable = true; } // (self.outputs.doomEmacsHomeManagerConfig pkgs);
     home.activation = {
       direnvAllow = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ${direnvAllow "$HOME"}
@@ -95,27 +96,6 @@ in
         contents.user.email = "marcelo.amancio@mindlab.com.br";
       }];
     };
-
-    /*programs.doom-emacs = {
-      enable = true;
-      doomPrivateDir = self + /home/maxhero/development/doom.d;
-      package = pkgs.emacsGcc;
-      extraPackages = [
-        pkgs.nodePackages.typescript
-        pkgs.nodePackages.typescript-language-server
-        pkgs.nodePackages.eslint
-        pkgs.metals
-        pkgs.haskellPackages.lsp
-      ];
-      emacsPackagesOverlay = self: super: {
-        magit-delta = super.magit-delta.overrideAttrs
-          (esuper: {
-            buildInputs = esuper.buildInputs ++ [
-              pkgs.git
-            ];
-          });
-      };
-    };*/
 
     programs.ssh.matchBlocks = {
       "github.com-mindlab" = {
