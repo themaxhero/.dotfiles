@@ -21,7 +21,6 @@ in
       dolphin-emu
       libsForQt5.dolphin-plugins
       #retroarchFull
-      #nix-gaming.packages.x86_64-linux.wine-tkg
       vulkan-tools
       winetricks
     ];

@@ -126,6 +126,10 @@ in
       color = "onedark";
     };
 
+    xdg.configFile.fcitx5 = {
+      source = self + /home/maxhero/graphical-interface/fcitx5;
+    };
+
     /*xdg.configFile.pcmanfm = {
       target = "pcmanfm-qt/default/settings.conf";
       text = lib.generators.toINI { } {
