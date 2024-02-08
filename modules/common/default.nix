@@ -52,6 +52,7 @@
     zsh
     bat
     ntfs3g
+    anki
   ];
 
   nix = {
@@ -81,7 +82,7 @@
   nixpkgs.config.allowUnfree = true;
 
   i18n = {
-    defaultLocale = "en_GB.UTF-8";
+    defaultLocale = "ja_JP.UTF-8";
     supportedLocales = [
       "en_GB.UTF-8/UTF-8"
       "en_US.UTF-8/UTF-8"

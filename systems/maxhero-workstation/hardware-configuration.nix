@@ -22,7 +22,7 @@
   boot.kernelParams = [
     "amd_iommu=on"
     # "vfio-pci.ids=1002:67df,1002:aaf0"
-    "libata.force=4.00:disable"
+    #"libata.force=4.00:disable"
   ];
 
   boot.initrd.kernelModules = [

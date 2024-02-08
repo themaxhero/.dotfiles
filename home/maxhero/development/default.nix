@@ -24,6 +24,7 @@ let
         ms-vscode.makefile-tools
         ms-vscode.live-server
         ms-vscode.hexeditor
+        ms-ceintl.vscode-language-pack-ja
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
         {
           name = "remote-ssh-edit";
@@ -70,7 +71,7 @@ in
     };
 
     programs.neovim = { enable = true; } // (self.outputs.neovimHomeManagerConfig pkgs);
-    programs.doom-emacs = { enable = true; } // (self.outputs.doomEmacsHomeManagerConfig pkgs);
+    #programs.doom-emacs = { enable = true; } // (self.outputs.doomEmacsHomeManagerConfig pkgs);
     home.activation = {
       direnvAllow = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         ${direnvAllow "$HOME"}

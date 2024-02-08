@@ -25,11 +25,15 @@ let
       racket
       podman-compose
       cmake
+      gdb
+      gf
       gcc
       jq
       fd
       xdelta
-      nixops_unstable
+      # nixops_unstable
+      fasm
+      raylib
     ]
     ++ (conditional-lang "dotnet" [
       dotnet-sdk

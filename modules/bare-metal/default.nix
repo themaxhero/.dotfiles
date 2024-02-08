@@ -33,7 +33,6 @@
     settings.media_dirs = [ "/home/upnp-shared/Media" ];
   };
   services.acpid.enable = true;
-  services.aria2.enable = true;
   services.fwupd.enable = true;
   services.ntp.enable = true;
   services.tumbler.enable = true;

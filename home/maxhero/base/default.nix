@@ -11,7 +11,6 @@ with specialArgs;
     numeric = "pt_BR.UTF-8";
   };
 
-  programs.aria2.enable = true;
   programs.bat.enable = true;
   programs.fish.enable = true;
   programs.command-not-found.enable = true;

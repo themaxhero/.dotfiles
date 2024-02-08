@@ -33,7 +33,7 @@
       "haskell"
       "clojure"
       "rust"
-      "android"
+      #"android"
       "aws"
       "clasp"
       "oracle-cloud"
@@ -44,6 +44,11 @@
   services.xserver.windowManager.i3.extraSessionCommands = ''
     fcitx5 &
   '';
+  services.picom = {
+    enable = true;
+    vSync = "drm";
+  };
+  services.xserver.deviceSection = ''Option "TearFree" "true"'';
   /*
     boot.loader.efiBootStub = {
     enable = efiDisk;

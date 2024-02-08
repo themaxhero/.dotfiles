@@ -30,6 +30,7 @@ in
       alacritty
       kitty
       discord-canary
+      vesktop
       ffmpegthumbnailer
       gnome.adwaita-icon-theme
       gnome.eog
@@ -55,21 +56,24 @@ in
       ddcutil
       whatsapp-for-linux
       pidgin-with-plugins
-      rambox
+      obsidian
       gnome.pomodoro
       #xarchiver
     ];
 
-    nixpkgs.config.packageOverrides = pkgs: rec {
-      pidgin-with-plugins = pkgs.pidgin.override {
-        plugins = with pkgs; [
-          pidgin-skypeweb
-          pidgin-opensteamworks
-          purple-slack
-          purple-discord
-          purple-googlechat
-        ];
+    nixpkgs.config = {
+      packageOverrides = pkgs: rec {
+        pidgin-with-plugins = pkgs.pidgin.override {
+          plugins = with pkgs; [
+            pidgin-skypeweb
+            pidgin-opensteamworks
+            purple-slack
+            purple-discord
+            purple-googlechat
+          ];
+        };
       };
+      permittedInsecurePackages = [ "electron-25.9.0" ];
     };
 
     fonts = {
