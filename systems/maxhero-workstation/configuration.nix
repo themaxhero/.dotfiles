@@ -42,11 +42,12 @@
     ];
   };
   services.xserver.windowManager.i3.extraSessionCommands = ''
-    fcitx5 &
+    #fcitx5 &
+    uim-xim &
   '';
   services.picom = {
     enable = true;
-    vSync = "drm";
+    vSync = true;
   };
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
   /*

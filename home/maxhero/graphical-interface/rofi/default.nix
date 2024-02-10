@@ -21,12 +21,12 @@ in
   };
   config = lib.mkIf cfg.enable {
     xdg.configFile."rofi/applets/share/theme.bash".text = ''
-      type="$XDG_CONFIG_HOME/rofi/applets/type-${toString cfg.type}"
+      type="${config.xdg.configHome}/rofi/applets/type-${toString cfg.type}"
       style='style-${toString cfg.style}.rasi'
     '';
 
     xdg.configFile."rofi/applets/share/colors.rasi".text = ''
-      @import "$XDG_CONFIG_HOME/rofi/colors/${cfg.color}.rasi"
+      @import "${config.xdg.configHome}/rofi/colors/${cfg.color}.rasi"
     '';
 
     xdg.configFile."rofi/applets/share/fonts.rasi".text = ''
@@ -52,7 +52,6 @@ in
           rofi-pass
         ];
       };
-      configPath = "$XDG_CONFIG_HOME/rofi/rofi-config.rasi";
     };
 
     xdg.configFile = {

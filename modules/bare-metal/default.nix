@@ -22,6 +22,7 @@
       [
         xdg-desktop-portal-gtk
       ];
+    config.common.default = "*";
   };
   services.udisks2.enable = true;
   services.xserver.displayManager.gdm.enable = true;

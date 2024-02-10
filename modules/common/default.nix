@@ -84,10 +84,10 @@
   i18n = {
     defaultLocale = "ja_JP.UTF-8";
     supportedLocales = [
+      "ja_JP.UTF-8/UTF-8"
       "en_GB.UTF-8/UTF-8"
       "en_US.UTF-8/UTF-8"
       "pt_BR.UTF-8/UTF-8"
-      "ja_JP.UTF-8/UTF-8"
     ];
     extraLocaleSettings = {
       LC_TIME = "pt_BR.UTF-8";

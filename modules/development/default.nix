@@ -180,6 +180,6 @@ in
     systemd.services."user@".serviceConfig.Delegate = "yes";
     programs.gnupg.agent.enable = true;
     programs.gnupg.agent.enableSSHSupport = true;
-    security.pam.enableSSHAgentAuth = true;
+    security.pam.sshAgentAuth.enable = true;
   };
 }

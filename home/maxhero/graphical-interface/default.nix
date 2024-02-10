@@ -63,7 +63,10 @@ in
     services.mpd-discord-rpc.enable = true;
     services.network-manager-applet.enable = true;
     services.playerctld.enable = true;
-    services.picom.enable = true;
+    services.picom = {
+      enable = true;
+      vSync = true;
+    };
 
     gtk = {
       cursorTheme.name = "Adwaita";
@@ -73,8 +76,10 @@ in
     programs.zathura.enable = true;
 
     i18n.inputMethod = {
-      enabled = "fcitx5";
-      fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-gtk ];
+      #enabled = "fcitx5";
+      #fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-gtk fcitx5-anthy];
+      enabled = "uim";
+      #ibus.engines = with pkgs.ibus-engines; [ anthy mozc ];
     };
 
     # Create Firefox .desktop for each profile
@@ -126,8 +131,13 @@ in
       color = "onedark";
     };
 
-    xdg.configFile.fcitx5 = {
-      source = self + /home/maxhero/graphical-interface/fcitx5;
+    xdg.configFile = {
+      fcitx5 = {
+        source = self + /home/maxhero/graphical-interface/fcitx5;
+      };
+      mozc = {
+        source = self + /home/maxhero/graphical-interface/mozc;
+      };
     };
 
     /*xdg.configFile.pcmanfm = {
@@ -300,5 +310,5 @@ in
         };
       };
     };
-  };
+ };
 }
