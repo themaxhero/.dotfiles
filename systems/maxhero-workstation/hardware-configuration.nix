@@ -22,7 +22,7 @@
   boot.kernelParams = [
     "amd_iommu=on"
     # "vfio-pci.ids=1002:67df,1002:aaf0"
-    #"libata.force=4.00:disable"
+    "libata.force=4.00:disable"
   ];
 
   boot.initrd.kernelModules = [
@@ -47,6 +47,11 @@
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/9f7c97e5-d9bf-4681-844a-669c1093da90";
+    fsType = "ext4";
+  };
+
+  fileSystems."/home/maxhero/SteamLibrary" = {
+    device = "/dev/disk/by-uuid/483f5d2b-f4c1-44dc-827a-01df0c2bb80c";
     fsType = "ext4";
   };
 

@@ -140,6 +140,8 @@ in
       };
     };
 
+    home.file.".uim.d".source = ./.uim.d;
+
     /*xdg.configFile.pcmanfm = {
       target = "pcmanfm-qt/default/settings.conf";
       text = lib.generators.toINI { } {
