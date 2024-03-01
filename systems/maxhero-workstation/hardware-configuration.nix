@@ -17,6 +17,7 @@
     "usbhid"
     "sd_mod"
     "sr_mod"
+    "cryptd"
   ];
 
   boot.kernelParams = [
@@ -41,17 +42,9 @@
   ];
 
   boot.extraModulePackages = [ ];
-  #boot.kernelPackages = pkgs.linuxPackages_lqx;
-  # TODO: maybe remove after ZFS get merged.
-  #boot.zfs.enableUnstable = true;
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/9f7c97e5-d9bf-4681-844a-669c1093da90";
-    fsType = "ext4";
-  };
-
-  fileSystems."/home/maxhero/SteamLibrary" = {
-    device = "/dev/disk/by-uuid/483f5d2b-f4c1-44dc-827a-01df0c2bb80c";
     fsType = "ext4";
   };
 

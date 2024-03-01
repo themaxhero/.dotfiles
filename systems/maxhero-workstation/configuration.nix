@@ -41,9 +41,11 @@
       "kubernetes"
     ];
   };
+  environment.systemPackages = with pkgs; [ qpwgraph ];
   services.xserver.windowManager.i3.extraSessionCommands = ''
     #fcitx5 &
     uim-xim &
+    qpwgraph -a &
   '';
   services.picom = {
     enable = true;
@@ -65,5 +67,22 @@
     options snd_hda_intel power_save=0
   '';
 
+  boot.initrd.luks.devices.kyuukyoku = {
+    device = "/dev/disk/by-uuid/0f2a2a67-04d5-4faa-8c26-d4fc82a0d62f";
+    preLVM = true;
+  };
+
+  fileSystems = {
+    "/home/maxhero/SteamLibrary" = {
+      label = "Steam Library";
+      device = "/dev/disk/by-uuid/483f5d2b-f4c1-44dc-827a-01df0c2bb80c";
+      fsType = "ext4";
+    };
+    "/home/maxhero/data" = {
+      label = "Kyuukyoku";
+      device = "/dev/disk/by-uuid/eb36fe83-8308-4d42-a4cf-a5732924c686";
+      fsType = "ext4";
+    };
+  };
   system.stateVersion = "22.11";
 }

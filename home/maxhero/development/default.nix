@@ -1,4 +1,4 @@
-{ self, pkgs, config, lib, specialArgs, ... }@attrs:
+{ self, lib, pkgs, config, specialArgs, ... }@attrs:
 with specialArgs;
 let
   bin = "${pkgs.direnv}/bin/direnv";
@@ -26,6 +26,12 @@ let
         ms-vscode.hexeditor
         ms-ceintl.vscode-language-pack-ja
       ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "google-sheets-equation-syntax-hightlighter";
+          publisher = "leonidasIIV";
+          version = "0.1.0";
+          sha256 = "sha256-JyMxX0ai4C8YYkQP71MRq+nehah+ZkBPAanFuhqj2y4=";
+        }
         {
           name = "remote-ssh-edit";
           publisher = "ms-vscode-remote";
