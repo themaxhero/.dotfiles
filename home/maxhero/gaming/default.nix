@@ -1,7 +1,6 @@
 { config, lib, specialArgs, ... }:
 with specialArgs;
 {
-  config = lib.mkIf nixosConfig.gaming.enable {
     programs.mangohud = {
       enable = true;
       settings = {
@@ -24,5 +23,4 @@ with specialArgs;
         wine = true;
       };
     };
-  };
 }

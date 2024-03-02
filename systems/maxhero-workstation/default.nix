@@ -1,4 +1,7 @@
 { self, nixpkgs, nix-doom-emacs, home-manager, ... }@attrs:
+let
+  home-module = import (self + /home/maxhero) attrs;
+in 
 nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
   specialArgs = attrs;
@@ -22,7 +25,12 @@ nixpkgs.lib.nixosSystem {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        users.maxhero = self + /home/maxhero;
+        users.maxhero = home-module.mkHome {
+          enableDoomEmacs = true;
+          enableDevelopment = true;
+          enableUI = true;
+          enableGaming = true;
+        };
         extraSpecialArgs = attrs // {
           inherit nix-doom-emacs;
           nixosConfig = config;

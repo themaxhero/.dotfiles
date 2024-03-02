@@ -9,7 +9,6 @@ let
   defaultBrowser = "firefox.desktop";
 in
 {
-  config = lib.mkIf nixosConfig.graphical-interface.enable {
     # TODO: Find out why this import is causing problems.
     # This import is necessary to get NUR working
     # NUR is necessary to install firefox-addons like bitwarden
@@ -312,5 +311,4 @@ in
         };
       };
     };
- };
 }

@@ -1,4 +1,4 @@
-{ self, lib, pkgs, config, specialArgs, ... }@attrs:
+{ self, lib, pkgs, specialArgs, ... }@attrs:
 with specialArgs;
 let
   bin = "${pkgs.direnv}/bin/direnv";
@@ -42,74 +42,72 @@ let
     });
 in
 {
-  config = lib.mkIf nixosConfig.development.enable {
-    home.packages = with pkgs; [
-      ripgrep
-      roboto
-      scientifica
-      powerline-fonts
-      sshfs
-      bottom
-      eza
-      bat
-      graphviz
-      vscode-pkg
-      ngrok
-      insomnia
-    ];
+  home.packages = with pkgs; [
+    ripgrep
+    roboto
+    scientifica
+    powerline-fonts
+    sshfs
+    bottom
+    eza
+    bat
+    graphviz
+    vscode-pkg
+    ngrok
+    insomnia
+  ];
 
-    fonts.fontconfig.enable = true;
-    programs.direnv = {
-      enable = true;
-      nix-direnv.enable = true;
-      enableBashIntegration = true;
-      enableNushellIntegration = true;
-      enableZshIntegration = true;
+  fonts.fontconfig.enable = true;
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableBashIntegration = true;
+    enableNushellIntegration = true;
+    enableZshIntegration = true;
+  };
+
+  programs.kitty = {
+    enable = true;
+    theme = "Monokai Classic";
+    settings = {
+      transparency = "yes";
+      background_opacity = "0.95";
     };
+  };
 
-    programs.kitty = {
-      enable = true;
-      theme = "Monokai Classic";
-      settings = {
-        transparency = "yes";
-        background_opacity = "0.95";
+  programs.neovim = { enable = true; } // (self.outputs.neovimHomeManagerConfig pkgs);
+  #programs.doom-emacs = { enable = true; } // (self.outputs.doomEmacsHomeManagerConfig pkgs);
+  home.activation = {
+    direnvAllow = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      ${direnvAllow "$HOME"}
+    '';
+  };
+
+  programs.git = {
+    enable = true;
+    userName = "Marcelo Amancio de Lima Santos";
+    userEmail = "contact@maxhero.dev";
+    extraConfig = {
+      rerere.enabled = true;
+      pull.rebase = true;
+      tag.gpgsign = true;
+      init.defaultBranch = "master";
+      core = {
+        excludesfile = "$NIXOS_CONFIG_DIR/scripts/gitignore";
+        editor = "${pkgs.vim}/bin/vim";
       };
     };
+    includes = [{
+      condition = "gitdir:/home/maxhero/projects/mindlab/";
+      contents.user.email = "marcelo.amancio@mindlab.com.br";
+    }];
+  };
 
-    programs.neovim = { enable = true; } // (self.outputs.neovimHomeManagerConfig pkgs);
-    #programs.doom-emacs = { enable = true; } // (self.outputs.doomEmacsHomeManagerConfig pkgs);
-    home.activation = {
-      direnvAllow = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        ${direnvAllow "$HOME"}
-      '';
-    };
-
-    programs.git = {
-      enable = true;
-      userName = "Marcelo Amancio de Lima Santos";
-      userEmail = "contact@maxhero.dev";
-      extraConfig = {
-        rerere.enabled = true;
-        pull.rebase = true;
-        tag.gpgsign = true;
-        init.defaultBranch = "master";
-        core = {
-          excludesfile = "$NIXOS_CONFIG_DIR/scripts/gitignore";
-          editor = "${pkgs.vim}/bin/vim";
-        };
-      };
-      includes = [{
-        condition = "gitdir:/home/maxhero/projects/mindlab/";
-        contents.user.email = "marcelo.amancio@mindlab.com.br";
-      }];
-    };
-
-    programs.ssh.matchBlocks = {
-      "github.com-mindlab" = {
-        hostname = "github.com";
-        user = "maxhero-mindlab";
-        identityFile = "~/.ssh/mindlab_ed25519";
-      };
+  programs.ssh.matchBlocks = {
+    "github.com-mindlab" = {
+      hostname = "github.com";
+      user = "maxhero-mindlab";
+      identityFile = "~/.ssh/mindlab_ed25519";
     };
   };
 }
