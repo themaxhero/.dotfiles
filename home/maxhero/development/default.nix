@@ -7,6 +7,10 @@ let
 in
 {
   home.packages = with pkgs; [
+    fd
+    wget
+    unzip
+    tree-sitter
     ripgrep
     roboto
     scientifica
@@ -22,6 +26,7 @@ in
   ];
 
   fonts.fontconfig.enable = true;
+  home.sessionVariables.ELIXIR_ERL_OPTIONS = "+fnu";
 
   programs.neovim = { enable = true; } // (self.outputs.neovimHomeManagerConfig pkgs);
   #programs.doom-emacs = { enable = true; } // (self.outputs.doomEmacsHomeManagerConfig pkgs);

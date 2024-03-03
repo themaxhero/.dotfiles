@@ -37,6 +37,8 @@
             enableDevelopment = true;
             enableUI = true;
             enableGaming = true;
+            extraPackages = [];
+            extraModules = [];
           };
           extraModules = [
             (self + /systems/maxhero-workstation/configuration.nix)

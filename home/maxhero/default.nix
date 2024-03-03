@@ -22,6 +22,8 @@ in
           (self + /home/maxhero/graphical-interface/dconf)
           (self + /home/maxhero/graphical-interface/i3)
           (self + /home/maxhero/graphical-interface)
-        ]);
+        ])
+        ++ [ ({ ... }: { home.packages = opts.extraPackages; }) ]
+        ++ opts.extraModules;
     };
 }
