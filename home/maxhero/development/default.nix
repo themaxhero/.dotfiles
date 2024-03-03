@@ -28,7 +28,7 @@ in
   fonts.fontconfig.enable = true;
   home.sessionVariables.ELIXIR_ERL_OPTIONS = "+fnu";
 
-  programs.neovim = { enable = true; } // ((import ./home/maxhero/development/nvim attrs) pkgs);
+  programs.neovim = { enable = true; } // ((import (self + /home/maxhero/development/nvim) attrs) pkgs);
   #programs.doom-emacs = { enable = true; } // (self.outputs.doomEmacsHomeManagerConfig pkgs);
   home.activation = {
     direnvAllow = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
