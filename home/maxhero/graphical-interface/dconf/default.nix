@@ -8,11 +8,6 @@
         show-flag = false;
       };
 
-      "desktop/ibus/general" = {
-        engines-order = [ "xkb:us:intl" "anthy" ];
-        use-system-keyboard-layout = true;
-      };
-
       "org/gnome/TextEditor" = {
         custom-font = "Red Hat Mono Light 16";
         highlight-current-line = false;
@@ -39,8 +34,6 @@
         cursor-theme = "Adwaita";
         font-antialiasing = "grayscale";
         font-hinting = "slight";
-        gtk-theme = "Orchis-dark";
-        icon-theme = "Tela-circle-dark";
         text-scaling-factor = 1.0;
       };
 

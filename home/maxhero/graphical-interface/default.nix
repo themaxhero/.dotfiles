@@ -9,6 +9,14 @@ let
   defaultBrowser = "firefox.desktop";
 in
 {
+  home.packages = with pkgs; [
+    veracrypt
+    orchis-theme
+    tela-circle-icon-theme
+    youtube-dl
+    sublime
+  ];
+
   # TODO: Find out why this import is causing problems.
   # This import is necessary to get NUR working
   # NUR is necessary to install firefox-addons like bitwarden
@@ -31,16 +39,32 @@ in
 
   programs.alacritty = {
     enable = true;
-    settings.shell.program = lib.mkForce "${pkgs.fish}/bin/fish";
+    package = pkgs.alacritty;
+    settings = {
+      window.opacity = 0.8;
+      font = {
+        size = 16;
+        normal.family = "scientifica";
+        bold.family = "scientifica";
+        italic.family = "scientifica";
+        bold_italic = {
+          family = "scientifica";
+          size = 9.0;
+        };
+      };
+      shell.program = "${pkgs.zsh}/bin/zsh";
+    };
   };
 
-  home.packages = with pkgs; [
-    veracrypt
-    orchis-theme
-    tela-circle-icon-theme
-    youtube-dl
-    sublime
-  ];
+  programs.kitty = {
+    enable = true;
+    theme = "Monokai Classic";
+    settings = {
+      transparency = "yes";
+      background_opacity = "0.95";
+      confirm_os_window_close = "0";
+    };
+  };
 
   programs.chromium = {
     enable = true;
@@ -68,17 +92,41 @@ in
   };
 
   gtk = {
+    enable = true;
     cursorTheme.name = "Adwaita";
-    iconTheme.package = pkgs.tela-circle-icon-theme;
+    iconTheme = {
+      name = "Tela-circle-dark";
+      package = pkgs.tela-circle-icon-theme;
+    };
+    theme = {
+      name = "Orchis-Dark";
+      package = pkgs.orchis-theme;
+    };
   };
+
+  qt = {
+    enable = true;
+    style.name = "adwaita-dark";
+  };
+
   programs.obs-studio.enable = true;
   programs.zathura.enable = true;
 
-  i18n.inputMethod = {
-    #enabled = "fcitx5";
-    #fcitx5.addons = with pkgs; [ fcitx5-mozc fcitx5-gtk fcitx5-anthy];
-    enabled = "uim";
-    #ibus.engines = with pkgs.ibus-engines; [ anthy mozc ];
+  # I'm so happy that I found uim
+  i18n.inputMethod.enabled = "uim";
+
+  ewwConfig.enable = true;
+  rofiConfig = {
+    enable = true;
+    style = 1;
+    type = 6;
+    color = "onedark";
+  };
+  home.file = {
+    ".anthy".source = self + /home/maxhero/graphical-interface/.anthy;
+    ".uim.d".source = ./.uim.d;
+    ".wallpaper.jpg".source = self + /home/maxhero/graphical-interface/.wallpaper.jpg;
+    ".wallpaper.png".source = self + /home/maxhero/graphical-interface/.wallpaper.png;
   };
 
   # Create Firefox .desktop for each profile
@@ -113,71 +161,31 @@ in
           "text/xml"
           "x-scheme-handler/http"
           "x-scheme-handler/https"
+          "application/x-extension-htm"
+          "application/x-extension-html"
+          "application/x-extension-shtml"
+          "application/xhtml+xml"
+          "application/x-extension-xhtml"
+          "application/x-extension-xht"
         ];
         type = "Application";
       };
     };
-  };
-  programs.bash.profileExtra = ''
-    # Env
-    ${builtins.foldl' (acc: v: "${acc}\nexport ${v.name}='${v.value}'") "" env.bash_env}
-  '';
-  ewwConfig.enable = true;
-  rofiConfig = {
-    enable = true;
-    style = 1;
-    type = 6;
-    color = "onedark";
-  };
-
-  xdg.configFile = {
-    fcitx5 = {
-      source = self + /home/maxhero/graphical-interface/fcitx5;
-    };
-    mozc = {
-      source = self + /home/maxhero/graphical-interface/mozc;
-    };
-  };
-
-  home.file.".uim.d".source = ./.uim.d;
-
-  /*xdg.configFile.pcmanfm = {
-      target = "pcmanfm-qt/default/settings.conf";
-      text = lib.generators.toINI { } {
-        Behavior = {
-          NoUsbTrash = true;
-          SingleWindowMode = true;
-        };
-        System = {
-          Archiver = "xarchiver";
-          FallbackIconThemeName = iconTheme;
-          Terminal = "${terminal}";
-          SuCommand = "${lxqt-sudo} %s";
-        };
-        Thumbnail = { ShowThumbnails = true; };
-        Volume = {
-          AutoRun = false;
-          CloseOnUnmount = true;
-          MountOnStartup = false;
-          MountRemovable = false;
-        };
+    configFile = {
+      fcitx5 = {
+        source = self + /home/maxhero/graphical-interface/fcitx5;
       };
-    };*/
+      mozc = {
+        source = self + /home/maxhero/graphical-interface/mozc;
+      };
+    };
 
-  home.file = {
-    ".anthy".source = self + /home/maxhero/graphical-interface/.anthy;
-    ".wallpaper.jpg".source = self + /home/maxhero/graphical-interface/.wallpaper.jpg;
-    ".wallpaper.png".source = self + /home/maxhero/graphical-interface/.wallpaper.png;
-  };
-
-  xdg = {
     # Need to solve this later for better looking stuff
     mimeApps = {
       enable = true;
       defaultApplications = {
         "image/png" = "org.nomacs.ImageLounge.desktop";
         "image/jpeg" = "org.nomacs.ImageLounge.desktop";
-        "application/pdf" = "firefox.desktop";
         "application/ogg" = "mpv.desktop";
         "application/x-ogg" = "mpv.desktop";
         "application/mxf" = "mpv.desktop";
@@ -298,17 +306,32 @@ in
         "audio/x-adpcm" = "mpv.desktop";
         "application/x-cue" = "mpv.desktop";
         "audio/m3u" = "mpv.desktop";
-        "x-scheme-handler/http" = defaultBrowser;
-        "x-scheme-handler/https" = defaultBrowser;
-        "x-scheme-handler/chrome" = defaultBrowser;
-        "text/html" = defaultBrowser;
-        "application/x-extension-htm" = defaultBrowser;
-        "application/x-extension-html" = defaultBrowser;
-        "application/x-extension-shtml" = defaultBrowser;
-        "application/xhtml+xml" = defaultBrowser;
-        "application/x-extension-xhtml" = defaultBrowser;
-        "application/x-extension-xht" = defaultBrowser;
       };
     };
   };
+
+  /*
+  xdg.configFile.pcmanfm = {
+    target = "pcmanfm-qt/default/settings.conf";
+    text = lib.generators.toINI { } {
+      Behavior = {
+        NoUsbTrash = true;
+        SingleWindowMode = true;
+      };
+      System = {
+        Archiver = "xarchiver";
+        FallbackIconThemeName = iconTheme;
+        Terminal = "${terminal}";
+        SuCommand = "${lxqt-sudo} %s";
+      };
+      Thumbnail = { ShowThumbnails = true; };
+      Volume = {
+        AutoRun = false;
+        CloseOnUnmount = true;
+        MountOnStartup = false;
+        MountRemovable = false;
+      };
+    };
+  };
+  */
 }

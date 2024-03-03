@@ -12,6 +12,7 @@ in
           (self + /home/maxhero/development)
           (self + /home/maxhero/shells/zsh.nix)
         ])
+        ++ (lib.optionals opts.personal [ (self + /home/maxhero/personal) ])
         ++ (lib.optionals opts.enableGaming [ (self + /home/maxhero/gaming) ])
         ++ (lib.optionals opts.enableUI [
           (self + /home/maxhero/graphical-interface/rofi)

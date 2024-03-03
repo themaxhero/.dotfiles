@@ -24,8 +24,6 @@ rec {
     "Escape" = "mode default";
   };
 
-  swayFloatingCriteria = builtins.map (x: { app_id = x.id; title = x.title; }) floatingCriteria;
-
   window = {
     border = 1;
     titlebar = false;

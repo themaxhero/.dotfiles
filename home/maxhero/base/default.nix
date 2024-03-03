@@ -44,35 +44,17 @@ with specialArgs;
     music = "$HOME/Music";
   };
 
-  programs.alacritty = {
-    enable = nixosConfig.development.enable || nixosConfig.graphical-interface.enable;
-    package = pkgs.alacritty;
-    settings = {
-      window.opacity = 0.8;
-      font = {
-        size = 16;
-        normal.family = "scientifica";
-        bold.family = "scientifica";
-        italic.family = "scientifica";
-        bold_italic = {
-          family = "scientifica";
-          size = 9.0;
-        };
-      };
-      shell.program = "${pkgs.zsh}/bin/zsh";
-    };
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+    enableBashIntegration = true;
+    enableNushellIntegration = true;
+    enableZshIntegration = true;
   };
 
-  programs.ssh = {
-    enable = true;
-    matchBlocks = {
-      "vps.maxhero.com.br".identityFile = "~/.ssh/id_ed25519";
-      "github.com" = {
-        hostname = "github.com";
-        user = "themaxhero";
-        identityFile = "~/.ssh/id_ed25519";
-      };
-    };
-  };
+  programs.bash.profileExtra = ''
+    # Env
+    ${builtins.foldl' (acc: v: "${acc}\nexport ${v.name}='${v.value}'") "" env.bash_env}
+  '';
   home.stateVersion = "21.11";
 }

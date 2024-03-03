@@ -33,6 +33,7 @@
           enableVFIO = true;
           enableWireguard = true;
           home = mkHome {
+            personal = true;
             enableDoomEmacs = false;
             enableDevelopment = true;
             enableUI = true;
