@@ -1,4 +1,4 @@
-{ self, config, pkgs, lib, home-manager, nur, nix-doom-emacs, ... }@attrs:
+{ self, config, pkgs, lib, home-manager, nix-doom-emacs, ... }@attrs:
 let
   cfg = config.graphical-interface;
   env = import (self + /env) attrs;

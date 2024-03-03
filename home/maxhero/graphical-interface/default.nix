@@ -1,4 +1,4 @@
-{ self, config, pkgs, nur, lib, specialArgs, ... }:
+{ self, config, pkgs, lib, specialArgs, ... }:
 with specialArgs;
 let
   firefox = "${pkgs.firefox}/bin/firefox";
