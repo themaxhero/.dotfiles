@@ -16,15 +16,13 @@
   };
 
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, devenv, devshell, ... }@attrs:
-    let
-      home-module = import (self + /home/maxhero) attrs;
-      system-module = import (self + /modules) attrs;
-    in
-    {
+    rec {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+      mkHome = (import (self + /home/maxhero) attrs).mkHome;
+      mkSystem = (import (self + /modules) attrs).mkSystem;
       nixosConfigurations = {
 
-        maxhero-workstation = system-module.mkSystem {
+        maxhero-workstation = mkSystem {
           arch = "x86_64-linux";
           enableBareMetal = true;
           enableOpticalMediaGeneration = false;
@@ -35,7 +33,7 @@
           enableSound = true;
           enableVFIO = true;
           enableWireguard = true;
-          home = home-module.mkHome {
+          home = mkHome {
             enableDoomEmacs = false;
             enableDevelopment = true;
             enableUI = true;
