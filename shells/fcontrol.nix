@@ -6,7 +6,7 @@
     pkgs.inotify-tools
   ];
   /*
-  services.postgres = {
+    services.postgres = {
     enable = true;
     package = pkgs.postgresql_15;
     initialDatabases = [{ name = "mydb"; }];
@@ -16,6 +16,6 @@
     ];
     settings.shared_preload_libraries = "timescaledb";
     initialScript = "CREATE EXTENSION IF NOT EXISTS timescaledb;";
-  };
+    };
   */
 }

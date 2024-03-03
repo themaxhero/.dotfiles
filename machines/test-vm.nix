@@ -1,8 +1,8 @@
 { self, nixpkgs, home-manager, nix-doom-emacs, ... }@attrs:
 {
   /* 
-  # this works, I just want to test something else
-  imports = [
+    # this works, I just want to test something else
+    imports = [
     <nixpkgs/nixos/modules/profiles/qemu-guest.nix>
     ../modules/common
     ../modules/graphical-interface
@@ -19,9 +19,9 @@
     #../shared/oci-options.nix
     #../shared/oci-common.nix
     ../servers/minecraft-server-1.nix
-  ];
+    ];
   */
-  boot.kernelParams = ["console=ttyS0,115200"];
+  boot.kernelParams = [ "console=ttyS0,115200" ];
   deployment.targetEnv = "libvirtd";
   deployment.libvirtd = {
     headless = true;

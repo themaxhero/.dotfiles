@@ -1,4 +1,4 @@
-{ ... }@attrs: 
+{ ... }@attrs:
 pkgs:
 let
   fullattrs = attrs // { inherit pkgs; };

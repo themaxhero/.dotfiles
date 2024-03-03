@@ -19,10 +19,38 @@
   };
 
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, devenv, devshell, ... }@attrs:
-    {
+    let
+      home-module = import (self + /home/maxhero) attrs;
+      system-module = import (self + /modules) attrs;
+    in
+    rec {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       nixosConfigurations = {
-        maxhero-workstation = import (self + /systems/maxhero-workstation) attrs;
+
+        maxhero-workstation = system-module.mkSystem {
+          arch = "x86_64-linux";
+          enableBareMetal = true;
+          enableOpticalMediaGeneration = false;
+          enableDevelopment = true;
+          enableGraphicalInterface = true;
+          enableGaming = true;
+          enableNetworking = true;
+          enableSound = true;
+          enableVFIO = true;
+          enableWireguard = true;
+          home = home-module.mkHome {
+            enableDoomEmacs = false;
+            enableDevelopment = true;
+            enableUI = true;
+            enableGaming = true;
+          };
+          extraModules = [
+            (self + /systems/maxhero-workstation/configuration.nix)
+            (self + /systems/maxhero-workstation/hardware-configuration.nix)
+          ];
+          specialArgs = attrs;
+        };
+
         maxhero-pi4 = import (self + /systems/maxhero-pi4) attrs;
         maxhero-vps = import (self + /systems/maxhero-vps) attrs;
         uchigatana = import (self + /systems/uchigatana) attrs;

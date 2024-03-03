@@ -1,4 +1,4 @@
-{ self, ...}:
+{ self, ... }:
 pkgs:
 {
   doomPrivateDir = self + /home/maxhero/development/emacs/doom.d;

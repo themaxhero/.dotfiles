@@ -10,7 +10,7 @@ in
     environments = lib.mkOption {
       type = with lib.types; listOf str;
       description = "Enable envs Graphical Interface Modules";
-      default = ["i3"];
+      default = [ "i3" ];
     };
   };
   config = lib.mkIf cfg.enable {
@@ -95,29 +95,29 @@ in
     services.xserver.xkb.layout = "us";
     services.xserver.xkb.variant = "intl";
     services.xserver.enable = true;
-#    environment.variables = {
-#     DefaultIMModule = "fcitx";
-#     XMODIFIERS = "@im=fcitx";
-#     XMODIFIER = "@im=fcitx";
-#     QT_IM_MODULE = "fcitx";
-#     GTK_IM_MODULE = "fcitx";
-#     GLFW_IM_MODULE = "fcitx";
-#    };
-#    environment.variables = {
-#     DefaultIMModule = "ibus";
-#     XMODIFIERS = "@im=ibus";
-#     XMODIFIER = "@im=ibus";
-#     QT_IM_MODULE = "ibus";
-#     GTK_IM_MODULE = "ibus";
-#     GLFW_IM_MODULE = "ibus";
-#    };
+    #    environment.variables = {
+    #     DefaultIMModule = "fcitx";
+    #     XMODIFIERS = "@im=fcitx";
+    #     XMODIFIER = "@im=fcitx";
+    #     QT_IM_MODULE = "fcitx";
+    #     GTK_IM_MODULE = "fcitx";
+    #     GLFW_IM_MODULE = "fcitx";
+    #    };
+    #    environment.variables = {
+    #     DefaultIMModule = "ibus";
+    #     XMODIFIERS = "@im=ibus";
+    #     XMODIFIER = "@im=ibus";
+    #     QT_IM_MODULE = "ibus";
+    #     GTK_IM_MODULE = "ibus";
+    #     GLFW_IM_MODULE = "ibus";
+    #    };
     environment.variables = {
-     DefaultIMModule = "uim";
-     XMODIFIERS = "@im=uim";
-     XMODIFIER = "@im=uim";
-     QT_IM_MODULE = "uim";
-     GTK_IM_MODULE = "uim";
-     GLFW_IM_MODULE = "uim";
+      DefaultIMModule = "uim";
+      XMODIFIERS = "@im=uim";
+      XMODIFIER = "@im=uim";
+      QT_IM_MODULE = "uim";
+      GTK_IM_MODULE = "uim";
+      GLFW_IM_MODULE = "uim";
     };
   };
 }
