@@ -20,7 +20,6 @@
       mkHome = (import (self + /home/maxhero) attrs).mkHome;
       mkSystem = (import (self + /modules) attrs).mkSystem;
       nixosConfigurations = {
-
         maxhero-workstation = mkSystem {
           arch = "x86_64-linux";
           enableBareMetal = true;
@@ -45,10 +44,31 @@
           ];
           specialArgs = attrs;
         };
-
         maxhero-pi4 = import (self + /systems/maxhero-pi4) attrs;
-        maxhero-vps = import (self + /systems/maxhero-vps) attrs;
-        uchigatana = import (self + /systems/uchigatana) attrs;
+        uchigatana = mkSystem {
+          arch = "x86_64-linux";
+          enableBareMetal = true;
+          enableOpticalMediaGeneration = false;
+          enableDevelopment = true;
+          enableGraphicalInterface = true;
+          enableGaming = true;
+          enableNetworking = true;
+          enableSound = true;
+          enableVFIO = true;
+          enableWireguard = true;
+          home = mkHome {
+            personal = true;
+            enableDoomEmacs = false;
+            enableDevelopment = true;
+            enableUI = true;
+            enableGaming = true;
+          };
+          extraModules = [
+            (self + /systems/uchigatana/configuration.nix)
+            (self + /systems/uchigatana/hardware-configuration.nix)
+          ];
+          specialArgs = attrs;
+        };
       };
       neovimHomeManagerConfig = import ./home/maxhero/development/nvim attrs;
       doomEmacsHomeManagerConfig = import ./home/maxhero/development/emacs attrs;

@@ -52,15 +52,6 @@
     vSync = true;
   };
   services.xserver.deviceSection = ''Option "TearFree" "true"'';
-  /*
-    boot.loader.efiBootStub = {
-    enable = efiDisk;
-    true = "/dev/nvme0n1";
-    efiPartition = "1";
-    efiSysMountPoint = "/boot";
-    runEfibootmgr = true;
-    };
-  */
   gaming.enable = true;
   graphical-interface.enable = true;
   boot.extraModprobeConfig = ''

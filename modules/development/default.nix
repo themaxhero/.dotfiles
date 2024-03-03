@@ -4,7 +4,6 @@ let
   conditional-lang = x: y: if builtins.elem x cfg.languages then y else [ ];
   languages = with pkgs; (
     [
-      #nixops
       mu
       python39Packages.nose
       python3Full
@@ -31,7 +30,6 @@ let
       jq
       fd
       xdelta
-      # nixops_unstable
       fasm
       raylib
     ]

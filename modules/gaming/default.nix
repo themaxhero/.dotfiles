@@ -12,7 +12,6 @@ in
     };
 
     environment.systemPackages = with pkgs; [
-      # Gaming
       mangohud
       minecraft
       mesa-demos
