@@ -19,8 +19,7 @@ in
       lutris
       pcsx2
       dolphin-emu
-      libsForQt5.dolphin-plugins
-      #retroarchFull
+      retroarchFull
       vulkan-tools
       winetricks
     ];

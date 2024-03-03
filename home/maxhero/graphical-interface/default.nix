@@ -9,13 +9,21 @@ let
   defaultBrowser = "firefox.desktop";
 in
 {
-  home.packages = with pkgs; [
-    veracrypt
-    orchis-theme
-    tela-circle-icon-theme
-    youtube-dl
-    sublime
-  ];
+  home = {
+    packages = with pkgs; [
+      veracrypt
+      orchis-theme
+      tela-circle-icon-theme
+      youtube-dl
+      sublime
+    ];
+    file = {
+      ".anthy".source = self + /home/maxhero/graphical-interface/.anthy;
+      ".uim.d".source = ./.uim.d;
+      ".wallpaper.jpg".source = self + /home/maxhero/graphical-interface/.wallpaper.jpg;
+      ".wallpaper.png".source = self + /home/maxhero/graphical-interface/.wallpaper.png;
+    };
+  };
 
   # TODO: Find out why this import is causing problems.
   # This import is necessary to get NUR working
@@ -122,31 +130,25 @@ in
     type = 6;
     color = "onedark";
   };
-  home.file = {
-    ".anthy".source = self + /home/maxhero/graphical-interface/.anthy;
-    ".uim.d".source = ./.uim.d;
-    ".wallpaper.jpg".source = self + /home/maxhero/graphical-interface/.wallpaper.jpg;
-    ".wallpaper.png".source = self + /home/maxhero/graphical-interface/.wallpaper.png;
-  };
 
   # Create Firefox .desktop for each profile
   xdg = {
     desktopEntries = {
-      "reboot" = {
+      reboot = {
         name = "Reboot";
         exec = "${lxqt-sudo} reboot";
         icon =
           "${pkgs.tela-circle-icon-theme}/share/icons/Tela-circle-dark/scalable@2x/apps/xfsm-reboot.svg";
         terminal = false;
       };
-      "windows" = {
+      windows = {
         name = "Windows";
         exec = "sudo ${(pkgs.callPackage (self + /pkgs/reboot-to-windows.nix) {})}/bin/reboot-to-windows";
         icon =
           "${pkgs.tela-circle-icon-theme}/share/icons/Tela-circle-dark/scalable@2x/apps/xfsm-reboot.svg";
         terminal = false;
       };
-      "firefox" = {
+      firefox = {
         name = "Firefox";
         genericName = "Web Browser";
         exec = "${firefox} %U";
@@ -169,14 +171,6 @@ in
           "application/x-extension-xht"
         ];
         type = "Application";
-      };
-    };
-    configFile = {
-      fcitx5 = {
-        source = self + /home/maxhero/graphical-interface/fcitx5;
-      };
-      mozc = {
-        source = self + /home/maxhero/graphical-interface/mozc;
       };
     };
 
