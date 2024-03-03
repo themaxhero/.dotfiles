@@ -11,11 +11,10 @@
     nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    flake-utils.url = "github:numtide/flake-utils";
     devshell.url = "github:numtide/devshell";
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, flake-utils, devenv, devshell, ... }@attrs:
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, devenv, devshell, ... }@attrs:
     rec {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       mkHome = (import (self + /home/maxhero) attrs).mkHome;
