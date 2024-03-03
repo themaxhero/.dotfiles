@@ -72,7 +72,6 @@
           specialArgs = attrs;
         };
       };
-      neovimHomeManagerConfig = import ./home/maxhero/development/nvim attrs;
       doomEmacsHomeManagerConfig = import ./home/maxhero/development/emacs attrs;
     };
 }
