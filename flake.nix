@@ -72,6 +72,5 @@
           specialArgs = attrs;
         };
       };
-      doomEmacsHomeManagerConfig = import ./home/maxhero/development/emacs attrs;
     };
 }
