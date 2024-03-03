@@ -29,7 +29,7 @@ in
   home.sessionVariables.ELIXIR_ERL_OPTIONS = "+fnu";
 
   programs.neovim = { enable = true; } // ((import (self + /home/maxhero/development/nvim) attrs) pkgs);
-  programs.doom-emacs = { enable = true; } // ((import (self + /home/maxhero/development/emacs) attrs) pkgs);
+  #programs.doom-emacs = { enable = true; } // ((import (self + /home/maxhero/development/emacs) attrs) pkgs);
   home.activation = {
     direnvAllow = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       ${direnvAllow "$HOME"}
