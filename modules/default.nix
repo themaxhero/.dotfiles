@@ -12,7 +12,7 @@ in
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            #users.maxhero = opts.home;
+            users.maxhero = opts.home;
             extraSpecialArgs = attrs // {
               inherit nix-doom-emacs;
               nixosConfig = config;

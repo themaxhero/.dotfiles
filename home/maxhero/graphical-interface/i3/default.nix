@@ -25,7 +25,7 @@ in
         modes = lib.mkOptionDefault {
           "command_mode" = i3SwayCommon.commandMode;
         };
-        # Could be the same as sway if I find tools/daemons that are compatible with both Xorg and Wayland
+        # Could be the same as sway if I find programs that behave the same between Xorg and Wayland
         startup = [
           { command = "--no-startup-id ${spawnables.xorg.notification-daemon}"; }
           { command = "--no-startup-id ${spawnables.xorg.bar}"; always = true; }

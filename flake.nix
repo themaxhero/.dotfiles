@@ -23,7 +23,7 @@
       home-module = import (self + /home/maxhero) attrs;
       system-module = import (self + /modules) attrs;
     in
-    rec {
+    {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       nixosConfigurations = {
 
