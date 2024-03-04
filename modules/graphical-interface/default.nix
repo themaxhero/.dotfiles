@@ -23,9 +23,7 @@ in
       description = "i3 session";
       bindsTo = [ "graphical-session.target" ];
     };
-    boot.plymouth = {
-      enable = true;
-    };
+    boot.plymouth.enable = true;
     environment.systemPackages = with pkgs; [
       alacritty
       kitty

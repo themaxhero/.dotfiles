@@ -6,12 +6,15 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs";
     devenv.url = "github:cachix/devenv";
+    devenv.inputs.nixpkgs.follows = "nixpkgs";
     nix-gaming.url = "github:fufexan/nix-gaming";
+    nix-gaming.inputs.nixpkgs.follows = "nixpkgs";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     nix-doom-emacs.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     devshell.url = "github:numtide/devshell";
+    devshell.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, devenv, devshell, ... }@attrs:
@@ -32,6 +35,8 @@
           enableVFIO = true;
           enableWireguard = true;
           home = mkHome {
+            username = "maxhero";
+            homeDirectory = "/home/maxhero";
             personal = true;
             enableDoomEmacs = false;
             enableDevelopment = true;
@@ -59,11 +64,15 @@
           enableVFIO = true;
           enableWireguard = true;
           home = mkHome {
+            username = "maxhero";
+            homeDirectory = "/home/maxhero";
             personal = true;
             enableDoomEmacs = false;
             enableDevelopment = true;
             enableUI = true;
             enableGaming = true;
+            extraPackages = [];
+            extraModules = [];
           };
           extraModules = [
             (self + /systems/uchigatana/configuration.nix)

@@ -23,7 +23,13 @@ in
           (self + /home/maxhero/graphical-interface/i3)
           (self + /home/maxhero/graphical-interface)
         ])
-        ++ [ ({ ... }: { home.packages = opts.extraPackages; }) ]
+        ++ [
+          ({ ... }: { 
+            home.packages = opts.extraPackages;
+            home.username = opts.username;
+            home.homeDirectory = opts.homeDirectory;
+          })
+        ]
         ++ opts.extraModules;
     };
 }

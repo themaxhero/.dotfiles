@@ -2,8 +2,6 @@
 with pkgs.lib;
 with specialArgs;
 {
-  home.username = "maxhero";
-  home.homeDirectory = "/home/maxhero";
   home.language = {
     base = "en_GB.UTF-8";
     time = "pt_BR.UTF-8";

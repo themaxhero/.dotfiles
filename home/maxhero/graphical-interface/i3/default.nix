@@ -18,7 +18,7 @@ in
         names = [ "scientifica" ];
         size = 8.0;
       };
-      keybindings = (i3SwayCommon.i3AndSwayKeybindings "xorg");
+      keybindings = i3SwayCommon.i3AndSwayKeybindings "xorg";
       floating.criteria = i3SwayCommon.floatingCriteria;
       window = i3SwayCommon.window;
       modes = lib.mkOptionDefault {
