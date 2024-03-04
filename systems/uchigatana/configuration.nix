@@ -99,6 +99,7 @@
         modesetting.enable = true;
       };
     };
+    /* # it's broken
     nvidia-open.configuration = {
       system.nixos.tags = [ "nvidia-open" ];
       services.xserver.videoDrivers = [ "nvidia" ];
@@ -112,6 +113,7 @@
         modesetting.enable = true;
       };
     };
+    */
   };
 
   system.stateVersion = "22.11";

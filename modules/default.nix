@@ -4,7 +4,23 @@ let
 in
 {
   # TODO: Create all systems through this abstraction
-  mkSystem = { ... }@opts:
+  mkSystem =
+    { enableOpticalMediaGeneration ? false
+    , enableDevelopment ? false
+    , enableGraphicalInterface ? false
+    , enableGaming ? false
+    , enableNetworking ? false
+    , enableSound ? false
+    , enableVFIO ? false
+    , enableWireguard ? false
+    , enableBareMetal ? false
+    , extraModules ? [ ]
+    , arch ? "x86_64-linux"
+    , specialArgs ? { }
+    , username ? "maxhero"
+    , home
+    , ...
+    }:
     let
       home-manager-modules = [
         home-manager.nixosModules.home-manager
@@ -12,7 +28,7 @@ in
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.maxhero = opts.home;
+            users."${username}" = home;
             extraSpecialArgs = attrs // {
               inherit nix-doom-emacs;
               nixosConfig = config;
@@ -21,41 +37,41 @@ in
         })
       ];
       modules =
-        (lib.optionals opts.enableOpticalMediaGeneration [
+        (lib.optionals enableOpticalMediaGeneration [
           (nixpkgs + /nixos/modules/installer/cd-dvd/installation-cd-minimal.nix)
           (nixpkgs + /nixos/modules/installer/cd-dvd/channel.nix)
         ])
         ++ [ (self + /modules/common) ]
-        ++ (lib.optionals opts.enableDevelopment [
+        ++ (lib.optionals enableDevelopment [
           (self + /modules/development)
         ])
-        ++ (lib.optionals opts.enableGraphicalInterface [
+        ++ (lib.optionals enableGraphicalInterface [
           (self + /modules/graphical-interface)
         ])
-        ++ (lib.optionals opts.enableGaming [
+        ++ (lib.optionals enableGaming [
           (self + /modules/gaming)
         ])
-        ++ (lib.optionals opts.enableNetworking [
+        ++ (lib.optionals enableNetworking [
           (self + /modules/networking)
         ])
-        ++ (lib.optionals opts.enableSound [
+        ++ (lib.optionals enableSound [
           (self + /modules/sound)
         ])
-        ++ (lib.optionals opts.enableVFIO [
+        ++ (lib.optionals enableVFIO [
           (self + /modules/vfio)
         ])
-        ++ (lib.optionals opts.enableWireguard [
+        ++ (lib.optionals enableWireguard [
           (self + /modules/wireguard-client.nix)
         ])
-        ++ (lib.optionals opts.enableBareMetal [
+        ++ (lib.optionals enableBareMetal [
           (self + /modules/bare-metal)
         ])
-        ++ opts.extraModules
+        ++ extraModules
         ++ home-manager-modules;
     in
     lib.nixosSystem {
-      system = opts.arch;
-      specialArgs = opts.specialArgs;
+      system = arch;
+      specialArgs = specialArgs;
       modules = modules;
     };
 }

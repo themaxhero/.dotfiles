@@ -305,7 +305,7 @@ in
   };
 
   /*
-  xdg.configFile.pcmanfm = {
+    xdg.configFile.pcmanfm = {
     target = "pcmanfm-qt/default/settings.conf";
     text = lib.generators.toINI { } {
       Behavior = {
@@ -326,6 +326,6 @@ in
         MountRemovable = false;
       };
     };
-  };
+    };
   */
 }

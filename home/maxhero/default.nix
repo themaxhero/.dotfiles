@@ -4,20 +4,20 @@ let
   vscode-pkg = import (self + /home/maxhero/development/vscode);
 in
 {
-  mkHome = {
-    username ? "maxhero",
-    homeDirectory ? "/home/${username}",
-    enableDoomEmacs ? false,
-    enableVSCode ? false,
-    enableDevelopment ? false,
-    personal ? false,
-    enableGaming ? false,
-    enableUI ? false,
-    extraModules ? [],
-    extraPackages ? [],
-    extraVSCodeExtensions ? [],
-    ...
-  }:
+  mkHome =
+    { username ? "maxhero"
+    , homeDirectory ? "/home/${username}"
+    , enableDoomEmacs ? false
+    , enableVSCode ? false
+    , enableDevelopment ? false
+    , personal ? false
+    , enableGaming ? false
+    , enableUI ? false
+    , extraModules ? [ ]
+    , extraPackages ? [ ]
+    , extraVSCodeExtensions ? [ ]
+    , ...
+    }:
     {
       imports =
         [ (self + /home/maxhero/base) ]
@@ -38,7 +38,7 @@ in
           (self + /home/maxhero/graphical-interface)
         ])
         ++ [
-          ({ pkgs, ... }: { 
+          ({ pkgs, ... }: {
             home.packages = extraPackages ++ (lib.optionals enableVSCode [
               (vscode-pkg {
                 inherit pkgs;

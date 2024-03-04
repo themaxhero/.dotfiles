@@ -24,9 +24,7 @@
       mkSystem = (import (self + /modules) attrs).mkSystem;
       nixosConfigurations = {
         maxhero-workstation = mkSystem {
-          arch = "x86_64-linux";
           enableBareMetal = true;
-          enableOpticalMediaGeneration = false;
           enableDevelopment = true;
           enableGraphicalInterface = true;
           enableGaming = true;
@@ -49,9 +47,7 @@
         };
         maxhero-pi4 = import (self + /systems/maxhero-pi4) attrs;
         uchigatana = mkSystem {
-          arch = "x86_64-linux";
           enableBareMetal = true;
-          enableOpticalMediaGeneration = false;
           enableDevelopment = true;
           enableGraphicalInterface = true;
           enableGaming = true;
