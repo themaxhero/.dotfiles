@@ -35,15 +35,11 @@
           enableVFIO = true;
           enableWireguard = true;
           home = mkHome {
-            username = "maxhero";
-            homeDirectory = "/home/maxhero";
             personal = true;
-            enableDoomEmacs = false;
             enableDevelopment = true;
+            enableVSCode = true;
             enableUI = true;
             enableGaming = true;
-            extraPackages = [];
-            extraModules = [];
           };
           extraModules = [
             (self + /systems/maxhero-workstation/configuration.nix)
@@ -64,15 +60,11 @@
           enableVFIO = true;
           enableWireguard = true;
           home = mkHome {
-            username = "maxhero";
-            homeDirectory = "/home/maxhero";
             personal = true;
-            enableDoomEmacs = false;
+            enableVSCode = true;
             enableDevelopment = true;
             enableUI = true;
             enableGaming = true;
-            extraPackages = [];
-            extraModules = [];
           };
           extraModules = [
             (self + /systems/uchigatana/configuration.nix)

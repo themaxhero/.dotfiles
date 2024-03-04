@@ -3,7 +3,6 @@ with specialArgs;
 let
   bin = "${pkgs.direnv}/bin/direnv";
   direnvAllow = (path: "$DRY_RUN_CMD sh -c 'if [ -f \"${path}/.envrc\" ]; then ${bin} allow \"${path}\"; fi;'");
-  vscode-pkg = import (self + /home/maxhero/development/vscode) attrs;
 in
 {
   home.packages = with pkgs; [
@@ -20,7 +19,6 @@ in
     eza
     bat
     graphviz
-    vscode-pkg
     ngrok
     insomnia
   ];
