@@ -76,6 +76,9 @@ in
 
     fonts = {
       packages = with pkgs; [
+        sarasa-gothic
+        noto-fonts-cjk-sans
+        noto-fonts-cjk-serif
         cantarell-fonts
         font-awesome_4
         font-awesome_5
@@ -87,6 +90,7 @@ in
         scientifica
         curie
       ];
+      fontDir.enable = true;
       fontconfig.allowBitmaps = true;
     };
     programs.dconf.enable = true;
