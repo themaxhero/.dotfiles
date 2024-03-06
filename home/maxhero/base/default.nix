@@ -3,7 +3,7 @@ with pkgs.lib;
 with specialArgs;
 {
   home = {
-    packages = [
+    packages = with pkgs; [
       sops
       gnupg
     ];
