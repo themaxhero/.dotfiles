@@ -12,6 +12,7 @@ in
   home = {
     packages = with pkgs; [
       veracrypt
+      bitwarden-desktop
       orchis-theme
       tela-circle-icon-theme
       youtube-dl

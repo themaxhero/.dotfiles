@@ -11,7 +11,7 @@
   :exclusive true
   :namespace "bar"
   :reserve (struts :distance "16px" :side "top")
-  (bar :monitor "DP-1"))
+  (bar :monitor "DP-2"))
 
 
 (defwindow bar-right

@@ -2,11 +2,17 @@
 with pkgs.lib;
 with specialArgs;
 {
-  home.language = {
-    base = "en_GB.UTF-8";
-    time = "pt_BR.UTF-8";
-    monetary = "pt_BR.UTF-8";
-    numeric = "pt_BR.UTF-8";
+  home = {
+    packages = [
+      sops
+      gnupg
+    ];
+    language = {
+      base = "en_GB.UTF-8";
+      time = "pt_BR.UTF-8";
+      monetary = "pt_BR.UTF-8";
+      numeric = "pt_BR.UTF-8";
+    };
   };
 
   programs.bat.enable = true;
