@@ -1,22 +1,22 @@
 { self, config, pkgs, lib, specialArgs, ... }:
 with specialArgs;
 let
-  firefox = "${pkgs.firefox}/bin/firefox";
   lxqt-sudo = "${pkgs.lxqt.lxqt-sudo}/bin/lxqt-sudo";
   nm-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet";
   isUchigatana = nixosConfig.networking.hostName == "uchigatana";
   fontSize = if isUchigatana then 16 else 24;
-  defaultBrowser = "firefox.desktop";
 in
 {
   home = {
     packages = with pkgs; [
+      anki
       veracrypt
       bitwarden-desktop
       orchis-theme
       tela-circle-icon-theme
       youtube-dl
       sublime
+      nomacs
     ];
     file = {
       ".anthy".source = self + /home/maxhero/graphical-interface/.anthy;
@@ -152,7 +152,7 @@ in
       firefox = {
         name = "Firefox";
         genericName = "Web Browser";
-        exec = "${firefox} %U";
+        exec = "${pkgs.firefox}/bin/firefox -p p %U";
         terminal = false;
         icon = "firefox";
         categories = [ "Application" "Network" "WebBrowser" ];
@@ -167,7 +167,6 @@ in
           "application/x-extension-htm"
           "application/x-extension-html"
           "application/x-extension-shtml"
-          "application/xhtml+xml"
           "application/x-extension-xhtml"
           "application/x-extension-xht"
         ];
@@ -179,6 +178,80 @@ in
     mimeApps = {
       enable = true;
       defaultApplications = {
+        "application/epub+zip" = "xarchiver.desktop";
+        "application/x-7z-compressed" = "xarchiver.desktop";
+        "application/x-7z-compressed-tar" = "xarchiver.desktop";
+        "application/x-ace" = "xarchiver.desktop";
+        "application/x-alz" = "xarchiver.desktop";
+        "application/x-arc" = "xarchiver.desktop";
+        "application/x-arj" = "xarchiver.desktop";
+        "application/x-brotli" = "xarchiver.desktop";
+        "application/x-brotli-compressed-tar" = "xarchiver.desktop";
+        "application/x-bzip" = "xarchiver.desktop";
+        "application/x-bzip2" = "xarchiver.desktop";
+        "application/bzip2" = "xarchiver.desktop";
+        "application/x-bzip-compressed-tar" = "xarchiver.desktop";
+        "application/x-bzip1" = "xarchiver.desktop";
+        "application/x-bzip1-compressed-tar" = "xarchiver.desktop";
+        "application/x-cabinet" = "xarchiver.desktop";
+        "application/x-cbr" = "xarchiver.desktop";
+        "application/x-cbz" = "xarchiver.desktop";
+        "application/x-cd-image" = "xarchiver.desktop";
+        "application/x-compress" = "xarchiver.desktop";
+        "application/x-compressed-tar" = "xarchiver.desktop";
+        "application/x-cpio" = "xarchiver.desktop";
+        "application/vnd.debian.binary-package" = "xarchiver.desktop";
+        "application/x-ear" = "xarchiver.desktop";
+        "application/x-ms-dos-executable" = "xarchiver.desktop";
+        "application/x-gtar" = "xarchiver.desktop";
+        "application/x-gzip" = "xarchiver.desktop";
+        "application/gzip" = "xarchiver.desktop";
+        "application/x-gzpostscript" = "xarchiver.desktop";
+        "application/x-java-archive" = "xarchiver.desktop";
+        "application/x-lha" = "xarchiver.desktop";
+        "application/x-lzh-compressed" = "xarchiver.desktop";
+        "application/x-lrzip" = "xarchiver.desktop";
+        "application/x-lrzip-compressed-tar" = "xarchiver.desktop";
+        "application/x-lzip" = "xarchiver.desktop";
+        "application/x-lzip-compressed-tar" = "xarchiver.desktop";
+        "application/x-lzma" = "xarchiver.desktop";
+        "application/x-lzma-compressed-tar" = "xarchiver.desktop";
+        "application/x-lzop" = "xarchiver.desktop";
+        "application/x-lzop-compressed-tar" = "xarchiver.desktop";
+        "application/x-ms-wim" = "xarchiver.desktop";
+        "application/x-rar" = "xarchiver.desktop";
+        "application/x-rar-compressed" = "xarchiver.desktop";
+        "application/x-rpm" = "xarchiver.desktop";
+        "application/x-source-rpm" = "xarchiver.desktop";
+        "application/x-rzip" = "xarchiver.desktop";
+        "application/x-tar" = "xarchiver.desktop";
+        "application/x-tarz" = "xarchiver.desktop";
+        "application/x-stuffit" = "xarchiver.desktop";
+        "application/x-war" = "xarchiver.desktop";
+        "application/x-xz" = "xarchiver.desktop";
+        "application/x-xz-compressed-tar" = "xarchiver.desktop";
+        "application/x-zip" = "xarchiver.desktop";
+        "application/x-zip-compressed" = "xarchiver.desktop";
+        "application/x-zoo" = "xarchiver.desktop";
+        "application/zstd" = "xarchiver.desktop";
+        "application/x-zstd" = "xarchiver.desktop";
+        "application/x-zstd-compressed-tar" = "xarchiver.desktop";
+        "application/zip" = "xarchiver.desktop";
+        "application/x-archive" = "xarchiver.desktop";
+        "application/vnd.ms-cab-compressed" = "xarchiver.desktop";
+        "inode/directory" = "org.kde.dolphin.desktop";
+        "application/pdf" = "firefox.desktop";
+        "application/vnd.mozilla.xul+xml" = "firefox.desktop";
+        "application/xhtml+xml" = "firefox.desktop";
+        "text/html" = "firefox.desktop";
+        "text/xml" = "firefox.desktop";
+        "x-scheme-handler/http" = "firefox.desktop";
+        "x-scheme-handler/https" = "firefox.desktop";
+        "application/x-extension-htm" = "firefox.desktop";
+        "application/x-extension-html" = "firefox.desktop";
+        "application/x-extension-shtml" = "firefox.desktop";
+        "application/x-extension-xhtml" = "firefox.desktop";
+        "application/x-extension-xht" = "firefox.desktop";
         "image/png" = "org.nomacs.ImageLounge.desktop";
         "image/jpeg" = "org.nomacs.ImageLounge.desktop";
         "application/ogg" = "mpv.desktop";
@@ -301,6 +374,7 @@ in
         "audio/x-adpcm" = "mpv.desktop";
         "application/x-cue" = "mpv.desktop";
         "audio/m3u" = "mpv.desktop";
+        "application/vnd.anki" = "anki.desktop";
       };
     };
   };

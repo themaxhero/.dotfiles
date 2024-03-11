@@ -67,7 +67,7 @@
 (defpoll github_poll :initial "" :interval "1m" "~/.config/eww/modules/github.sh")
 (defpoll ping_poll :interval "10s" "~/.config/eww/modules/ping.sh")
 
-(deflisten workspaces_listen "~/.config/eww/modules/workspaces.sh")
+(deflisten workspaces_listen "~/.config/eww/modules/workspaces.lua")
 (deflisten player_listen :initial '{"show": "no", "content": ""}' "~/.config/eww/modules/player.sh")
 (deflisten nvidia_listen "~/.config/eww/modules/nvidia.sh")
 (deflisten notifications_listen :initial '{"show": "no", "content": ""}' "~/.config/eww/modules/notifications.sh")
@@ -105,7 +105,7 @@
         (button
           :class {workspace.focused ? "focused" : ""}
           :onclick "i3-msg workspace ${workspace.name}"
-          "${workspace.name}")))))
+          "${workspace.label}")))))
 
 (defwidget player []
   (icon-module :class "player" :icon "" :visible {player_listen.show == "yes"}

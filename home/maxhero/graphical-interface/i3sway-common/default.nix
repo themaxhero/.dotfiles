@@ -172,6 +172,7 @@ rec {
     "${modifier}+8" = "workspace 8";
     "${modifier}+9" = "workspace 9";
     "${modifier}+0" = "workspace 10";
+    /*
     "${modifierCombo}+1" = "workspace 11";
     "${modifierCombo}+2" = "workspace 12";
     "${modifierCombo}+3" = "workspace 13";
@@ -182,6 +183,7 @@ rec {
     "${modifierCombo}+8" = "workspace 18";
     "${modifierCombo}+9" = "workspace 19";
     "${modifierCombo}+0" = "workspace 20";
+    */
     "${modifier}+Shift+1" = "move container to workspace 1";
     "${modifier}+Shift+2" = "move container to workspace 2";
     "${modifier}+Shift+3" = "move container to workspace 3";
@@ -192,6 +194,7 @@ rec {
     "${modifier}+Shift+8" = "move container to workspace 8";
     "${modifier}+Shift+9" = "move container to workspace 9";
     "${modifier}+Shift+0" = "move container to workspace 10";
+    /*
     "${modifierCombo}+Shift+1" = "move container to workspace 11";
     "${modifierCombo}+Shift+2" = "move container to workspace 12";
     "${modifierCombo}+Shift+3" = "move container to workspace 13";
@@ -202,6 +205,7 @@ rec {
     "${modifierCombo}+Shift+8" = "move container to workspace 18";
     "${modifierCombo}+Shift+9" = "move container to workspace 19";
     "${modifierCombo}+Shift+0" = "move container to workspace 20";
+    */
     "${modifier}+F1" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x11\"";
     "${modifier}+F2" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x12\"";
     "${modifier}+F3" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x0f\"";

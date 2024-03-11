@@ -15,6 +15,7 @@ in
     luajitPackages.lua-lsp
     luajitPackages.luarocks
     elixir-ls
+    xclip
   ];
   extraLuaConfig = builtins.readFile ./init.lua;
   plugins = with pkgs.vimPlugins; [
