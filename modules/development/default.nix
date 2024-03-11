@@ -127,7 +127,7 @@ in
   options.development = {
     enable = lib.mkEnableOption "Enable Development Module";
     languages = lib.mkOption {
-      type = with lib.types; listOf string;
+      type = with lib.types; listOf str;
       description = "Enabled Development modules";
     };
   };
@@ -178,6 +178,9 @@ in
     systemd.services."user@".serviceConfig.Delegate = "yes";
     programs.gnupg.agent.enable = true;
     programs.gnupg.agent.enableSSHSupport = true;
-    security.pam.sshAgentAuth.enable = true;
+    security.pam.sshAgentAuth = {
+      enable = true;
+      authorizedKeysFiles = lib.mkForce [ "/etc/ssh/authorized_keys.d/%u" ];
+    };
   };
 }
