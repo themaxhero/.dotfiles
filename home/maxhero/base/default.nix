@@ -8,14 +8,19 @@ with specialArgs;
       gnupg
     ];
     language = {
-      base = "en_GB.UTF-8";
+      base = "ja_JP.UTF-8";
       time = "pt_BR.UTF-8";
       monetary = "pt_BR.UTF-8";
       numeric = "pt_BR.UTF-8";
     };
+    shellAliases = {
+      edit-flake = "cd ~/flake && vim";
+      start-flake-update = "cd ~/flake && git checkout -b flake-update/$(date --iso-8601) && nix flake update";
+    };
   };
 
   programs.bat.enable = true;
+  programs.bash.enable = true;
   programs.fish.enable = true;
   programs.command-not-found.enable = true;
   programs.gpg.enable = true;
@@ -52,6 +57,7 @@ with specialArgs;
     enable = true;
     nix-direnv.enable = true;
     enableBashIntegration = true;
+    enableFishIntegration = true;
     enableNushellIntegration = true;
     enableZshIntegration = true;
   };
