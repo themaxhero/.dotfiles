@@ -43,7 +43,7 @@
   };
   environment.systemPackages = with pkgs; [ qpwgraph ];
   services.xserver.windowManager.i3.extraSessionCommands = ''
-    #fcitx5 &
+    flameshot &
     uim-xim &
     qpwgraph -a &
   '';

@@ -21,7 +21,15 @@ in
     {
       imports =
         [ (self + /home/maxhero/base) ]
-        ++ (lib.optionals enableDoomEmacs [ nix-doom-emacs.hmModule ])
+        ++ (lib.optionals enableDoomEmacs [
+          ({pkgs, ...}@attrs: {
+            home.file.".doom.d".source = self + /home/maxhero/development/emacs/doom.d;
+            programs.emacs = {
+              enable = true;
+              package = pkgs.emacs;
+            };
+          })
+        ])
         ++ (lib.optionals enableDevelopment [
           (self + /home/maxhero/development)
           (self + /home/maxhero/shells/zsh.nix)

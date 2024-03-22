@@ -30,6 +30,7 @@ in
       discord-canary
       vesktop
       ffmpegthumbnailer
+      flameshot
       gnome.adwaita-icon-theme
       gnome.eog
       lxqt.pavucontrol-qt

@@ -34,6 +34,7 @@
           enableWireguard = true;
           home = mkHome {
             personal = true;
+            enableDoomEmacs = true;
             enableDevelopment = true;
             enableVSCode = true;
             enableUI = true;
