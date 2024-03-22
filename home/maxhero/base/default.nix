@@ -1,4 +1,7 @@
-{ self, options, config, pkgs, lib, specialArgs, ... }:
+{ self, options, config, pkgs, lib, specialArgs, ... }@attrs:
+let
+  env = import (self + /env) attrs;
+in
 with pkgs.lib;
 with specialArgs;
 {
@@ -9,7 +12,7 @@ with specialArgs;
     ];
     language = {
       base = "ja_JP.UTF-8";
-      time = "pt_BR.UTF-8";
+      time = "ja_JP.UTF-8";
       monetary = "pt_BR.UTF-8";
       numeric = "pt_BR.UTF-8";
     };
@@ -57,7 +60,6 @@ with specialArgs;
     enable = true;
     nix-direnv.enable = true;
     enableBashIntegration = true;
-    enableFishIntegration = true;
     enableNushellIntegration = true;
     enableZshIntegration = true;
   };

@@ -1,4 +1,4 @@
-{ self, nixpkgs, nix-doom-emacs, ... }@attrs:
+{ self, nixpkgs, nix-doom-emacs, nur, ... }@attrs:
 let
   lib = nixpkgs.lib;
   vscode-pkg = import (self + /home/maxhero/development/vscode);
@@ -20,9 +20,12 @@ in
     }:
     {
       imports =
-        [ (self + /home/maxhero/base) ]
+        [
+          nur.hmModules.nur
+          (self + /home/maxhero/base)
+        ]
         ++ (lib.optionals enableDoomEmacs [
-          ({pkgs, ...}@attrs: {
+          ({ pkgs, ... }@attrs: {
             home.file.".doom.d".source = self + /home/maxhero/development/emacs/doom.d;
             programs.emacs = {
               enable = true;

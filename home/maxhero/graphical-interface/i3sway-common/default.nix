@@ -173,16 +173,16 @@ rec {
     "${modifier}+9" = "workspace 9";
     "${modifier}+0" = "workspace 10";
     /*
-    "${modifierCombo}+1" = "workspace 11";
-    "${modifierCombo}+2" = "workspace 12";
-    "${modifierCombo}+3" = "workspace 13";
-    "${modifierCombo}+4" = "workspace 14";
-    "${modifierCombo}+5" = "workspace 15";
-    "${modifierCombo}+6" = "workspace 16";
-    "${modifierCombo}+7" = "workspace 17";
-    "${modifierCombo}+8" = "workspace 18";
-    "${modifierCombo}+9" = "workspace 19";
-    "${modifierCombo}+0" = "workspace 20";
+      "${modifierCombo}+1" = "workspace 11";
+      "${modifierCombo}+2" = "workspace 12";
+      "${modifierCombo}+3" = "workspace 13";
+      "${modifierCombo}+4" = "workspace 14";
+      "${modifierCombo}+5" = "workspace 15";
+      "${modifierCombo}+6" = "workspace 16";
+      "${modifierCombo}+7" = "workspace 17";
+      "${modifierCombo}+8" = "workspace 18";
+      "${modifierCombo}+9" = "workspace 19";
+      "${modifierCombo}+0" = "workspace 20";
     */
     "${modifier}+Shift+1" = "move container to workspace 1";
     "${modifier}+Shift+2" = "move container to workspace 2";
@@ -195,16 +195,16 @@ rec {
     "${modifier}+Shift+9" = "move container to workspace 9";
     "${modifier}+Shift+0" = "move container to workspace 10";
     /*
-    "${modifierCombo}+Shift+1" = "move container to workspace 11";
-    "${modifierCombo}+Shift+2" = "move container to workspace 12";
-    "${modifierCombo}+Shift+3" = "move container to workspace 13";
-    "${modifierCombo}+Shift+4" = "move container to workspace 14";
-    "${modifierCombo}+Shift+5" = "move container to workspace 15";
-    "${modifierCombo}+Shift+6" = "move container to workspace 16";
-    "${modifierCombo}+Shift+7" = "move container to workspace 17";
-    "${modifierCombo}+Shift+8" = "move container to workspace 18";
-    "${modifierCombo}+Shift+9" = "move container to workspace 19";
-    "${modifierCombo}+Shift+0" = "move container to workspace 20";
+      "${modifierCombo}+Shift+1" = "move container to workspace 11";
+      "${modifierCombo}+Shift+2" = "move container to workspace 12";
+      "${modifierCombo}+Shift+3" = "move container to workspace 13";
+      "${modifierCombo}+Shift+4" = "move container to workspace 14";
+      "${modifierCombo}+Shift+5" = "move container to workspace 15";
+      "${modifierCombo}+Shift+6" = "move container to workspace 16";
+      "${modifierCombo}+Shift+7" = "move container to workspace 17";
+      "${modifierCombo}+Shift+8" = "move container to workspace 18";
+      "${modifierCombo}+Shift+9" = "move container to workspace 19";
+      "${modifierCombo}+Shift+0" = "move container to workspace 20";
     */
     "${modifier}+F1" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x11\"";
     "${modifier}+F2" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x12\"";

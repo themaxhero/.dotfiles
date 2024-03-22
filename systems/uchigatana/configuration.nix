@@ -100,7 +100,7 @@
       };
     };
     /* # it's broken
-    nvidia-open.configuration = {
+      nvidia-open.configuration = {
       system.nixos.tags = [ "nvidia-open" ];
       services.xserver.videoDrivers = [ "nvidia" ];
       hardware.nvidia = {
@@ -112,7 +112,7 @@
         };
         modesetting.enable = true;
       };
-    };
+      };
     */
   };
 

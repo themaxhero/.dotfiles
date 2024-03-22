@@ -1,4 +1,4 @@
-{ self, nixpkgs, home-manager, nix-doom-emacs, ... }@attrs:
+{ self, nixpkgs, home-manager, nix-doom-emacs, nur, ... }@attrs:
 let
   lib = nixpkgs.lib;
 in
@@ -37,7 +37,8 @@ in
         })
       ];
       modules =
-        (lib.optionals enableOpticalMediaGeneration [
+        [ { nixpkgs.overlays = [nur.overlay]; } ]
+        ++ (lib.optionals enableOpticalMediaGeneration [
           (nixpkgs + /nixos/modules/installer/cd-dvd/installation-cd-minimal.nix)
           (nixpkgs + /nixos/modules/installer/cd-dvd/channel.nix)
         ])
