@@ -51,12 +51,13 @@ window {
   }
 
   .focused {
-    color: $yellow;
+    color: $red;
     background-color: $foreground;
   }
 
   .urgent {
-    color: $red; 
+    background-color: $red;
+    color: $black; 
   }
 
   .empty {
@@ -69,6 +70,5 @@ window {
 }
 
 .window-name {
-  margin-right: 2rem;
-  padding-right: 2em;
+  margin-left: 1em;
 }

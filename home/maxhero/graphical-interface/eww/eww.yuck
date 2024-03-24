@@ -31,7 +31,7 @@
 ; Bar foldstart
 (defwidget bar [monitor]
   (box :orientation "h"
-       :space-evenly false
+       :space-evenly true
        :class "bar"
     (box :halign "start"
          :space-evenly false
@@ -110,7 +110,7 @@
           "${workspace.label}")))))
 
 (defwidget window_name []
-  (box :class "window-name" "${window_name_listen}"))
+  (box :class "window-name" "${window_name_listen.name}"))
 
 (defwidget player []
   (icon-module :class "player" :icon "" :visible {player_listen.show == "yes"}
