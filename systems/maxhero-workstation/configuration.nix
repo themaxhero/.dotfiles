@@ -75,5 +75,11 @@
       fsType = "ext4";
     };
   };
+  services.static-web-server = {
+    enable = true;
+    listen = "192.168.15.4:80";
+    root = "/home/maxhero/hitobashira";
+    configuration.general.directory-listing = true;
+  };
   system.stateVersion = "22.11";
 }

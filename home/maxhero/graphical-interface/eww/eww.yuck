@@ -37,6 +37,7 @@
          :space-evenly false
       (workspaces :monitor monitor)
       (player))
+    (box :halign "center" :spacing 16 (window_name))
     (box :halign "end"
          :spacing 12
          :hexpand true
@@ -60,7 +61,7 @@
 
 ; Variables foldstart
 (defpoll time_poll :interval "1s" "date +%H:%M")
-(defpoll date_poll :interval "1m" "date +%d/%m/%Y")
+(defpoll date_poll :interval "1m" "date +%Y年%m月%d日")
 (defpoll trash_poll :interval "10s" "~/.config/eww/modules/trash.sh")
 (defpoll noisetorch_poll :initial "" :interval "10s" "~/.config/eww/modules/noisetorch.sh")
 (defpoll updates_poll :initial "" :interval "1m" "~/.config/eww/modules/updates.sh &") 
@@ -68,6 +69,7 @@
 (defpoll ping_poll :interval "10s" "~/.config/eww/modules/ping.sh")
 
 (deflisten workspaces_listen "~/.config/eww/modules/workspaces.lua")
+(deflisten window_name_listen "~/.config/eww/modules/window_name.lua")
 (deflisten player_listen :initial '{"show": "no", "content": ""}' "~/.config/eww/modules/player.sh")
 (deflisten nvidia_listen "~/.config/eww/modules/nvidia.sh")
 (deflisten notifications_listen :initial '{"show": "no", "content": ""}' "~/.config/eww/modules/notifications.sh")
@@ -106,6 +108,9 @@
           :class {workspace.focused ? "focused" : ""}
           :onclick "i3-msg workspace ${workspace.name}"
           "${workspace.label}")))))
+
+(defwidget window_name []
+  (box :class "window-name" "${window_name_listen}"))
 
 (defwidget player []
   (icon-module :class "player" :icon "" :visible {player_listen.show == "yes"}

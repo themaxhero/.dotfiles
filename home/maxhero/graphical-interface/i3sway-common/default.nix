@@ -148,6 +148,7 @@ rec {
 
     # Enter my extra modes
     "${modifier}+c" = "mode command_mode";
+    "${modifier}+x" = "exec \"rofi -show calc -modi calc -no-show-match -no-sort -theme ~/.config/rofi/launchers/type-6/style-1.rasi\"";
 
     # Navigation Between Workspaces
     "${modifierCombo}+left" = "workspace prev";
