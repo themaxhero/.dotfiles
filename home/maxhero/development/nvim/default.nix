@@ -11,7 +11,6 @@ in
   extraPackages = with pkgs; [
     libgcc
     gcc13
-    rnix-lsp
     luajitPackages.lua-lsp
     luajitPackages.luarocks
     elixir-ls

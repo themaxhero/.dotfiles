@@ -126,7 +126,7 @@
 
 (defwidget date []
   (icon-module :class "date" :icon "" 
-    (label :text date_poll)))
+    (button :onclick "~/.config/rofi/calendar/calendar" (label :text date_poll))))
 
 (defwidget time []
   (icon-module :class "time" :icon "" 

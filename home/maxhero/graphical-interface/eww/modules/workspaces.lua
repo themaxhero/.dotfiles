@@ -56,3 +56,4 @@ while true
 do
   print_workspaces_watch()
 end
+

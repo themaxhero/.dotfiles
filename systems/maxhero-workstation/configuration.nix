@@ -5,7 +5,13 @@
     hostName = "maxhero-workstation";
     firewall.checkReversePath = false;
   };
-  services.minidlna.settings.friendly_name = "maxhero-workstation";
+  services.minidlna.settings = {
+    friendly_name = "maxhero-workstation";
+    media_dir = [
+      "V,/home/maxhero/data/Items/Videos"
+      "A,/home/maxhero/data/Items/Music"
+    ];
+  };
   networking.wireguard.interfaces.wg0 = {
     ips = [ "10.100.0.2/24" "fdb7:2e96:8e57::2/64" ];
     privateKeyFile = "/home/maxhero/wireguard-keys/private";
@@ -81,5 +87,86 @@
     root = "/home/maxhero/hitobashira";
     configuration.general.directory-listing = true;
   };
+  /*
+  # at some point create a nix container or something to host this server
+  services.samba = {
+    enable = true;
+    securityType = "user";
+    openFirewall = true;
+    extraConfig = ''
+      workgroup = AIZONE
+      server string = smbnix
+      netbios name = smbnix
+      security = user 
+      #use sendfile = yes
+      #max protocol = smb2
+      # note: localhost is the ipv6 localhost ::1
+      hosts allow = 192.168.15.4 127.0.0.1 localhost
+      hosts allow = 192.168.15.2
+      hosts deny = 0.0.0.0/0
+      guest account = nobody
+      map to guest = bad user
+    '';
+    shares = {
+      hitobashira-ro = {
+        path = "/home/maxhero/Public/hitobashira-ro";
+        browseable = "yes";
+        "read only" = "yes";
+        "guest ok" = "yes";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "hitobashira";
+        #"force group" = "groupname";
+      };
+      hitobashira-w = {
+        path = "/home/maxhero/Public/hitobashira-w";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "hitobashira";
+        #"force group" = "groupname";
+      };
+    };
+  };
+
+  */
+  services.samba = {
+    enable = true;
+    securityType = "user";
+    openFirewall = true;
+    extraConfig = ''
+      workgroup = WORKGROUP
+      server string = smbnix
+      netbios name = smbnix
+      security = user 
+      #use sendfile = yes
+      #max protocol = smb2
+      # note: localhost is the ipv6 localhost ::1
+      hosts allow = 192.168.15.4 127.0.0.1 localhost
+      hosts allow = 192.168.15.100
+      hosts deny = 0.0.0.0/0
+      guest account = nobody
+      map to guest = bad user
+    '';
+    shares = {
+      data = {
+        path = "/home/maxhero/data";
+        browseable = "yes";
+        "read only" = "no";
+        "guest ok" = "yes";
+        "create mask" = "0644";
+        "directory mask" = "0755";
+        "force user" = "maxhero";
+      };
+    };
+  };
+
+  services.samba-wsdd = {
+    enable = true;
+    openFirewall = true;
+  };
+
   system.stateVersion = "22.11";
 }

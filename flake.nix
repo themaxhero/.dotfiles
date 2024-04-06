@@ -16,6 +16,8 @@
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
+    emacs-overlay.url  = "github:nix-community/emacs-overlay";
+    emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { self, nixpkgs, home-manager, nix-doom-emacs, devenv, devshell, ... }@attrs:
@@ -26,6 +28,7 @@
       nixosConfigurations = {
         maxhero-workstation = mkSystem {
           enableBareMetal = true;
+          enableEmacs = true;
           enableDevelopment = true;
           enableGraphicalInterface = true;
           enableGaming = true;

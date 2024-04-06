@@ -8,6 +8,7 @@ in
     { enableOpticalMediaGeneration ? false
     , enableDevelopment ? false
     , enableGraphicalInterface ? false
+    , enableEmacs ? false
     , enableGaming ? false
     , enableNetworking ? false
     , enableSound ? false
@@ -36,6 +37,7 @@ in
           };
         })
       ];
+      emacs = (import (self + /home/maxhero/development/emacs) attrs);
       modules =
         [ { nixpkgs.overlays = [nur.overlay]; } ]
         ++ (lib.optionals enableOpticalMediaGeneration [
@@ -43,6 +45,9 @@ in
           (nixpkgs + /nixos/modules/installer/cd-dvd/channel.nix)
         ])
         ++ [ (self + /modules/common) ]
+        ++ (lib.optionals enableEmacs [
+          ({ pkgs, ... }: { imports = [ (emacs pkgs) ]; })
+        ])
         ++ (lib.optionals enableDevelopment [
           (self + /modules/development)
         ])

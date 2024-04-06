@@ -55,6 +55,9 @@ in
     };
 
     xdg.configFile = {
+      "rofi/calendar/calendar".source = self + /home/maxhero/graphical-interface/rofi/calendar/calendar;
+      "rofi/calendar/calendar".executable = true;
+      "rofi/calendar/style.rasi".source = self + /home/maxhero/graphical-interface/rofi/calendar/style.rasi;
       "rofi/rofi-config.rasi".source = lib.mkForce (self + /home/maxhero/graphical-interface/rofi/files/config.rasi);
       "rofi/applets/bin/appasroot.sh".source = self + /home/maxhero/graphical-interface/rofi/files/applets/bin/appasroot.sh;
       "rofi/applets/bin/appasroot.sh".executable = true;

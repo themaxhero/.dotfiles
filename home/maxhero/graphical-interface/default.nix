@@ -56,6 +56,7 @@ in
       sublime
       nomacs
       wpsoffice
+      yacreader
     ];
     file = {
       ".anthy".source = self + /home/maxhero/graphical-interface/.anthy;
