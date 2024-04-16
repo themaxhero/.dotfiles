@@ -67,5 +67,6 @@ with specialArgs;
     # Env
     ${builtins.foldl' (acc: v: "${acc}\nexport ${v.name}='${v.value}'") "" env.bash_env}
   '';
+  services.lorri.enable = true;
   home.stateVersion = "21.11";
 }
