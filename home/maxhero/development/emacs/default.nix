@@ -18,7 +18,7 @@ pkgs:
 }
 */
 let
-  emacs-pkg = ((pkgs.emacsPackagesFor pkgs.emacs-unstable).emacsWithPackages (epkgs: [ epkgs.vterm ]));
+  emacs-pkg = ((pkgs.emacsPackagesFor pkgs.emacs).emacsWithPackages (epkgs: [ epkgs.vterm ]));
 in
 {
     nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];

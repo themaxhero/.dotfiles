@@ -27,9 +27,7 @@ with specialArgs;
   programs.fish.enable = true;
   programs.command-not-found.enable = true;
   programs.gpg.enable = true;
-  services.gpg-agent = {
-    enable = true;
-  };
+  services.gpg-agent.enable = true;
   programs.jq.enable = true;
   programs.lsd = {
     enable = true;

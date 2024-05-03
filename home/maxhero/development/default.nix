@@ -21,6 +21,7 @@ in
     graphviz
     ngrok
     insomnia
+    ghidra
   ];
 
   fonts.fontconfig.enable = true;

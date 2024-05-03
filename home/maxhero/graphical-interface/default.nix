@@ -72,6 +72,19 @@ in
       "p" = {
         id = 0;
         name = "p";
+        userChrome = ''
+          #tabbrowser-tabs { 
+            display: none;
+            visibility: collapse !important;
+          }
+
+          #sidebar-header {
+            display: none;
+            visibility: collapse !important;
+          }
+
+          #titlebar{ display: none }
+        '';
         bookmarks = [
           {
             name = "Home Manager Option Search";
@@ -223,6 +236,7 @@ in
           "security.sandbox.content.tempDirSuffix" = "936c414c-786e-413f-a579-68091311d773";
           "services.settings.clock_skew_seconds" = 1;
           "trailhead.firstrun.didSeeAboutWelcome" = true;
+          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
         };
         isDefault = true;
       };

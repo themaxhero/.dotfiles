@@ -18,10 +18,17 @@
     nur.url = "github:nix-community/NUR";
     emacs-overlay.url  = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
+    bizhawk.url = "github:TASEmulators/BizHawk";
+    bizhawk.flake = false;
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, devenv, devshell, ... }@attrs:
+  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, devenv, devshell, bizhawk, ... }@attrs:
     rec {
+      emuhawk = (import bizhawk.outPath {
+        system = "x86_64-linux";
+        pkgs = nixpkgs.legacyPackages.x86_64-linux;
+        mono = nixpkgs.legacyPackages.x86_64-linux.mono;
+       }).emuhawk-latest;
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       mkHome = (import (self + /home/maxhero) attrs).mkHome;
       mkSystem = (import (self + /modules) attrs).mkSystem;
