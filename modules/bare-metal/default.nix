@@ -7,10 +7,8 @@
   boot.loader.systemd-boot.enable = true;
 
   hardware.bluetooth.enable = true;
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
     extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
   };
   hardware.i2c.enable = true;

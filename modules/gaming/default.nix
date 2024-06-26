@@ -13,7 +13,6 @@ in
 
     environment.systemPackages = with pkgs; [
       mangohud
-      minecraft
       mesa-demos
       lutris
       pcsx2

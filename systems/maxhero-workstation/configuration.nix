@@ -140,6 +140,7 @@
       # note: localhost is the ipv6 localhost ::1
       hosts allow = 192.168.15.4 127.0.0.1 localhost
       hosts allow = 192.168.15.100
+      hosts allow = 192.168.15.23
       hosts deny = 0.0.0.0/0
       guest account = nobody
       map to guest = bad user

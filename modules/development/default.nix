@@ -12,7 +12,7 @@ let
       black
       nushell
       du-dust
-      dbeaver
+      dbeaver-bin
       vim
       gnumake
       libtool
