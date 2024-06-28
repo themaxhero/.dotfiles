@@ -18,9 +18,9 @@
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/1de09e23-882e-43c0-8fa9-f8965d907d99";
     fsType = "ext4";
-  }
+  };
 
-  boot.initrd.luks.devices."nixos-root".device = "/dev/disk/by-uuid/41eef534-4c0e-4974-b893-cce12355a1b1"
+  boot.initrd.luks.devices."nixos-root".device = "/dev/disk/by-uuid/41eef534-4c0e-4974-b893-cce12355a1b1";
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/E760-D951";
