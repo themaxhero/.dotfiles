@@ -52,7 +52,7 @@ in
       bitwarden-desktop
       orchis-theme
       tela-circle-icon-theme
-      youtube-dl
+      yt-dlp
       sublime
       nomacs
       wpsoffice

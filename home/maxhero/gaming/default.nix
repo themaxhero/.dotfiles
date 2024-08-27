@@ -1,7 +1,9 @@
 { self, config, lib, specialArgs, bizhawk, ... }:
 with specialArgs;
 {
-  home.packages = [self.emuhawk];
+  home.packages = [
+    #self.emuhawk
+  ];
   programs.mangohud = {
     enable = true;
     settings = {

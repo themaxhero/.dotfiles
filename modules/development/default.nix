@@ -144,7 +144,6 @@ in
     '';
     services.postgresql.settings.listen_addresses = lib.mkForce "*";
     boot.kernelModules = [ "kvm-amd" ];
-    systemd.enableUnifiedCgroupHierarchy = true;
     virtualisation.libvirtd.enable = true;
     users.extraUsers.maxhero.extraGroups = [ "libvirtd" "kvm" ];
     programs.dconf.enable = true;

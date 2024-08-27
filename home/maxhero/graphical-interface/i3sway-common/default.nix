@@ -16,6 +16,9 @@ rec {
       id = "firefox";
       title = "Password Required";
     }
+    {
+      title = "null";
+    }
   ];
 
   commandMode = {

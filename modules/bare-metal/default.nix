@@ -9,6 +9,7 @@
   hardware.bluetooth.enable = true;
   hardware.graphics = {
     enable = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime ];
   };
   hardware.i2c.enable = true;
@@ -24,7 +25,7 @@
   };
   services.udisks2.enable = true;
   services.xserver.displayManager.gdm.enable = true;
-  sound.mediaKeys.enable = true;
+  # sound.mediaKeys.enable = true;
   services.blueman.enable = true;
   services.flatpak.enable = true;
   services.minidlna = {

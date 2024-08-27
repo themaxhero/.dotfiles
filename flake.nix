@@ -35,7 +35,7 @@
       nixosConfigurations = {
         maxhero-workstation = mkSystem {
           enableBareMetal = true;
-          enableEmacs = true;
+          enableEmacs = false;
           enableDevelopment = true;
           enableGraphicalInterface = true;
           enableGaming = true;
@@ -45,7 +45,7 @@
           enableWireguard = true;
           home = mkHome {
             personal = true;
-            enableDoomEmacs = true;
+            enableDoomEmacs = false;
             enableDevelopment = true;
             enableVSCode = true;
             enableUI = true;
