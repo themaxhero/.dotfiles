@@ -1,0 +1,2 @@
+#!/usr/bin/sh
+git branch --list 'flake-update/*' | xargs -r git branch -d
