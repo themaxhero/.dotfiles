@@ -27,6 +27,8 @@ in
     environment.systemPackages = with pkgs; [
       alacritty
       kitty
+      wootility
+      wooting-udev-rules
       discord-canary
       vesktop
       ffmpegthumbnailer
