@@ -5,7 +5,6 @@ let
   languages = with pkgs; (
     [
       mu
-      python39Packages.nose
       python3Full
       ripgrep
       cmigemo

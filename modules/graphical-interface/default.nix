@@ -28,13 +28,12 @@ in
       alacritty
       kitty
       wootility
-      wooting-udev-rules
       discord-canary
       vesktop
       ffmpegthumbnailer
       flameshot
-      gnome.adwaita-icon-theme
-      gnome.eog
+      adwaita-icon-theme
+      eog
       lxqt.pavucontrol-qt
       lxqt.pcmanfm-qt
       pamixer
@@ -49,7 +48,7 @@ in
       radeontop
       filezilla
       gparted
-      gnome.gnome-tweaks
+      gnome-tweaks
       orchis-theme
       libsForQt5.dolphin
       libsForQt5.dolphin-plugins
@@ -58,7 +57,7 @@ in
       whatsapp-for-linux
       pidgin-with-plugins
       obsidian
-      gnome.pomodoro
+      pomodoro
       xarchiver
     ];
 

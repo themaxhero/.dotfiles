@@ -266,7 +266,7 @@ in
 
   programs.kitty = {
     enable = true;
-    theme = "Monokai Classic";
+    themeFile = "Monokai_Classic";
     settings = {
       transparency = "yes";
       background_opacity = "0.95";

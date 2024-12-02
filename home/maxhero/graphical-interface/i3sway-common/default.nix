@@ -213,6 +213,9 @@ rec {
     "${modifier}+F1" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x11\"";
     "${modifier}+F2" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x12\"";
     "${modifier}+F3" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 1 setvcp 60 0x0f\"";
+    "${modifierCombo}+F1" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 2 setvcp 60 0x11\"";
+    "${modifierCombo}+F2" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 2 setvcp 60 0x12\"";
+    "${modifierCombo}+F3" = "exec \"${pkgs.ddcutil}/bin/ddcutil -d 2 setvcp 60 0x0f\"";
 
     "${modifier}+z" = "${spawnables.${type}.lock}";
   }));

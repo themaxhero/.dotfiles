@@ -4,7 +4,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:NixOS/nixpkgs";
     devenv.url = "github:cachix/devenv";
     devenv.inputs.nixpkgs.follows = "nixpkgs";
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -18,17 +17,11 @@
     nur.url = "github:nix-community/NUR";
     emacs-overlay.url  = "github:nix-community/emacs-overlay";
     emacs-overlay.inputs.nixpkgs.follows = "nixpkgs";
-    bizhawk.url = "github:TASEmulators/BizHawk";
-    bizhawk.flake = false;
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
   };
 
-  outputs = { self, nixpkgs, home-manager, nix-doom-emacs, devenv, devshell, bizhawk, ... }@attrs:
+  outputs = { self, nixpkgs, chaotic, home-manager, nix-doom-emacs, devenv, devshell, ... }@attrs:
     rec {
-      emuhawk = (import bizhawk.outPath {
-        system = "x86_64-linux";
-        pkgs = nixpkgs.legacyPackages.x86_64-linux;
-        mono = nixpkgs.legacyPackages.x86_64-linux.mono;
-       }).emuhawk-latest;
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
       mkHome = (import (self + /home/maxhero) attrs).mkHome;
       mkSystem = (import (self + /modules) attrs).mkSystem;
@@ -42,7 +35,7 @@
           enableNetworking = true;
           enableSound = true;
           enableVFIO = true;
-          enableWireguard = true;
+          enableWireguard = false;
           home = mkHome {
             personal = true;
             enableDoomEmacs = false;
@@ -52,8 +45,10 @@
             enableGaming = true;
           };
           extraModules = [
+            chaotic.nixosModules.default
             (self + /systems/maxhero-workstation/configuration.nix)
             (self + /systems/maxhero-workstation/hardware-configuration.nix)
+            ({...}: { chaotic.mesa-git.enable = true; })
           ];
           specialArgs = attrs;
         };

@@ -64,15 +64,26 @@
     options snd_hda_intel power_save=0
   '';
 
-  boot.initrd.luks.devices.kyuukyoku = {
-    device = "/dev/disk/by-uuid/0f2a2a67-04d5-4faa-8c26-d4fc82a0d62f";
-    preLVM = true;
-  };
-
   fileSystems = {
-    "/home/maxhero/SteamLibrary" = {
-      label = "Steam Library";
-      device = "/dev/disk/by-uuid/483f5d2b-f4c1-44dc-827a-01df0c2bb80c";
+    "/" = {
+      device = "/dev/disk/by-uuid/f389ebfb-860e-4906-899f-c3966e89c479";
+      fsType = "ext4";
+    };
+    "/boot" = {
+      device = "/dev/disk/by-uuid/07D8-E3BA";
+      fsType = "vfat";
+      options = [ "fmask=0022" "dmask=0022" ];
+    };
+    "/nix" = {
+      device = "/dev/disk/by-uuid/d3e47623-3654-49a2-9ce5-09ba4d92f37d";
+      fsType = "ext4";
+    };
+    "/home" = {
+      device = "/dev/disk/by-uuid/b96f891e-578c-47bd-8093-82b4418d9968";
+      fsType = "ext4";
+    };
+    "/var" = {
+      device = "/dev/disk/by-uuid/6d779109-fe80-4a7c-9af5-9b847317ba1d";
       fsType = "ext4";
     };
     "/home/maxhero/data" = {
@@ -80,7 +91,28 @@
       device = "/dev/disk/by-uuid/eb36fe83-8308-4d42-a4cf-a5732924c686";
       fsType = "ext4";
     };
+    "/home/maxhero/SteamLibrary" = {
+      label = "Steam Library";
+      device = "/dev/disk/by-uuid/b1312be1-256f-4a7a-ace4-3e58eb6ab21e";
+      fsType = "ext4";
+    };
   };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/eea3e123-bd53-4a65-ab1a-ce3b5f68cebe"; }
+    ];
+
+  boot.initrd.luks.devices = {
+    kyuukyoku = {
+      device = "/dev/disk/by-uuid/0f2a2a67-04d5-4faa-8c26-d4fc82a0d62f";
+      preLVM = true;
+    };
+    system = {
+      device = "/dev/disk/by-uuid/64bb0904-94ca-4dd5-83a9-31a921a72e79";
+      preLVM = true;
+    };
+  };
+
   /*
   # at some point create a nix container or something to host this server
   services.samba = {
@@ -128,24 +160,22 @@
   */
   services.samba = {
     enable = true;
-    securityType = "user";
     openFirewall = true;
-    extraConfig = ''
-      workgroup = WORKGROUP
-      server string = smbnix
-      netbios name = smbnix
-      security = user 
-      #use sendfile = yes
-      #max protocol = smb2
-      # note: localhost is the ipv6 localhost ::1
-      hosts allow = 192.168.15.4 127.0.0.1 localhost
-      hosts allow = 192.168.15.100
-      hosts allow = 192.168.15.23
-      hosts deny = 0.0.0.0/0
-      guest account = nobody
-      map to guest = bad user
-    '';
-    shares = {
+    settings = {
+      global = {
+        "workgroup" = "WORKGROUP";
+        "server string" = "smbnix";
+        "netbios name" = "smbnix";
+        "security" = "user";
+        "hosts allow" = [
+          "192.168.15.4 127.0.0.1 localhost"
+          "192.168.15.100"
+          "192.168.15.23"
+        ];
+        "hosts deny" = ["0.0.0.0/0"];
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+      };
       data = {
         path = "/home/maxhero/data";
         browseable = "yes";

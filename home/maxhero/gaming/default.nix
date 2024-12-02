@@ -1,4 +1,4 @@
-{ self, config, lib, specialArgs, bizhawk, ... }:
+{ self, config, lib, specialArgs, ... }:
 with specialArgs;
 {
   home.packages = [
