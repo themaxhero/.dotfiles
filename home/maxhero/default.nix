@@ -21,7 +21,7 @@ in
     {
       imports =
         [
-          nur.hmModules.nur
+          nur.modules.homeManager.default
           (self + /home/maxhero/base)
         ]
         ++ (lib.optionals enableDoomEmacs [

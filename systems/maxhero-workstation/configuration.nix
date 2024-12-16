@@ -87,12 +87,12 @@
       fsType = "ext4";
     };
     "/home/maxhero/data" = {
-      label = "Kyuukyoku";
+      #label = "Kyuukyoku";
       device = "/dev/disk/by-uuid/eb36fe83-8308-4d42-a4cf-a5732924c686";
       fsType = "ext4";
     };
     "/home/maxhero/SteamLibrary" = {
-      label = "Steam Library";
+      #label = "Steam Library";
       device = "/dev/disk/by-uuid/b1312be1-256f-4a7a-ace4-3e58eb6ab21e";
       fsType = "ext4";
     };
