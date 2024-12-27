@@ -49,7 +49,7 @@
     on_attach = lsp.on_attach,
     capabilities = lsp_capabilities,
     cmd = {"elixir-ls"},
-    dialyzerEnabled = false,
+    dialyzerEnabled = true,
     envVariables = {
       ["ELS_INSTALL_PREFIX"]="${pkgs.elixir-ls}/bin",
       ["ASDF_DIR"] = "${pkgs.asdf-vm}/bin",

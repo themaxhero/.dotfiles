@@ -39,7 +39,7 @@ in
       ];
       emacs = (import (self + /home/maxhero/development/emacs) attrs);
       modules =
-        [ { nixpkgs.overlays = [nur.overlay]; } ]
+        [ { nixpkgs.overlays = [nur.overlays.default]; } ]
         ++ (lib.optionals enableOpticalMediaGeneration [
           (nixpkgs + /nixos/modules/installer/cd-dvd/installation-cd-minimal.nix)
           (nixpkgs + /nixos/modules/installer/cd-dvd/channel.nix)

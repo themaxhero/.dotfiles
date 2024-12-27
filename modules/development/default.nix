@@ -5,6 +5,7 @@ let
   languages = with pkgs; (
     [
       mu
+      devenv
       python3Full
       ripgrep
       cmigemo

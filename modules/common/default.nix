@@ -32,7 +32,6 @@
     file
     fzf
     git
-    i3status-rust
     killall
     lm_sensors
     p7zip
@@ -52,7 +51,6 @@
     zsh
     bat
     ntfs3g
-    anki
   ];
 
   nix = {

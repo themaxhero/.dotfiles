@@ -1,3 +1,4 @@
+local builtin = require('telescope.builtin')
 vim.api.nvim_set_option("clipboard", "unnamed")
 vim.g.mapleader = " "
 vim.opt.nu = true
@@ -13,3 +14,4 @@ vim.opt.scrolloff = 8
 vim.opt.colorcolumn = "100"
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })

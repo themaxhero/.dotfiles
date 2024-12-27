@@ -1,8 +1,9 @@
-{ self, config, lib, specialArgs, ... }:
+{ self, pkgs, config, lib, specialArgs, ... }:
 with specialArgs;
 {
   home.packages = [
     #self.emuhawk
+    pkgs.hmcl
   ];
   programs.mangohud = {
     enable = true;

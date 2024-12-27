@@ -36,6 +36,7 @@ in
       eog
       lxqt.pavucontrol-qt
       lxqt.pcmanfm-qt
+      ticktick
       pamixer
       qbittorrent
       slack

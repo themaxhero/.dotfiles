@@ -57,6 +57,7 @@ in
       nomacs
       wpsoffice
       yacreader
+      i3status-rust
     ];
     file = {
       ".anthy".source = self + /home/maxhero/graphical-interface/.anthy;
@@ -106,6 +107,7 @@ in
           multi-account-containers
           nordvpn-proxy-extension
           colorful-abstract-neon
+          enhancer-for-youtube
         ];
         settings = {
           "accessibility.typeaheadfind.flashBar" = 0;
