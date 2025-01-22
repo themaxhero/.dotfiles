@@ -16,7 +16,7 @@ in
     #ime = "${pkgs.fcitx5}/bin/fcitx5";
     ime = "${pkgs.ibus}/bin/ibus-daemon -rxRd";
     wallpaper = "${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.png";
-    lock = "${pkgs.i3lock-fancy-rapid}/bin/i3lock";
+    lock = "${pkgs.i3lock-pixeled}/bin/i3lock";
     network-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet --indicator";
   };
 }

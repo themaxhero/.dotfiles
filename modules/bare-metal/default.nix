@@ -36,4 +36,5 @@
   services.fwupd.enable = true;
   services.ntp.enable = true;
   services.tumbler.enable = true;
+  virtualisation.waydroid.enable = true;
 }

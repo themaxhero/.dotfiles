@@ -11,6 +11,8 @@ in
       GAMEMODERUNEXEC = "mangohud WINEFSYNC=1 PROTON_WINEDBG_DISABLE=1 DXVK_LOG_PATH=none DXVK_HUD=compiler ALSOFT_DRIVERS=alsa";
     };
 
+    programs.steam.extraCompatPackages = [ pkgs.proton-ge-bin ];
+
     environment.systemPackages = with pkgs; [
       mangohud
       mesa-demos

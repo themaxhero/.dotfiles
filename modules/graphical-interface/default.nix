@@ -43,7 +43,6 @@ in
       spotify
       tdesktop
       zoom-us
-      wdisplays
       notion-app-enhanced
       gimp
       radeontop
@@ -51,29 +50,16 @@ in
       gparted
       gnome-tweaks
       orchis-theme
-      libsForQt5.dolphin
-      libsForQt5.dolphin-plugins
+      xfce.thunar
       tela-circle-icon-theme
       ddcutil
-      whatsapp-for-linux
-      pidgin-with-plugins
       obsidian
       pomodoro
       xarchiver
+      cage
     ];
 
     nixpkgs.config = {
-      packageOverrides = pkgs: rec {
-        pidgin-with-plugins = pkgs.pidgin.override {
-          plugins = with pkgs; [
-            pidgin-skypeweb
-            pidgin-opensteamworks
-            purple-slack
-            purple-discord
-            purple-googlechat
-          ];
-        };
-      };
       permittedInsecurePackages = [ "electron-25.9.0" ];
     };
 
@@ -96,6 +82,7 @@ in
       fontDir.enable = true;
       fontconfig.allowBitmaps = true;
     };
+    services.libinput.mouse.accelSpeed = "0.0";
     programs.dconf.enable = true;
     services.xserver.xkb.layout = "us";
     services.xserver.xkb.variant = "intl";

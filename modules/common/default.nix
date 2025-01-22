@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, ...}:
 {
   users.users.maxhero = {
     isNormalUser = true;
@@ -43,7 +43,6 @@
     wget
     xdg-utils
     archiver
-    helvum
     neofetch
     nix-index
     nmap

@@ -42,7 +42,6 @@
 
   environment = {
     systemPackages = with pkgs; [
-      waynergy
       airgeddon
     ];
     variables = {

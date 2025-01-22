@@ -53,7 +53,7 @@ let
       elmPackages.elm-language-server
     ])
     ++ (conditional-lang "elixir" [
-      elixir_1_15
+      elixir
       inotify-tools
     ])
     ++ (conditional-lang "web" [
@@ -70,7 +70,7 @@ let
       yarn
     ])
     ++ (conditional-lang "ruby" [
-      ruby_3_1
+      ruby
     ])
     ++ (conditional-lang "scala" [
       metals
@@ -134,7 +134,7 @@ in
   config = lib.mkIf cfg.enable {
     services.udev.packages = [ pkgs.android-udev-rules ];
     services.postgresql.enable = true;
-    services.postgresql.package = pkgs.postgresql_14;
+    services.postgresql.package = pkgs.postgresql_17_jit;
     services.postgresql.authentication = lib.mkForce ''
       # Generated file; do not edit!
       local all all              trust
