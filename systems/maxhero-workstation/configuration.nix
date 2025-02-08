@@ -1,4 +1,13 @@
 { self, pkgs, ... }:
+let
+  watch = "${pkgs.busybox}/bin/watch";
+  wpctl = "${pkgs.wireplumber}/bin/wpctl";
+  awk = "${pkgs.busybox}/bin/awk";
+  clamp-awk-script = "";
+  waldman-sound-mixer-clamp-volume-script = pkgs.writeShellScriptBin "walman-sound-mixer-clamp-volume" ''
+    ${watch} -n 0.5 ${wpctl} set-volume 111 0.07 --limit 0.7
+  '';
+in 
 {
   networking = {
     hostId = "cc1f83cb";
@@ -15,6 +24,16 @@
   networking.wireguard.interfaces.wg0 = {
     ips = [ "10.100.0.2/24" "fdb7:2e96:8e57::2/64" ];
     privateKeyFile = "/home/maxhero/wireguard-keys/private";
+  };
+  systemd.user.services = {
+    waldman-sound-mixer-volume-limiter = {
+      enable = true;
+      wantedBy = ["default.target"];
+      serviceConfig = {
+        Restart = "always";
+        ExecStart = "${waldman-sound-mixer-clamp-volume-script}/bin/walman-sound-mixer-clamp-volume";
+      };
+    };
   };
   services.xserver.serverFlagsSection = ''
     Option "BlankTime" "0"
