@@ -23,7 +23,6 @@ in
       description = "i3 session";
       bindsTo = [ "graphical-session.target" ];
     };
-    boot.plymouth.enable = true;
     environment.systemPackages = with pkgs; [
       alacritty
       kitty
@@ -51,7 +50,7 @@ in
       gnome-tweaks
       orchis-theme
       xfce.thunar
-      tela-circle-icon-theme
+      #tela-circle-icon-theme
       ddcutil
       obsidian
       pomodoro

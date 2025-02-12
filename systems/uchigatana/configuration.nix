@@ -29,7 +29,7 @@
       "rust"
       "android"
       "aws"
-      "clasp"
+      #"clasp"
       "oracle-cloud"
       "devops"
       "kubernetes"

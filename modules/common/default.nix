@@ -42,7 +42,6 @@
     usbutils
     wget
     xdg-utils
-    archiver
     neofetch
     nix-index
     nmap

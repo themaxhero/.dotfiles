@@ -1,7 +1,7 @@
 { pkgs, ... }:
 let
   gtkTheme = "Orchis-Dark";
-  iconTheme = "Tela-circle-dark";
+  #iconTheme = "Tela-circle-dark";
   gtk2-rc-files = "${pkgs.orchis-theme}/share/themes/${gtkTheme}/gtk-2.0/gtkrc";
 in
 rec {
@@ -19,7 +19,7 @@ rec {
     { name = "SAL_USE_VCLPLUGIN"; value = "gtk3"; }
     { name = "_JAVA_AWT_WM_NONREPARENTING"; value = "1"; }
     { name = "GTK_THEME"; value = "${gtkTheme}"; }
-    { name = "GTK_ICON_THEME"; value = "${iconTheme}"; }
+    #{ name = "GTK_ICON_THEME"; value = "${iconTheme}"; }
     { name = "GTK2_RC_FILES"; value = "${gtk2-rc-files}"; }
     { name = "QT_STYLE_OVERRIDE"; value = "gtk2"; }
   ];

@@ -1,19 +1,11 @@
-{ self, pkgs, ... }:
-let
-  watch = "${pkgs.busybox}/bin/watch";
-  wpctl = "${pkgs.wireplumber}/bin/wpctl";
-  awk = "${pkgs.busybox}/bin/awk";
-  clamp-awk-script = "";
-  waldman-sound-mixer-clamp-volume-script = pkgs.writeShellScriptBin "walman-sound-mixer-clamp-volume" ''
-    ${watch} -n 0.5 ${wpctl} set-volume 111 0.07 --limit 0.7
-  '';
-in 
+{ self, pkgs, lib, ... }:
 {
   networking = {
     hostId = "cc1f83cb";
     hostName = "maxhero-workstation";
     firewall.checkReversePath = false;
   };
+  boot.supportedFilesystems.exfat = true;
   services.minidlna.settings = {
     friendly_name = "maxhero-workstation";
     media_dir = [
@@ -24,16 +16,6 @@ in
   networking.wireguard.interfaces.wg0 = {
     ips = [ "10.100.0.2/24" "fdb7:2e96:8e57::2/64" ];
     privateKeyFile = "/home/maxhero/wireguard-keys/private";
-  };
-  systemd.user.services = {
-    waldman-sound-mixer-volume-limiter = {
-      enable = true;
-      wantedBy = ["default.target"];
-      serviceConfig = {
-        Restart = "always";
-        ExecStart = "${waldman-sound-mixer-clamp-volume-script}/bin/walman-sound-mixer-clamp-volume";
-      };
-    };
   };
   services.xserver.serverFlagsSection = ''
     Option "BlankTime" "0"
@@ -60,7 +42,7 @@ in
       "rust"
       #"android"
       "aws"
-      "clasp"
+      #"clasp"
       "oracle-cloud"
       "devops"
       "kubernetes"
@@ -115,6 +97,13 @@ in
       device = "/dev/disk/by-uuid/b1312be1-256f-4a7a-ace4-3e58eb6ab21e";
       fsType = "ext4";
     };
+    "/home/maxhero/mnt" = {
+      device = "/dev/disk/by-uuid/0A26-F0E9";
+      neededForBoot = false;
+      fsType = "exfat";
+      options = ["noauto" "users" "exec" "rw" "suid" "dev" "atime" "diratime" "uid=1000" "gid=100" "umask=000"];
+      depends = ["/" "/home"];
+    };
   };
 
   swapDevices =
@@ -129,6 +118,12 @@ in
     system = {
       device = "/dev/disk/by-uuid/64bb0904-94ca-4dd5-83a9-31a921a72e79";
       preLVM = true;
+    };
+  };
+
+  specialisation = {
+    plymouth.configuration = {
+      boot.plymouth.enable = true;
     };
   };
 
