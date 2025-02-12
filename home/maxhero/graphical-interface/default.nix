@@ -51,7 +51,8 @@ in
       veracrypt
       bitwarden-desktop
       orchis-theme
-      tela-circle-icon-theme
+      #tela-circle-icon-theme
+      i3-resurrect
       yt-dlp
       sublime
       nomacs
@@ -304,10 +305,10 @@ in
   gtk = {
     enable = true;
     cursorTheme.name = "Adwaita";
-    iconTheme = {
-      name = "Tela-circle-dark";
-      package = pkgs.tela-circle-icon-theme;
-    };
+    #iconTheme = {
+    #  name = "Tela-circle-dark";
+    #  package = pkgs.tela-circle-icon-theme;
+    #};
     theme = {
       name = "Orchis-Dark";
       package = pkgs.orchis-theme;
@@ -339,15 +340,15 @@ in
       reboot = {
         name = "Reboot";
         exec = "${lxqt-sudo} reboot";
-        icon =
-          "${pkgs.tela-circle-icon-theme}/share/icons/Tela-circle-dark/scalable@2x/apps/xfsm-reboot.svg";
+        #icon =
+        #  "${pkgs.tela-circle-icon-theme}/share/icons/Tela-circle-dark/scalable@2x/apps/xfsm-reboot.svg";
         terminal = false;
       };
       windows = {
         name = "Windows";
         exec = "sudo ${(pkgs.callPackage (self + /pkgs/reboot-to-windows.nix) {})}/bin/reboot-to-windows";
-        icon =
-          "${pkgs.tela-circle-icon-theme}/share/icons/Tela-circle-dark/scalable@2x/apps/xfsm-reboot.svg";
+        #icon =
+        #  "${pkgs.tela-circle-icon-theme}/share/icons/Tela-circle-dark/scalable@2x/apps/xfsm-reboot.svg";
         terminal = false;
       };
       firefox = {
