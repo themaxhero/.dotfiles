@@ -12,7 +12,7 @@ in
     terminal = "${pkgs.kitty}/bin/kitty";
     bar = "${launch-eww}/bin/launch-eww";
     screenshot = "${pkgs.flameshot}/bin/flameshot gui";
-    browser = "firefox.desktop";
+    browser = "brave.desktop";
     #ime = "${pkgs.fcitx5}/bin/fcitx5";
     ime = "${pkgs.ibus}/bin/ibus-daemon -rxRd";
     wallpaper = "${pkgs.feh}/bin/feh --bg-fill ~/.wallpaper.png";

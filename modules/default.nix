@@ -1,4 +1,4 @@
-{ self, nixpkgs, home-manager, nix-doom-emacs, nur, ... }@attrs:
+{ self, nixpkgs, home-manager, nix-doom-emacs, nur, unstable, ... }@attrs:
 let
   lib = nixpkgs.lib;
 in
@@ -23,6 +23,15 @@ in
     , ...
     }:
     let
+      unstable-pkgs = import unstable {
+        config.allowUnfree = true;
+        localSystem = { system = arch; };
+      };
+      unstable-overlay = (final: prev: {
+        unstable = unstable-pkgs;
+        retroarchFull = unstable-pkgs.retroarchFull;
+        zoom-us = unstable-pkgs.zoom-us;
+      });
       home-manager-modules = [
         home-manager.nixosModules.home-manager
         ({ config, ... }: {
@@ -39,7 +48,10 @@ in
       ];
       emacs = (import (self + /home/maxhero/development/emacs) attrs);
       modules =
-        [ { nixpkgs.overlays = [nur.overlays.default]; } ]
+        [ { nixpkgs.overlays = [
+          nur.overlays.default
+          unstable-overlay
+        ]; } ]
         ++ (lib.optionals enableOpticalMediaGeneration [
           (nixpkgs + /nixos/modules/installer/cd-dvd/installation-cd-minimal.nix)
           (nixpkgs + /nixos/modules/installer/cd-dvd/channel.nix)

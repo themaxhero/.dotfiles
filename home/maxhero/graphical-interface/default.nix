@@ -5,50 +5,13 @@ let
   nm-applet = "${pkgs.networkmanagerapplet}/bin/nm-applet";
   isUchigatana = nixosConfig.networking.hostName == "uchigatana";
   fontSize = if isUchigatana then 16 else 24;
-  nordvpn-proxy-extension = pkgs.nur.repos.rycee.firefox-addons.buildFirefoxXpiAddon {
-    pname = "nordvpn-proxy-extension";
-    version = "3.7.3";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4211396/nordvpn_proxy_extension-3.7.3.xpi";
-    sha256 = "sha256-TkBzVuoDzEs1kvXZFCCSkiYk7OVxPlD3aTgyfKsT4RU=";
-    addonId = "c0a2a013-bb0b-463b-930f-3d51c02ad1d6";
-    meta = with lib; {
-      homepage = "https://nordvpn.com/pt-br/";
-      description = "With this proxy extension, you can stay secure and private on the Internet and avoid those annoying online ads.";
-      mozPermissions = [
-        "proxy"
-        "webRequest"
-        "webRequestBlocking"
-        "privacy"
-        "<all_urls>"
-        "storage"
-        "notifications"
-        "tabs"
-        "contextMenus"
-      ];
-      platforms = platforms.all;
-    };
-  };
-  colorful-abstract-neon = pkgs.nur.repos.rycee.firefox-addons.buildFirefoxXpiAddon {
-    pname = "colorful-abstract-neon";
-    version = "2.0";
-    url = "https://addons.mozilla.org/firefox/downloads/file/4132427/colorful_abstract_neon-2.0.xpi";
-    sha256 = "sha256-ezLRlqY3FjUyIAWupXQWf4RLJGrBmHVzgaSfQd1lhLQ=";
-    addonId = "a0a62451-eee1-403f-96e9-0df2da243832";
-    meta = with lib; {
-      homepage = "mailto:alifrfx@gmail.com";
-      description = "colorful, geometric, abstract, neon";
-      mozPermissions = [
-        "theme"
-      ];
-      platforms = platforms.all;
-    };
-  };
 in
 {
   home = {
     packages = with pkgs; [
       anki
       veracrypt
+      brave
       bitwarden-desktop
       orchis-theme
       #tela-circle-icon-theme
@@ -65,184 +28,6 @@ in
       ".uim.d".source = ./.uim.d;
       ".wallpaper.jpg".source = self + /home/maxhero/graphical-interface/.wallpaper.jpg;
       ".wallpaper.png".source = self + /home/maxhero/graphical-interface/.wallpaper.png;
-    };
-  };
-
-  programs.firefox = {
-    enable = true;
-    profiles = {
-      "p" = {
-        id = 0;
-        name = "p";
-        userChrome = ''
-          #tabbrowser-tabs { 
-            display: none;
-            visibility: collapse !important;
-          }
-
-          #sidebar-header {
-            display: none;
-            visibility: collapse !important;
-          }
-
-          #titlebar{ display: none }
-        '';
-        bookmarks = [
-          {
-            name = "Home Manager Option Search";
-            tags = [ "nix" ];
-            keyword = "nix";
-            url = "https://home-manager-options.extranix.com/";
-          }
-          {
-            name = "Home Manager Option Docs";
-            tags = [ "nix" ];
-            keyword = "nix";
-            url = "https://nix-community.github.io/home-manager/options.xhtml";
-          }
-        ];
-        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-          bitwarden
-          mal-sync
-          darkreader
-          multi-account-containers
-          nordvpn-proxy-extension
-          colorful-abstract-neon
-          enhancer-for-youtube
-        ];
-        settings = {
-          "accessibility.typeaheadfind.flashBar" = 0;
-          "browser.bookmarks.addedImportButton" = true;
-          "browser.bookmarks.restore_default_bookmarks" = false;
-          "browser.contentblocking.category" = "standard";
-          "browser.contentblocking.cfr-milestone.milestone-achieved" = 10000;
-          "browser.contentblocking.cfr-milestone.milestone-shown-time" = "1706765374495";
-          "browser.download.panel.shown" = true;
-          "browser.download.viewableInternally.typeWasRegistered.avif" = true;
-          "browser.download.viewableInternally.typeWasRegistered.webp" = true;
-          "browser.eme.ui.firstContentShown" = true;
-          "browser.engagement.ctrlTab.has-used" = true;
-          "browser.engagement.downloads-button.has-used" = true;
-          "browser.engagement.fxa-toolbar-menu-button.has-used" = true;
-          "browser.pageActions.persistedActions" = "{\"ids\":[\"bookmark\",\"_testpilot-containers\"],\"idsInUrlbar\":[\"_testpilot-containers\",\"bookmark\"],\"idsInUrlbarPreProton\":[],\"version\":1}";
-          "browser.pagethumbnails.storage_version" = 3;
-          "browser.policies.applied" = true;
-          "browser.protections_panel.infoMessage.seen" = true;
-          "browser.proton.toolbar.version" = 3;
-          "browser.rights.3.shown" = true;
-          "browser.search.region" = "BR";
-          "browser.sessionstore.upgradeBackup.latestBuildID" = "20240213221259";
-          "browser.shell.defaultBrowserCheckCount" = 37;
-          "browser.shell.didSkipDefaultBrowserCheckOnFirstRun" = true;
-          "browser.startup.couldRestoreSession.count" = 2;
-          "browser.startup.homepage_override.buildID" = "20240213221259";
-          "browser.startup.homepage_override.mstone" = "123.0";
-          "browser.theme.toolbar-theme" = 0;
-          "browser.translations.panelShown" = true;
-          "browser.uiCustomization.state" = "{\"placements\":{\"widget-overflow-fixed-list\":[\"firefox-view-button\"],\"unified-extensions-area\":[],\"nav-bar\":[\"back-button\",\"forward-button\",\"stop-reload-button\",\"customizableui-special-spring1\",\"urlbar-container\",\"customizableui-special-spring2\",\"save-to-pocket-button\",\"downloads-button\",\"fxa-toolbar-menu-button\",\"_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action\",\"unified-extensions-button\",\"addon_darkreader_org-browser-action\",\"_testpilot-containers-browser-action\",\"nordvpnproxy_nordvpn_com-browser-action\",\"reset-pbm-toolbar-button\"],\"toolbar-menubar\":[\"menubar-items\"],\"TabsToolbar\":[\"tabbrowser-tabs\",\"new-tab-button\",\"alltabs-button\"],\"PersonalToolbar\":[\"import-button\",\"personal-bookmarks\"]},\"seen\":[\"save-to-pocket-button\",\"developer-button\",\"_446900e4-71c2-419f-a6a7-df9c091e268b_-browser-action\",\"addon_darkreader_org-browser-action\",\"_testpilot-containers-browser-action\",\"nordvpnproxy_nordvpn_com-browser-action\"],\"dirtyAreaCache\":[\"nav-bar\",\"PersonalToolbar\",\"toolbar-menubar\",\"TabsToolbar\",\"unified-extensions-area\",\"widget-overflow-fixed-list\"],\"currentVersion\":20,\"newElementCount\":2}";
-          "browser.urlbar.placeholderName" = "Google";
-          "browser.urlbar.placeholderName.private" = "Google";
-          "browser.urlbar.quicksuggest.migrationVersion" = 2;
-          "browser.urlbar.quicksuggest.scenario" = "history";
-          "browser.urlbar.tabToSearch.onboard.interactionsLeft" = 1;
-          "browser.urlbar.tipShownCount.searchTip_onboard" = 4;
-          "browser.urlbar.tipShownCount.searchTip_redirect" = 4;
-          "browser.warnOnQuitShortcut" = false;
-          "datareporting.policy.dataSubmissionPolicyAcceptedVersion" = 2;
-          "datareporting.policy.dataSubmissionPolicyNotifiedTime" = "1681835524750";
-          "devtools.cache.disabled" = true;
-          "devtools.debugger.pending-selected-location" = "{\"url\":\"https://web.cornershopapp.com/vendors~main.d4534b71deb22767cfa2.js:formatted\",\"line\":9822,\"column\":25}";
-          "devtools.debugger.prefs-schema-version" = 11;
-          "devtools.everOpened" = true;
-          "devtools.netmonitor.columnsData" = "[{\"name\":\"status\",\"minWidth\":30,\"width\":6.67},{\"name\":\"method\",\"minWidth\":30,\"width\":6.67},{\"name\":\"domain\",\"minWidth\":30,\"width\":13.32},{\"name\":\"file\",\"minWidth\":30,\"width\":33.35},{\"name\":\"url\",\"minWidth\":30,\"width\":25},{\"name\":\"initiator\",\"minWidth\":30,\"width\":13.32},{\"name\":\"type\",\"minWidth\":30,\"width\":6.67},{\"name\":\"transferred\",\"minWidth\":30,\"width\":13.34},{\"name\":\"contentSize\",\"minWidth\":30,\"width\":6.67},{\"name\":\"waterfall\",\"minWidth\":150,\"width\":3.7}]";
-          "devtools.netmonitor.msg.visibleColumns" = "[\"data\",\"time\"]";
-          "devtools.netmonitor.panes-network-details-width" = 1535;
-          "devtools.performance.recording.features" = "[\"screenshots\",\"js\",\"cpu\"]";
-          "devtools.performance.recording.threads" = "[\"GeckoMain\",\"Compositor\",\"Renderer\",\"DOM Worker\"]";
-          "devtools.responsive.html.displayedDeviceList" = "{\"added\":[\"Pixel 2 XL\",\"Laptop with HiDPI screen\",\"Laptop with MDPI screen\",\"Laptop with touch\",\"1080p Full HD Television\",\"4K Ultra HD Television\",\"720p HD Television\"],\"removed\":[]}";
-          "devtools.responsive.reloadNotification.enabled" = false;
-          "devtools.responsive.touchSimulation.enabled" = true;
-          "devtools.responsive.userAgent" = "Mozilla/5.0 (Linux; Android 8.0.0; Pixel 2 XL Build/OPD1.170816.004) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Mobile Safari/537.36";
-          "devtools.responsive.viewport.height" = 823;
-          "devtools.responsive.viewport.pixelRatio" = 3;
-          "devtools.responsive.viewport.width" = 411;
-          "devtools.selfxss.count" = 2;
-          "devtools.toolbox.footer.height" = 943;
-          "devtools.toolbox.selectedTool" = "netmonitor";
-          "devtools.toolsidebar-height.inspector" = 350;
-          "devtools.toolsidebar-width.inspector" = 700;
-          "devtools.toolsidebar-width.inspector.splitsidebar" = 350;
-          "distribution.iniFile.exists.appversion" = "123.0";
-          "distribution.iniFile.exists.value" = true;
-          "distribution.nixos.bookmarksProcessed" = true;
-          "doh-rollout.disable-heuristics" = true;
-          "doh-rollout.doneFirstRun" = true;
-          "doh-rollout.home-region" = "BR";
-          "dom.push.userAgentID" = "c5025f3f606f4b64bf3edc60468c23fc";
-          "extensions.activeThemeID" = "{9fd56529-f621-4820-8128-f0bbbdbd8a73}";
-          "extensions.blocklist.pingCountVersion" = -1;
-          "extensions.databaseSchema" = 35;
-          "extensions.getAddons.databaseSchema" = 6;
-          "extensions.pendingOperations" = false;
-          "extensions.pictureinpicture.enable_picture_in_picture_overrides" = true;
-          "extensions.quarantinedDomains.list" = "autoatendimento.bb.com.br,ibpf.sicredi.com.br,ibpj.sicredi.com.br,internetbanking.caixa.gov.br,www.ib12.bradesco.com.br,www2.bancobrasil.com.br";
-          "extensions.recommendations.hideNotice" = true;
-          "extensions.systemAddonSet" = "{\"schema\":1,\"addons\":{}}";
-          "extensions.ui.dictionary.hidden" = false;
-          "extensions.ui.extension.hidden" = false;
-          "extensions.ui.locale.hidden" = false;
-          "extensions.ui.sitepermission.hidden" = true;
-          "extensions.ui.theme.hidden" = false;
-          "findbar.highlightAll" = true;
-          "font.minimum-size.x-western" = 12;
-          "gecko.handlerService.defaultHandlersVersion" = 1;
-          "intl.locale.requested" = "ja,en-US";
-          "layout.css.prefers-color-scheme.content-override" = 0;
-          "media.eme.enabled" = true;
-          "media.gmp.storage.version.observed" = 1;
-          "media.videocontrols.picture-in-picture.video-toggle.has-used" = true;
-          "network.trr.mode" = 2;
-          "network.trr.uri" = "https://mozilla.cloudflare-dns.com/dns-query";
-          "nimbus.syncdefaultsstore.upgradeDialog" = "{\"slug\":\"upgrade-spotlight-rollout\",\"branch\":{\"slug\":\"treatment\",\"ratio\":1,\"feature\":{\"value\":null,\"enabled\":true,\"featureId\":\"upgradeDialog\"},\"features\":null},\"active\":true,\"enrollmentId\":\"e0366b3a-acf7-41c7-8bdc-2394509a6502\",\"experimentType\":\"rollout\",\"source\":\"rs-loader\",\"userFacingName\":\"Upgrade Spotlight Rollout\",\"userFacingDescription\":\"Experimenting on onboarding content when you upgrade Firefox.\",\"lastSeen\":\"2023-09-06T21:27:38.534Z\",\"featureIds\":[\"upgradeDialog\"],\"prefs\":[],\"isRollout\":true}";
-          "nimbus.syncdefaultsstore.upgradeDialog.enabled" = false;
-          "pdfjs.enabledCache.state" = true;
-          "pdfjs.migrationVersion" = 2;
-          "pref.privacy.disable_button.tracking_protection_exceptions" = false;
-          "print.more-settings.open" = true;
-          "print.printer_Mozilla_Save_to_PDF.print_bgcolor" = true;
-          "print.printer_Mozilla_Save_to_PDF.print_bgimages" = true;
-          "print.printer_Mozilla_Save_to_PDF.print_footercenter" = "";
-          "print.printer_Mozilla_Save_to_PDF.print_footerleft" = "";
-          "print.printer_Mozilla_Save_to_PDF.print_footerright" = "";
-          "print.printer_Mozilla_Save_to_PDF.print_headercenter" = "";
-          "print.printer_Mozilla_Save_to_PDF.print_headerleft" = "";
-          "print.printer_Mozilla_Save_to_PDF.print_headerright" = "";
-          "print.printer_Mozilla_Save_to_PDF.print_ignore_unwriteable_margins" = true;
-          "print.printer_Mozilla_Save_to_PDF.print_margin_bottom" = "0";
-          "print.printer_Mozilla_Save_to_PDF.print_margin_left" = "0";
-          "print.printer_Mozilla_Save_to_PDF.print_margin_right" = "0";
-          "print.printer_Mozilla_Save_to_PDF.print_margin_top" = "0";
-          "print.printer_Mozilla_Save_to_PDF.print_orientation" = 0;
-          "print.printer_Mozilla_Save_to_PDF.print_paper_height" = "14";
-          "print.printer_Mozilla_Save_to_PDF.print_paper_id" = "na_legal";
-          "print.printer_Mozilla_Save_to_PDF.print_paper_size_unit" = 0;
-          "print.printer_Mozilla_Save_to_PDF.print_paper_width" = "8.5";
-          "print.printer_Mozilla_Save_to_PDF.print_unwriteable_margin_bottom_twips" = 0;
-          "print.printer_Mozilla_Save_to_PDF.print_unwriteable_margin_left_twips" = 0;
-          "print.printer_Mozilla_Save_to_PDF.print_unwriteable_margin_right_twips" = 0;
-          "print.printer_Mozilla_Save_to_PDF.print_unwriteable_margin_top_twips" = 0;
-          "print_printer" = "Mozilla Save to PDF";
-          "privacy.purge_trackers.date_in_cookie_database" = "0";
-          "privacy.userContext.enabled" = true;
-          "privacy.userContext.extension" = "@testpilot-containers";
-          "privacy.userContext.ui.enabled" = true;
-          "security.sandbox.content.tempDirSuffix" = "936c414c-786e-413f-a579-68091311d773";
-          "services.settings.clock_skew_seconds" = 1;
-          "trailhead.firstrun.didSeeAboutWelcome" = true;
-          "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
-        };
-        isDefault = true;
-      };
     };
   };
 
@@ -334,7 +119,6 @@ in
     color = "onedark";
   };
 
-  # Create Firefox .desktop for each profile
   xdg = {
     desktopEntries = {
       reboot = {
@@ -350,29 +134,6 @@ in
         #icon =
         #  "${pkgs.tela-circle-icon-theme}/share/icons/Tela-circle-dark/scalable@2x/apps/xfsm-reboot.svg";
         terminal = false;
-      };
-      firefox = {
-        name = "Firefox";
-        genericName = "Web Browser";
-        exec = "${pkgs.firefox}/bin/firefox -p p %U";
-        terminal = false;
-        icon = "firefox";
-        categories = [ "Application" "Network" "WebBrowser" ];
-        mimeType = [
-          "application/pdf"
-          "application/vnd.mozilla.xul+xml"
-          "application/xhtml+xml"
-          "text/html"
-          "text/xml"
-          "x-scheme-handler/http"
-          "x-scheme-handler/https"
-          "application/x-extension-htm"
-          "application/x-extension-html"
-          "application/x-extension-shtml"
-          "application/x-extension-xhtml"
-          "application/x-extension-xht"
-        ];
-        type = "Application";
       };
     };
 
@@ -442,18 +203,18 @@ in
         "application/x-archive" = "xarchiver.desktop";
         "application/vnd.ms-cab-compressed" = "xarchiver.desktop";
         "inode/directory" = "org.kde.dolphin.desktop";
-        "application/pdf" = "firefox.desktop";
-        "application/vnd.mozilla.xul+xml" = "firefox.desktop";
-        "application/xhtml+xml" = "firefox.desktop";
-        "text/html" = "firefox.desktop";
-        "text/xml" = "firefox.desktop";
-        "x-scheme-handler/http" = "firefox.desktop";
-        "x-scheme-handler/https" = "firefox.desktop";
-        "application/x-extension-htm" = "firefox.desktop";
-        "application/x-extension-html" = "firefox.desktop";
-        "application/x-extension-shtml" = "firefox.desktop";
-        "application/x-extension-xhtml" = "firefox.desktop";
-        "application/x-extension-xht" = "firefox.desktop";
+        "application/pdf" = "brave.desktop";
+        "application/vnd.mozilla.xul+xml" = "brave.desktop";
+        "application/xhtml+xml" = "brave.desktop";
+        "text/html" = "brave.desktop";
+        "text/xml" = "brave.desktop";
+        "x-scheme-handler/http" = "brave.desktop";
+        "x-scheme-handler/https" = "brave.desktop";
+        "application/x-extension-htm" = "brave.desktop";
+        "application/x-extension-html" = "brave.desktop";
+        "application/x-extension-shtml" = "brave.desktop";
+        "application/x-extension-xhtml" = "brave.desktop";
+        "application/x-extension-xht" = "brave.desktop";
         "image/png" = "org.nomacs.ImageLounge.desktop";
         "image/jpeg" = "org.nomacs.ImageLounge.desktop";
         "application/ogg" = "mpv.desktop";

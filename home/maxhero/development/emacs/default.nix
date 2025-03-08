@@ -18,7 +18,7 @@ pkgs:
 }
 */
 let
-  emacs-pkg = ((pkgs.emacsPackagesFor pkgs.emacs).emacsWithPackages (epkgs: [ epkgs.vterm ]));
+  emacs-pkg = ((pkgs.emacsPackagesFor pkgs.emacs-git).emacsWithPackages (epkgs: [ epkgs.vterm ]));
 in
 {
     nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
@@ -28,6 +28,8 @@ in
       binutils       # native-comp needs 'as', provided by this
       # 28.2 + native-comp
       emacs-pkg
+      nil
+      elixir-ls
 
       ## Doom dependencies
       git
@@ -61,6 +63,7 @@ in
       '';
     };
 
+    /*
     fileSystems = {
       "/home/maxhero/.doom.d" = {
         device = "/home/maxhero/flake/home/maxhero/development/emacs/doom.d";
@@ -68,11 +71,13 @@ in
         depends = ["/"];
       };
     };
+    */
 
     #modules.shell.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
 
     fonts.packages = [ pkgs.emacs-all-the-icons-fonts ];
 
+    /*
     system.userActivationScripts = {
       installDoomEmacs = {
         text = ''
@@ -83,4 +88,5 @@ in
         '';
       };
     };
+    */
   }

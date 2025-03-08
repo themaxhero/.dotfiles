@@ -4,6 +4,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     devenv.url = "github:cachix/devenv";
     devenv.inputs.nixpkgs.follows = "nixpkgs";
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -28,7 +29,7 @@
       nixosConfigurations = {
         maxhero-workstation = mkSystem {
           enableBareMetal = true;
-          enableEmacs = false;
+          enableEmacs = true;
           enableDevelopment = true;
           enableGraphicalInterface = true;
           enableGaming = true;

@@ -9,14 +9,6 @@ rec {
   modifierCombo = "${modifier}+${modifier2}";
   floatingCriteria = [
     {
-      id = "firefox";
-      title = "moz-extension:.+";
-    }
-    {
-      id = "firefox";
-      title = "Password Required";
-    }
-    {
       title = "null";
     }
   ];
@@ -36,20 +28,6 @@ rec {
       {
         criteria = { class = "^.*"; };
         command = "border pixel 1";
-      }
-      {
-        criteria = {
-          id = "firefox";
-          title = "Picture-in-Picture";
-        };
-        command = "floating enable sticky enable";
-      }
-      {
-        criteria = {
-          id = "firefox";
-          title = "Firefox — Sharing Indicator";
-        };
-        command = "floating enable sticky enable";
       }
       {
         criteria = { title = "alsamixer"; };

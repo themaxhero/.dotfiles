@@ -25,6 +25,7 @@
   };
   services.udisks2.enable = true;
   services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.displayManager.sddm.enable = true;
   # sound.mediaKeys.enable = true;
   services.blueman.enable = true;
   services.flatpak.enable = true;
