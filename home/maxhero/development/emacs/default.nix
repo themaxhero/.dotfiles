@@ -1,22 +1,5 @@
 { self, ... }@inputs:
 pkgs:
-/*
-{
-  doomPrivateDir = self + /home/maxhero/development/emacs/doom.d;
-  package = pkgs.emacsGcc;
-  extraPackages = [
-    pkgs.nodePackages.typescript
-    pkgs.nodePackages.typescript-language-server
-    pkgs.nodePackages.eslint
-    pkgs.metals
-    pkgs.haskellPackages.lsp
-  ];
-  emacsPackagesOverlay = self: super: {
-    magit-delta = super.magit-delta.overrideAttrs
-      (esuper: { buildInputs = esuper.buildInputs ++ [ pkgs.git ]; });
-  };
-}
-*/
 let
   emacs-pkg = ((pkgs.emacsPackagesFor pkgs.emacs-git).emacsWithPackages (epkgs: [ epkgs.vterm ]));
 in
@@ -63,30 +46,5 @@ in
       '';
     };
 
-    /*
-    fileSystems = {
-      "/home/maxhero/.doom.d" = {
-        device = "/home/maxhero/flake/home/maxhero/development/emacs/doom.d";
-        options = ["bind"];
-        depends = ["/"];
-      };
-    };
-    */
-
-    #modules.shell.zsh.rcFiles = [ "${configDir}/emacs/aliases.zsh" ];
-
     fonts.packages = [ pkgs.emacs-all-the-icons-fonts ];
-
-    /*
-    system.userActivationScripts = {
-      installDoomEmacs = {
-        text = ''
-          if [ ! -d "/home/maxhero/.emacs.d" ]; then
-             ${pkgs.git}/bin/git clone --depth=1 --single-branch "https://github.com/doomemacs/doomemacs" "/home/maxhero/.emacs.d"
-          fi
-          EMACS="${emacs-pkg}/bin/emacs" PATH="${pkgs.git}/bin:${pkgs.bash}/bin:$PATH" /home/maxhero/.emacs.d/bin/doom sync
-        '';
-      };
-    };
-    */
   }
