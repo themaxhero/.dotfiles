@@ -19,7 +19,6 @@ in
       yt-dlp
       sublime
       nomacs
-      wpsoffice
       yacreader
       i3status-rust
     ];
@@ -62,12 +61,6 @@ in
     };
   };
 
-  programs.chromium = {
-    enable = true;
-    package = pkgs.ungoogled-chromium;
-    extensions = [{ id = "nngceckbapebfimnlniiiahkandclblb"; }];
-  };
-
   programs.mpv = {
     enable = true;
     config = {
@@ -106,7 +99,6 @@ in
   };
 
   programs.obs-studio.enable = true;
-  programs.zathura.enable = true;
 
   # I'm so happy that I found uim
   i18n.inputMethod.enabled = "uim";
@@ -355,29 +347,4 @@ in
       };
     };
   };
-
-  /*
-    xdg.configFile.pcmanfm = {
-    target = "pcmanfm-qt/default/settings.conf";
-    text = lib.generators.toINI { } {
-      Behavior = {
-        NoUsbTrash = true;
-        SingleWindowMode = true;
-      };
-      System = {
-        Archiver = "xarchiver";
-        FallbackIconThemeName = iconTheme;
-        Terminal = "${terminal}";
-        SuCommand = "${lxqt-sudo} %s";
-      };
-      Thumbnail = { ShowThumbnails = true; };
-      Volume = {
-        AutoRun = false;
-        CloseOnUnmount = true;
-        MountOnStartup = false;
-        MountRemovable = false;
-      };
-    };
-    };
-  */
 }

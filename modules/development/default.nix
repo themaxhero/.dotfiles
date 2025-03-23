@@ -21,7 +21,6 @@ let
       shellcheck
       shfmt
       wireguard-tools
-      racket
       podman-compose
       cmake
       gdb
@@ -33,18 +32,9 @@ let
       fasm
       raylib
     ]
-    ++ (conditional-lang "dotnet" [
-      dotnet-sdk
-    ])
-    ++ (conditional-lang "crystal" [
-      icr
-    ])
     ++ (conditional-lang "f#" [
       fsharp
       dotnet-sdk
-    ])
-    ++ (conditional-lang "ocaml" [
-      ocamlPackages.utop
     ])
     ++ (conditional-lang "elm" [
       elmPackages.elm
@@ -72,32 +62,6 @@ let
     ++ (conditional-lang "ruby" [
       ruby
     ])
-    ++ (conditional-lang "scala" [
-      metals
-    ])
-    ++ (conditional-lang "haskell" [
-      # Haskell Libraries
-      #haskellPackages.Cabal_3_6_3_0
-      #haskellPackages.brittany
-      #haskellPackages.hlint
-      #haskellPackages.hoogle
-      #haskellPackages.nixfmt
-    ])
-    ++ (conditional-lang "clojure" [
-      clj-kondo
-    ])
-    ++ (conditional-lang "rust" [
-      cargo
-      rustc
-      rustfmt
-      rust-analyzer
-      rust-code-analysis
-    ])
-    ++ (conditional-lang "android" [
-      android-studio
-      android-tools
-      adbfs-rootless
-    ])
     ++ (conditional-lang "aws" [
       awscli
       aws-iam-authenticator
@@ -105,9 +69,6 @@ let
     ])
     ++ (conditional-lang "clasp" [
       google-clasp
-    ])
-    ++ (conditional-lang "oracle-cloud" [
-      oci-cli
     ])
     ++ (conditional-lang "devops" [
       terraform

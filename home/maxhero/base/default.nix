@@ -22,23 +22,16 @@ with specialArgs;
     };
   };
 
-  programs.bat.enable = true;
   programs.bash.enable = true;
-  programs.fish.enable = true;
   programs.command-not-found.enable = true;
   programs.gpg.enable = true;
   services.gpg-agent.enable = true;
   programs.jq.enable = true;
-  programs.lsd = {
-    enable = true;
-    enableAliases = true;
-  };
   programs.man = {
     enable = true;
     generateCaches = true;
   };
   programs.mu.enable = true;
-  programs.tealdeer.enable = true;
   programs.tmux.enable = true;
   xdg.userDirs = {
     enable = true;

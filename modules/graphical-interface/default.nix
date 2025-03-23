@@ -34,20 +34,15 @@ in
       adwaita-icon-theme
       eog
       lxqt.pavucontrol-qt
-      lxqt.pcmanfm-qt
       ticktick
       pamixer
       qbittorrent
-      slack
-      spotify
       tdesktop
       zoom-us
-      notion-app-enhanced
       gimp
       radeontop
       filezilla
       gparted
-      gnome-tweaks
       orchis-theme
       xfce.thunar
       #tela-circle-icon-theme

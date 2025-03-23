@@ -15,10 +15,7 @@ in
     scientifica
     powerline-fonts
     sshfs
-    bottom
     eza
-    bat
-    graphviz
     ngrok
     insomnia
     ghidra
