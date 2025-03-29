@@ -1,22 +1,49 @@
 { pkgs, ...}:
 {
-  users.users.maxhero = {
-    isNormalUser = true;
-    uid = 1000;
-    extraGroups = [
-      "adbusers"
-      "wheel"
-      "video"
-      "audio"
-      "realtime"
-      "libvirt"
-      "kvm"
-      "input"
-      "networkmanager"
-      "rtkit"
-      "podman"
-    ];
-    shell = pkgs.bash;
+  users.groups = {
+    maxhero = {
+      gid = 1000;
+      members = ["maxhero"];
+    };
+    minecraft-maintainers = {
+      members = [
+        "maxhero"
+        "minecraft-server-orchestrator"
+      ];
+    };
+  };
+  users.users = {
+    maxhero = {
+      isNormalUser = true;
+      uid = 1000;
+      group = "maxhero";
+      extraGroups = [
+        "maxhero"
+        "adbusers"
+        "wheel"
+        "video"
+        "audio"
+        "realtime"
+        "libvirt"
+        "kvm"
+        "input"
+        "networkmanager"
+        "rtkit"
+        "podman"
+        "minecraft-maintainers"
+        "ssh"
+      ];
+      shell = pkgs.bash;
+    };
+    minecraft-server-orchestrator = {
+      isSystemUser = true;
+      group = "minecraft-maintainers";
+      extraGroups = ["podman"];
+      packages = with pkgs; [
+        podman
+        podman-compose
+      ];
+    };
   };
 
   services.ntp.enable = true;

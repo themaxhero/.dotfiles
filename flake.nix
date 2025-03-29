@@ -53,7 +53,6 @@
           ];
           specialArgs = attrs;
         };
-        maxhero-pi4 = import (self + /systems/maxhero-pi4) attrs;
         uchigatana = mkSystem {
           enableBareMetal = true;
           enableDevelopment = true;
