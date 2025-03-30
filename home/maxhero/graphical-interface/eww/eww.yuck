@@ -42,6 +42,7 @@
          :spacing 12
          :hexpand true
          :space-evenly false
+      (currency_exchange)
       (notifications)
       (github)
       ;(updates)
@@ -67,6 +68,7 @@
 (defpoll updates_poll :initial "" :interval "1m" "~/.config/eww/modules/updates.sh &") 
 (defpoll github_poll :initial "" :interval "1m" "~/.config/eww/modules/github.sh")
 (defpoll ping_poll :interval "10s" "~/.config/eww/modules/ping.sh")
+(defpoll currency_exchange_poll :interval "20m" "~/.config/eww/modules/currency.lua | grep 'USD'")
 
 (deflisten workspaces_listen "~/.config/eww/modules/workspaces.lua")
 (deflisten window_name_listen "~/.config/eww/modules/window_name.lua")
@@ -123,6 +125,9 @@
 (defwidget notifications []
   (icon-module :class "notifications" :icon "" :visible {notifications_listen.show == "yes"}
     (literal :content {notifications_listen.content}))) 
+
+(defwidget currency_exchange []
+  (label :text currency_exchange_poll))
 
 (defwidget date []
   (icon-module :class "date" :icon "" 

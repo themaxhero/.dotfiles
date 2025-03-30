@@ -170,6 +170,19 @@
   };
 
   */
+
+  networking.hosts = {
+    "127.0.0.1" = [
+      "facebook.com"
+      "www.facebook.com"
+      "twitter.com"
+      "www.twitter.com"
+      "instagram.com"
+      "www.instagram.com"
+      "x.com"
+      "www.x.com"
+    ];
+  };
   services.samba = {
     enable = true;
     openFirewall = true;

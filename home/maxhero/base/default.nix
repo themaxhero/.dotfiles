@@ -17,6 +17,9 @@ with specialArgs;
       numeric = "pt_BR.UTF-8";
     };
     shellAliases = {
+      ":q" = "exit";
+      ":wq" = "exit";
+      ":x" = "exit";
       edit-flake = "cd ~/flake && vim";
       start-flake-update = "cd ~/flake && git checkout -b flake-update/$(date --iso-8601) && nix flake update";
     };
