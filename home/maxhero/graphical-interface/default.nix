@@ -63,6 +63,7 @@ in
 
   programs.mpv = {
     enable = true;
+    package = pkgs.unstable.mpv;
     config = {
       alang = "jpn,eng";
       slang = "jpn,eng";

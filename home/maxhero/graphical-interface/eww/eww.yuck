@@ -36,8 +36,7 @@
     (box :halign "start"
          :space-evenly false
       (workspaces :monitor monitor)
-      (player))
-    (box :halign "center" :spacing 16 (window_name))
+      (window_name))
     (box :halign "end"
          :spacing 12
          :hexpand true
@@ -45,24 +44,20 @@
       (currency_exchange)
       (notifications)
       (github)
-      ;(updates)
-      ;(trash)
-      ;(noisetorch)
       (microphone)
       (speaker)
       (ping)
       (network)
       (disk)
       (ram)
-      ;(nvidia)
       (cpu)
       (date)
       (time))))
 ; foldend
 
 ; Variables foldstart
-(defpoll time_poll :interval "1s" "date +%H:%M")
-(defpoll date_poll :interval "1m" "date +%Y年%m月%d日")
+(defpoll time_poll :interval "1m" "date +%H:%M")
+(defpoll date_poll :interval "1h" "date +%Y年%m月%d日")
 (defpoll trash_poll :interval "10s" "~/.config/eww/modules/trash.sh")
 (defpoll noisetorch_poll :initial "" :interval "10s" "~/.config/eww/modules/noisetorch.sh")
 (defpoll updates_poll :initial "" :interval "1m" "~/.config/eww/modules/updates.sh &") 
