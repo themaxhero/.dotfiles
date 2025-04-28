@@ -5,6 +5,8 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    computador-do-brother.url = "github:TheCodeTherapy/Hephaestus";
+    computador-do-brother.inputs.nixpkgs.follows = "nixpkgs";
     devenv.url = "github:cachix/devenv";
     devenv.inputs.nixpkgs.follows = "nixpkgs";
     nix-gaming.url = "github:fufexan/nix-gaming";
@@ -27,6 +29,7 @@
       mkHome = (import (self + /home/maxhero) attrs).mkHome;
       mkSystem = (import (self + /modules) attrs).mkSystem;
       nixosConfigurations = {
+        pc-do-brother = attrs.computador-do-brother.nixosConfigurations.threadripper;
         maxhero-workstation = mkSystem {
           enableBareMetal = true;
           enableEmacs = true;

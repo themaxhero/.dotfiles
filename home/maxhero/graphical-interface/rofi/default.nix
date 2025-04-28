@@ -42,6 +42,7 @@ in
         plugins = with pkgs; [
           rofi-emoji
           rofi-calc
+          rofi-rbw
           rofi-systemd
           rofi-menugen
           rofi-bluetooth

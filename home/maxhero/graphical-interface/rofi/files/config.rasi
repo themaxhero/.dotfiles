@@ -8,7 +8,7 @@
 
 configuration {
 	/*---------- General setting ----------*/
-	modi: "drun,run,filebrowser,window";
+	modi: "drun,run,filebrowser,window,blocks";
 	case-sensitive: false;
 	cycle: true;
 	filter: "";
@@ -80,6 +80,7 @@ configuration {
 	display-combi: "Combi";
 	display-keys: "Keys";
 	display-filebrowser: "Files";
+  display-youtube: "YouTube";
 
 	/*---------- Misc setting ----------*/
 	terminal: "rofi-sensible-terminal";

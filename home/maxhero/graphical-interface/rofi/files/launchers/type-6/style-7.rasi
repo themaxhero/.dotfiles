@@ -15,6 +15,7 @@ configuration {
     display-run:                "RUN";
     display-filebrowser:        "FILES";
     display-window:             "WINDOW";
+    display-youtube:            "YOUTUBE";
 	drun-display-format:        "{name}";
 	window-format:              "{w} · {c} · {t}";
 }

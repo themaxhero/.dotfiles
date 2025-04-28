@@ -9,12 +9,15 @@
 
 /*****----- Configuration -----*****/
 configuration {
-	modi:                       "drun,run,filebrowser,window";
+	modi:                       "drun,run,filebrowser,window,calc,ssh";
     show-icons:                 true;
     display-drun:               "APPS";
     display-run:                "RUN";
     display-filebrowser:        "FILES";
     display-window:             "WINDOW";
+    display-calc:               "CALC";
+    display-youtube:            "YOUTUBE";
+    display-ssh:                "SSH";
 	drun-display-format:        "{name}";
 	window-format:              "{w} · {c} · {t}";
 }
@@ -37,7 +40,7 @@ window {
     location:                    center;
     anchor:                      center;
     fullscreen:                  false;
-    width:                       1000px;
+    width:                       1600px;
     x-offset:                    0px;
     y-offset:                    0px;
 
